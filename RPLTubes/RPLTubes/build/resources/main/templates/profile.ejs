@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Profile <%= email %></title>
+  </head>
+  <body id="profile">
+    <div class="header profile">
+      <img src="../images/logo.png" alt="logo unpar" />
+    </div>
+    <section>
+      <div class="header title">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="profile picture"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+          />
+        </svg>
+        <h1>Profile</h1>
+      </div>
+      <form action="/profile" method="POST" class="profile detail big">
+        <label for="email">Nama :</label>
+        <input type="email" value="<%= email %>" disabled />
+        <label for="email"> Alamat Email :</label>
+        <input type="email" value="<%= email %>" disabled name="email" />
+        <label for="role">Role :</label>
+        <input type="text" name="role" value="<%= role %>" disabled id="profile-role"/>
+        <!--  -->
+        <input type="text" value="<%= email %>" hidden name="email" />
+        <input type="text" value="<%= role %>" hidden name="role" />
+        <input type="text" value="<%= email %>" hidden name="name" />
+      </form>
+      <form action="/home" method="POST" class="back button profile">
+        <input type="email" value="<%= email %>" name="email" hidden />
+        <input type="text" value="<%= role %>" name="role" hidden />
+        <input type="submit" value="Back" />
+      </form>
+    </section>
+  </body>
+</html>
