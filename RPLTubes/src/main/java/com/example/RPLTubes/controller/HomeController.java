@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     @GetMapping("/")
     public String home(){
+        //ini seharusnya kalo belum sign in nyoba ke homepage bakal diarahin ke 
+        return "login";
+    }
+
+    @GetMapping("/login")
+    public String login(){
         return "login";
     }
 }
