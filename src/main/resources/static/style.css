@@ -5,7 +5,7 @@ body {
 }
 
 body#splash {
-    background-image: url(../images/Group\ 87.png);
+    background-image: url(/img/Group\ 87.png);
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
@@ -486,25 +486,4 @@ form.dropdown select {
     top: 23vh;
     left: 33%;
     margin: auto;
-}
-
-body#splash {
-    background-image: url('/img/Group%2087.png');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    margin: 0;
-}
-
-.container {
-    z-index: 1;
-    position: relative;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    width: 400px;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
 }
