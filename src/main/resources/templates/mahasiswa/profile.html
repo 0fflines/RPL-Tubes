@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Profile <%= email %>
+    </title>
+</head>
+
+<body id="profile">
+    <div class="header profile">
+        <img src="/img/logo.png" alt="logo unpar" />
+    </div>
+    <section>
+        <h1>Profile</h1>
+        </div>
+        <form action="/profile" method="POST" class="profile detail big">
+            <label for="email">Nama :</label>
+            <input type="email" value="<%= email %>" disabled />
+            <label for="email"> Alamat Email :</label>
+            <input type="email" value="<%= email %>" disabled name="email" />
+            <label for="role">Role :</label>
+            <input type="text" name="role" value="<%= role %>" disabled id="profile-role" />
+            <!--  -->
+            <input type="text" value="<%= email %>" hidden name="email" />
+            <input type="text" value="<%= role %>" hidden name="role" />
+            <input type="text" value="<%= email %>" hidden name="name" />
+        </form>
+        <form action="/home" method="POST" class="back button profile">
+            <input type="email" value="<%= email %>" name="email" hidden />
+            <input type="text" value="<%= role %>" name="role" hidden />
+            <input type="submit" value="Back" />
+        </form>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Penguji</title>
+</head>
+
+<body>
+    <div class="header">
+        <img src="img/logo.png" alt="logo unpar" />
+        <div class="container profile">
+
+            <form action="/profile" method="POST" class="profile detail small">
+                <input type="email" value="<%= email %>" disabled />
+                <div class="profile detail small role">
+                    <label for="role">Your role :</label>
+                    <input type="text" value="<%= role %>" disabled />
+                </div>
+                <div class="profile detail small role">
+                    <button>Log out</button>
+                    <input type="text" name="email" value="<%= email %>" hidden />
+                    <input type="text" name="role" value="<%= role %>" hidden />
+                    <input type="submit" value="Profile" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <section>
+        <div class="navigation">
+            <div class="navigation-koor">
+                <form action="#" method="POST" class="back button">
+                    <input type="email" value="<%= email %>" name="email" hidden />
+                    <input type="text" value="<%= role %>" name="role" hidden />
+                    <input type="submit" value="Konfigurasi Bobot Nilai" />
+                </form>
+                <form action="/create" method="POST" class="back button">
+                    <input type="email" value="<%= email %>" name="email" hidden />
+                    <input type="text" value="<%= role %>" name="role" hidden />
+                    <input type="submit" value="Create TA Here" />
+                </form>
+            </div>
+            <form action="#" class="dropdown">
+                <label for="semester">Semester Akademik</label>
+                <select name="semester" id="semester">
+                    <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
+                    <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
+                    <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
+                </select>
+            </form>
+        </div>
+        <div class="content">
+            <div class="table_component" role="region" tabindex="0">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Mahasiswa</th>
+                            <th>Judul Skripsi</th>
+                            <th>Waktu</th>
+                            <th>Penguji 1</th>
+                            <th>Penguji 2</th>
+                            <th>Pembimbing Utama</th>
+                            <th>Pembimbing Pendamping</th>
+                            <th>Nilai</th>
+                            <th>Bap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

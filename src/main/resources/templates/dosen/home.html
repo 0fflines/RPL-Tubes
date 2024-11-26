@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="header">
+        <img src="/img/logo.png" alt="logo unpar" />
+
+        <form action="/profile" method="POST" class="profile detail small">
+            <input type="email" value="<%= email %>" disabled />
+            <div class="profile detail small role">
+                <label for="role">Your role :</label>
+                <input type="text" value="<%= role %>" disabled />
+            </div>
+            <div class="profile detail small role">
+                <button>Log out</button>
+                <input type="text" name="email" value="<%= email %>" hidden>
+                <input type="text" name="role" value="<%= role %>" hidden>
+                <input type="submit" value="Profile" />
+            </div>
+        </form>
+    </div>
+    </div>
+    <section>
+        <div>
+            <h1>Welcome To PortalTA</h1>
+            <h1>Choose Your Role :</h1>
+        </div>
+        <div class="role select">
+            <form action="/select-penguji" method="POST">
+                <input type="text" name="email" value="<%= email %>" hidden />
+                <input type="submit" value="Penguji" />
+            </form>
+            <form action="/select-pembimbing" method="POST">
+                <input type="text" name="email" value="<%= email %>" hidden />
+                <input type="submit" value="Pembimbing" />
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>
