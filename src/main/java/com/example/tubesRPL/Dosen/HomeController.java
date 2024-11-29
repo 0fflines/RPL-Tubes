@@ -49,4 +49,9 @@ public class HomeController {
         model.addAttribute("role", "Guest");
         return "dosen/home";
     }
+
+    @GetMapping("/bap")
+    public String bap(){
+        return "bapSidang.html";
+    }
 }
