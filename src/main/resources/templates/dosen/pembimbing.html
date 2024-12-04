@@ -13,7 +13,7 @@
         <div class="header">
             <img src="/img/logo.png" alt="logo unpar" class="logo" />
             <div class="sidebar">
-                <div id="role">Penguji</div>
+                <div id="role">Pembimbing</div>
                 <div class="profile-info">
                     <div class="profile-pic"></div>
                     <p class="email">dosen@unpar.ac.id</p>
@@ -27,7 +27,8 @@
                 <form action="/dosen/home" method="GET" class="back button">
                     <input type="email" value="<%= email %>" name="email" hidden />
                     <input type="text" value="<%= role %>" name="role" hidden />
-                    <input type="submit" value="BACK TO HOME PAGE" />
+                    <!-- <input type="submit" value="BACK TO HOME PAGE" /> -->
+                    <a href="/dosen/home" class="home-button">BACK TO HOME PAGE</a>
                 </form>
                 <form action="#" class="dropdown">
                     <label for="semester">Semester Akademik</label>
@@ -41,22 +42,28 @@
             <div class="content">
                 <div class="table_component" role="region" tabindex="0">
                     <table>
-                        <tr>
-                            <th>Nama Mahasiswa</th>
-                            <th>Judul Skripsi</th>
-                            <th>Waktu</th>
-                            <th>Tempat</th>
-                            <th>Nilai</th>
-                            <th>BAP</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><button class="view-bap">📄</button></td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Nama Mahasiswa</th>
+                                <th>Judul Skripsi</th>
+                                <th>Waktu</th>
+                                <th>Tempat</th>
+                                <th>Nilai</th>
+                                <th>Catatan</th>
+                                <th>BAP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kevin</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><button class="view-bap">📄</button></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
