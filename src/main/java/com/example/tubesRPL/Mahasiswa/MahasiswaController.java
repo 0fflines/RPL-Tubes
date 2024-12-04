@@ -10,4 +10,9 @@ public class MahasiswaController {
     public String viewMahasiswa() {
         return "/mahasiswa/index"; // Mengarah ke file mahasiswa.html di folder templates
     }
+
+    @GetMapping("/profile")
+    public String viewProfile() {
+        return "/profile"; // Mengarah ke file profile.html di folder templates
+    }
 }

@@ -13,7 +13,7 @@ body {
     display: grid;
     grid-template-rows: auto auto auto;
     grid-template-columns: auto;
-    row-gap: 5px;
+    row-gap: 0;
 }
 
 .header {
@@ -119,7 +119,6 @@ body {
 }
 
 .content {
-    display: flex;
     margin-top: 10px;
     align-items: center;
     justify-content: center;
@@ -137,19 +136,29 @@ body {
     border-style: solid;
 }
 
-.home-button{
+input[type="submit"] {
     background-color: #002855;
     color: white;
     margin: 10px;
     width: 200px;
     height: 40px;
     border-radius: 25px;
-    padding: 10px;
-    text-decoration: none;
-    margin: 20px;
 }
 
 section {
     grid-row: 2;
     margin: 10px;
+}
+
+.navigation-koor {
+    display: flex;
+}
+
+button[type="submit"] {
+    background-color: #002855;
+    color: white;
+    margin: 10px;
+    width: 80px;
+    height: 25px;
+    border-radius: 20px;
 }

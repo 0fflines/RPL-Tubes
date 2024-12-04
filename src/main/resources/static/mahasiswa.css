@@ -54,10 +54,9 @@ body {
     margin: 5px 0;
 }
 
-.logout-button,
 .profile-button {
     display: block;
-    width: 100%;
+    width: 92%;
     margin: 10px 0;
     padding: 10px;
     background-color: #002855;
@@ -65,6 +64,24 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+.logout-button {
+    display: block;
+    width: 92%;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #002855;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
 }
 
 .main {

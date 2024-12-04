@@ -11,15 +11,17 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="/img/logo.png" alt="logo unpar" class="logo"/>
+            <img src="/img/logo.png" alt="logo unpar" class="logo" />
             <div class="sidebar">
                 <div id="role">Penguji</div>
                 <div class="profile-info">
                     <div class="profile-pic"></div>
                     <p class="email">dosen@unpar.ac.id</p>
                 </div>
-                <button class="logout-button">Log Out</button>
-                <button class="profile-button">Profile</button>
+                <a href="login" class="logout-button">Log out</a>
+                <a href="profile" class="profile-button">Profile</a>
+                <!--<button class="logout-button">Log Out</button>
+                <button class="profile-button">Profile</button>-->
             </div>
         </div>
         <section>
@@ -27,7 +29,7 @@
                 <form action="/dosen/home" method="GET" class="back button">
                     <input type="email" value="<%= email %>" name="email" hidden />
                     <input type="text" value="<%= role %>" name="role" hidden />
-                    <input type="submit" value="BACK TO HOME PAGE" />
+                    <a href="home" class="home-button">BACK TO HOME PAGE</a>
                 </form>
                 <form action="#" class="dropdown">
                     <label for="semester">Semester Akademik</label>
@@ -41,26 +43,22 @@
             <div class="content">
                 <div class="table_component" role="region" tabindex="0">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Nama Mahasiswa</th>
-                                <th>Judul Skripsi</th>
-                                <th>Waktu</th>
-                                <th>Tempat</th>
-                                <th>Nilai</th>
-                                <th>BAP</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><button class="view-bap">📄</button></td>
-                            </tr>
-                        </tbody>
+                        <tr>
+                            <th>Nama Mahasiswa</th>
+                            <th>Judul Skripsi</th>
+                            <th>Waktu</th>
+                            <th>Tempat</th>
+                            <th>Nilai</th>
+                            <th>BAP</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button class="view-bap">📄</button></td>
+                        </tr>
                     </table>
                 </div>
             </div>
