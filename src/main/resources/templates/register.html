@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Portal TA</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Sign Up Portal TA</h2>
+        <form action="/login" method="POST">
+            <!--Nama Lengkap-->
+            <div class="form-group">
+                <label for="name">Nama lengkap</label>
+                <input type="text" id="nama" name="namalengkap" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+
+            <!-- Input Username -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan email" required>
+            </div>
+
+            <!--Input Password-->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+                <button type="button" class="show-password-btn" onclick="togglePassword('password')">Show
+                    Password</button>
+            </div>
+
+            <!--Confirm Password-->
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Masukkan password"
+                    required>
+                <button type="button" class="show-password-btn" onclick="togglePassword('confirm-password')">Show
+                    Password</button>
+            </div>
+
+
+            <!-- Tombol Login -->
+            <button type="submit" class="login-btn">Register</button>
+            <p>Back To <a href="login">Login</a></p>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const showPasswordButton = passwordInput.nextElementSibling;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                showPasswordButton.textContent = "Hide Password";
+            } else {
+                passwordInput.type = "password";
+                showPasswordButton.textContent = "Show Password";
+            }
+        }
+    </script>
+</body>
+
+</html>

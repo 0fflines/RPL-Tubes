@@ -4,86 +4,85 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/koordinator.css" />
     <title>Penguji</title>
 </head>
 
 <body>
-    <div class="header">
-        <img src="img/logo.png" alt="logo unpar" />
-        <div class="container profile">
-
-            <form action="/profile" method="POST" class="profile detail small">
-                <input type="email" value="<%= email %>" disabled />
-                <div class="profile detail small role">
-                    <label for="role">Your role :</label>
-                    <input type="text" value="<%= role %>" disabled />
+    <div class="container">
+        <div class="header">
+            <img src="/img/logo.png" alt="Logo Universitas Parahyangan"  class="logo" />
+            <div class="sidebar">
+                <div id="role">Koordinator</div>
+                <div class="profile-info">
+                    <div class="profile-pic"></div>
+                    <p class="email">koordinator@unpar.ac.id</p>
                 </div>
-                <div class="profile detail small role">
-                    <button>Log out</button>
-                    <input type="text" name="email" value="<%= email %>" hidden />
-                    <input type="text" name="role" value="<%= role %>" hidden />
-                    <input type="submit" value="Profile" />
-                </div>
-            </form>
+                <a href="login" class="logout-button">Log out</a>
+                <a href="profile" class="profile-button">Profile</a>
+                <!--<button class="logout-button">Log Out</button>
+                <button class="profile-button">Profile</button>-->
+            </div>
         </div>
-    </div>
-    <section>
-        <div class="navigation">
+            <!-- Navigation Section -->
+        <section>
             <div class="navigation-koor">
-                <form action="#" method="POST" class="back button">
+                <form action="/config-bobot" method="POST" class="back button" aria-label="Konfigurasi Bobot Nilai">
                     <input type="email" value="<%= email %>" name="email" hidden />
                     <input type="text" value="<%= role %>" name="role" hidden />
                     <input type="submit" value="Konfigurasi Bobot Nilai" />
-                </form>
-                <form action="/create" method="POST" class="back button">
+                    </form>
+                <form action="/create" method="POST" class="back button" aria-label="Create TA">
                     <input type="email" value="<%= email %>" name="email" hidden />
                     <input type="text" value="<%= role %>" name="role" hidden />
                     <input type="submit" value="Create TA Here" />
                 </form>
             </div>
-            <form action="#" class="dropdown">
-                <label for="semester">Semester Akademik</label>
+            <form action="/select-semester" class="dropdown" aria-label="Pilih Semester">
+                <label for="semester">Semester Akademik:</label>
                 <select name="semester" id="semester">
                     <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
-                    <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
-                    <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
+                    <option value="Genap 2024/2025">Genap 2024/2025</option>
+                    <option value="Ganjil 2023/2024">Ganjil 2023/2024</option>
                 </select>
+                <button type="submit">Pilih</button>
             </form>
-        </div>
-        <div class="content">
-            <div class="table_component" role="region" tabindex="0">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama Mahasiswa</th>
-                            <th>Judul Skripsi</th>
-                            <th>Waktu</th>
-                            <th>Penguji 1</th>
-                            <th>Penguji 2</th>
-                            <th>Pembimbing Utama</th>
-                            <th>Pembimbing Pendamping</th>
-                            <th>Nilai</th>
-                            <th>Bap</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+            <!-- Content Section -->
+            <div class="content">
+                <h2 id="daftar-mahasiswa">Daftar Mahasiswa</h2>
+                <div class="table_component" role="region" aria-labelledby="daftar-mahasiswa">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Mahasiswa</th>
+                                <th>Judul Skripsi</th>
+                                <th>Waktu</th>
+                                <th>Penguji 1</th>
+                                <th>Penguji 2</th>
+                                <th>Pembimbing Utama</th>
+                                <th>Pembimbing Pendamping</th>
+                                <th>Nilai</th>
+                                <th>BAP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Tambahkan data mahasiswa secara dinamis -->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </section>
+    </div>
 </body>
 
 </html>
