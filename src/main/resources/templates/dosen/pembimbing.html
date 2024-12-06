@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/dosen.css" />
+    <title>Penguji</title>
+    <style>
+        dialog {
+            border: none;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .dialog-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dialog-content textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/img/logo.png" alt="logo unpar" class="logo" />
+            <div class="sidebar">
+                <div id="role">Pembimbing</div>
+                <div class="profile-info">
+                    <div class="profile-pic"></div>
+                    <p class="email">dosen@unpar.ac.id</p>
+                </div>
+                <a href="login" class="logout-button">Log out</a>
+                <a href="profile" class="profile-button">Profil</a>
+            </div>
+        </div>
+        <section>
+            <div class="navigation">
+                <form action="/dosen/home" method="GET" class="back button">
+                    <input type="email" value="<%= email %>" name="email" hidden />
+                    <input type="text" value="<%= role %>" name="role" hidden />
+                    <a href="home" class="home-button">KEMBALI KE HALAMAN UTAMA</a>
+                </form>
+                <form action="#" class="dropdown">
+                    <label for="semester">Semester Akademik</label>
+                    <select name="semester" id="semester">
+                        <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
+                        <option value="Genap 2024/2025">Genap 2024/2025</option>
+                        <option value="Ganjil 2023/2024">Ganjil 2023/2024</option>
+                    </select>
+                </form>
+            </div>
+            <div class="content">
+                <div class="table_component" role="region" tabindex="0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Mahasiswa</th>
+                                <th>Judul Skripsi</th>
+                                <th>Waktu</th>
+                                <th>Tempat</th>
+                                <th>Nilai</th>
+                                <th>Catatan</th>
+                                <th>BAP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kevin</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><button class="create-note">Buat Catatan</button></td>
+                                <td><button class="view-bap">📄</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Dialog Box -->
+    <dialog id="note-dialog">
+        <div class="dialog-content">
+            <label for="note-text">Tulis Catatan:</label>
+            <textarea id="note-text" placeholder="Ketikkan catatan Anda di sini..."></textarea>
+        </div>
+        <div class="dialog-actions">
+            <button id="save-note">Simpan</button>
+            <button id="cancel-note">Batal</button>
+        </div>
+    </dialog>
+
+    <script>
+        const dialog = document.getElementById("note-dialog");
+        const createNoteButtons = document.querySelectorAll(".create-note");
+        const saveNoteButton = document.getElementById("save-note");
+        const cancelNoteButton = document.getElementById("cancel-note");
+        const noteText = document.getElementById("note-text");
+
+        // Buka dialog box untuk membuat catatan
+        createNoteButtons.forEach(button => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                noteText.value = ""; // menghapus input sebelumnya
+                dialog.showModal();
+            });
+        });
+
+        // Menyimpan catatan sidang
+        saveNoteButton.addEventListener("click", () => {
+            const note = noteText.value.trim();
+            if (note) {
+                alert(`Catatan tersimpan: ${note}`);
+                dialog.close();
+            } else {
+                alert("Catatan tidak boleh kosong.");
+            }
+        });
+
+        // Membatalkan catatan sidang
+        cancelNoteButton.addEventListener("click", () => {
+            dialog.close();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,489 @@
+body {
+    margin: auto auto;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+}
+
+body#splash {
+    background-image: url(/img/Group\ 87.png);
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 13vh 0;
+    overflow-y: hidden;
+}
+
+body#profile {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.header {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header.profile img {
+    padding: 5vh 1vh;
+}
+
+.header img {
+    width: 50vh;
+}
+
+header.login {
+    margin: auto;
+    width: min-content;
+    text-align: center;
+    font-size: 24px;
+    padding: 2vh 6vh;
+    border-radius: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+header.login h1,
+h3 {
+    margin: 0;
+}
+
+header.login h3 {
+    font-weight: 100;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 40px;
+    width: min-content;
+    padding: 6vh 2vh;
+    margin: 5vh auto;
+    min-width: 40vh;
+}
+
+.container.profile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: max-content;
+    margin: 0;
+    padding: 1vh 0;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+}
+
+.container.profile form {
+    max-width: 50vh;
+    margin: auto;
+    display: grid;
+    align-items: center;
+}
+
+.container.profile svg {
+    min-width: 10vh;
+    margin-left: 2vh;
+}
+
+.container.profile input {
+    padding: 1vh 2vh;
+    font-size: 18px;
+    max-width: 30vh;
+    margin: 1vh auto;
+}
+
+.profile.detail.big {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, auto);
+    width: auto;
+    max-width: 70%;
+    gap: 3vh;
+    padding: 0 5vh;
+}
+
+.profile.detail.big:nth-child(odd) {
+    width: min-content;
+}
+
+.profile.detail.big,
+.profile.detail.big input {
+    font-size: 35px;
+}
+
+.profile.detail.big label {
+    white-space: nowrap;
+}
+
+.profile.detail.small.role {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+}
+
+#profile-role {
+    background-color: #fff;
+    border: none;
+}
+
+.profile.detail.small.role input {
+    max-width: 50%;
+    margin: 0 2px;
+}
+
+.profile.detail.small.role input[type=submit],
+button {
+    width: auto;
+    min-width: 17vh;
+    margin: 1vh 1px;
+    padding: 1vh 2vh;
+    font-size: 18px;
+    background-color: #757575;
+    color: #fff;
+    font-weight: 100;
+    border-radius: 3px;
+    border: none;
+}
+
+.profile.detail.small.role input[type=submit]:hover,
+button:hover {
+    cursor: pointer;
+}
+
+.container form.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5vh;
+    margin: auto;
+}
+
+form.login div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+}
+
+form.login input[type="email"],
+input[type="password"] {
+    padding: 1vh 2vh;
+    border-radius: 5px;
+    width: auto;
+}
+
+form.login input[type="submit"] {
+    padding: 1vh 2vh;
+    background-color: #2C2C2C;
+    color: #fff;
+    border-radius: 5px;
+    width: auto;
+    min-width: 27vh;
+}
+
+form.login div label {
+    font-size: 28px;
+}
+
+.toggle.hidden {
+    display: none;
+}
+
+.toggle.shown {
+    display: block;
+    font-size: 12px;
+    max-width: 27vh;
+    text-align: center;
+}
+
+section h1 {
+    font-size: 40px;
+    margin: 0 auto;
+    text-align: center;
+    width: fit-content;
+}
+
+.role.select {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 2;
+    grid-template-rows: 1;
+    align-items: center;
+    width: fit-content;
+    margin: 10vh auto;
+    gap: 10vh;
+}
+
+.role.select form input[type=submit] {
+    width: 30vh;
+    height: 30vh;
+    aspect-ratio: 1/1;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 55px;
+    border: 15px solid #D9D9D9;
+}
+
+.role.select form input[type=submit]:hover {
+    cursor: pointer;
+}
+
+
+.navigation {
+    width: auto;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 2;
+    grid-template-rows: 2;
+    align-items: center;
+    margin: auto;
+    padding: 2vh;
+}
+
+.navigation-koor {
+    display: grid;
+    /* grid-template-columns: 1fr; */
+    grid-template-rows: repeat(2, auto);
+    /* width: auto; */
+}
+
+.navigation-koor form input[type="submit"] {
+    min-width: 30vh !important;
+}
+
+.navigation * {
+    width: min-content;
+}
+
+.navigation form:nth-child(1) {
+    justify-self: start;
+}
+
+.navigation form:nth-child(2) {
+    justify-self: end;
+}
+
+#create {
+    white-space: nowrap;
+}
+
+.navigation.create {
+    position: absolute;
+    top: 15vh;
+    left: 3vh;
+}
+
+.form-create {
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 5vh;
+    padding-top: 5vh;
+    padding-bottom: 8vh;
+    padding-right: 5vh;
+    padding-left: 5vh;
+    font-size: 20px;
+    background-color: #D9D9D9;
+    border-radius: 40px;
+    margin-left: 5vh;
+    margin-right: 5vh;
+}
+
+.container-simpan {
+    position: relative;
+}
+
+.container-simpan .back {
+    position: absolute;
+    top: -4vh;
+    right: 7vh;
+}
+
+.container-simpan img.back {
+    z-index: 0;
+    width: 10vh;
+    aspect-ratio: 1/1;
+
+}
+
+.container-simpan input.back:hover {
+    cursor: pointer;
+}
+
+.container-simpan input.back {
+    z-index: 100;
+    width: 10vh;
+    aspect-ratio: 1/1;
+    opacity: 0;
+}
+
+
+.form-create #simpan-data {
+    position: absolute;
+    bottom: -6vh;
+    right: 40vh;
+    margin: 0 auto;
+    background-color: #757575;
+    color: #fff;
+    font-size: 15px;
+    width: 100vh;
+}
+
+.form-create input {
+    height: 5vh;
+}
+
+.form-create .left {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, auto);
+    width: 50%;
+    min-height: 10vh;
+}
+
+
+.right-row {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-rows: repeat(2, auto);
+    margin: 1vh 0;
+    min-height: 10vh;
+}
+
+.form-create .right {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-rows: repeat(4, auto);
+    width: 50%;
+}
+
+form.dropdown.create {
+    flex-direction: row;
+    gap: 2vh;
+}
+
+form.dropdown.create select {
+    padding: 7px 0;
+}
+
+form.dropdown.create label {
+    white-space: nowrap;
+}
+
+form.dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    min-width: 20vh;
+    font-size: 17px;
+}
+
+form.dropdown label {
+    width: fit-content;
+    padding: 5px 12px;
+    background-color: #757575;
+    color: #fff;
+}
+
+form.dropdown select {
+    width: auto;
+    min-width: 24vh;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.back.button.profile input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+.back.button.profile input[type="submit"] {
+    padding: 2vh 6vh;
+    font-size: 24px;
+}
+
+.back.button.profile {
+    position: absolute;
+    bottom: -1vh;
+    right: -1vh;
+    margin: 0;
+}
+
+.back.button input[type="submit"] {
+    width: auto;
+    min-width: 17vh;
+    margin: 1vh 1px;
+    padding: 1vh 2vh;
+    font-size: 17px;
+    background-color: #757575;
+    color: #fff;
+    font-weight: 100;
+    border-radius: 3px;
+    border: none;
+}
+
+.back.button input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+.table_component {
+    overflow: auto;
+    width: auto;
+    margin: 0 2vh;
+}
+
+.table_component table {
+    border: 1px solid #dededf;
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 1px;
+    text-align: center;
+}
+
+.table_component th {
+    border: 1px solid #dededf;
+    background-color: #eceff1;
+    font-weight: lighter;
+    color: #000000;
+    padding: 5px;
+}
+
+.table_component td {
+    border: 1px solid #dededf;
+    background-color: #eceff1;
+    color: #000000;
+    padding: 5px;
+}
+
+.header.title {
+    width: 100%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 3vh;
+    margin-top: -2vh;
+    margin-bottom: 10vh;
+    background-color: #D9D9D9;
+    justify-content: start;
+}
+
+.header.title h1 {
+    margin: 0;
+}
+
+.header.title svg {
+    width: 16vh;
+}
+
+.nama.mahasiswa {
+    font-size: 40px;
+    position: absolute;
+    top: 23vh;
+    left: 33%;
+    margin: auto;
+}
