@@ -19,6 +19,11 @@ public class LoginController {
         return "/register";
     }
 
+    @GetMapping("/bapSidang")
+    public String showBAPForm() {
+        return "/bapSidang";
+    }
+
     @PostMapping("/login")
     public String handleLogin(@RequestParam("email") String email,
             @RequestParam("password") String password,
