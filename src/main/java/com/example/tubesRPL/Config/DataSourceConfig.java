@@ -1,4 +1,4 @@
-package com.example.tubesRPL;
+package com.example.tubesRPL.Config;
 
 import javax.sql.DataSource;
 

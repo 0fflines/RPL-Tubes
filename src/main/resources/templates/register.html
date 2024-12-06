@@ -10,11 +10,12 @@
 
 <body>
     <div class="login-container">
-        <h2>Login Portal TA</h2>
+        <h2>Sign Up Portal TA</h2>
         <form action="/login" method="POST">
-            <!-- Pesan Error -->
-            <div th:if="${error}" class="error-message">
-                <p th:text="${error}"></p>
+            <!--Nama Lengkap-->
+            <div class="form-group">
+                <label for="name">Nama lengkap</label>
+                <input type="text" id="nama" name="namalengkap" placeholder="Masukkan nama lengkap Anda" required>
             </div>
 
             <!-- Input Username -->
@@ -23,23 +24,34 @@
                 <input type="text" id="username" name="username" placeholder="Masukkan email" required>
             </div>
 
-            <!-- Input Password -->
+            <!--Input Password-->
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Masukkan password" required>
-                <button type="button" class="show-password-btn" onclick="togglePassword()">Show Password</button>
+                <button type="button" class="show-password-btn" onclick="togglePassword('password')">Show
+                    Password</button>
             </div>
 
+            <!--Confirm Password-->
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Masukkan password"
+                    required>
+                <button type="button" class="show-password-btn" onclick="togglePassword('confirm-password')">Show
+                    Password</button>
+            </div>
+
+
             <!-- Tombol Login -->
-            <button type="submit" class="login-btn">Login</button>
-            <p>Don't Have an account? <a href="register">Register here</a></p>
+            <button type="submit" class="login-btn">Register</button>
+            <p>Back To <a href="login">Login</a></p>
         </form>
     </div>
 
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById("password");
-            const showPasswordButton = document.querySelector(".show-password-btn");
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const showPasswordButton = passwordInput.nextElementSibling;
 
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
