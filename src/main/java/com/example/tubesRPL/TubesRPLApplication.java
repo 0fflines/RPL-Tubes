@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TubesManproApplication {
+public class TubesRPLApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TubesManproApplication.class, args);
+		SpringApplication.run(TubesRPLApplication.class, args);
 	}
 
 }
