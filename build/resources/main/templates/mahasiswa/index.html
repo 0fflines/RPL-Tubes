@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahasiswa - Informasi Sidang</title>
+    <link rel="stylesheet" href="/mahasiswa.css">
+    <style>
+        /* Style untuk modal (popup) catatan sidang */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black with opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .dosen-info {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        .grade {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+
+        textarea {
+            resize: none;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/img/logo.png/" alt="Logo Unpar" class="logo">
+        </div>
+        <div class="content">
+            <div class="sidebar">
+                <div class="profile-info">
+                    <div class="profile-pic"></div>
+                    <p class="email">6182201102@unpar.ac.id</p>
+                    <p class="role">Your role: <strong>Mahasiswa</strong></p>
+                </div>
+                <a href="/login" class="logout-button">Log Out</a>
+                <a href="/profile" class="profile-button">Profile</a>
+            </div>
+            <div class="main">
+                <h2>Kevin Halim</h2>
+                <button class="view-notes" id="viewNotesBtn">Lihat Catatan Sidang</button>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>Judul Skripsi</th>
+                            <th>Jenis TA</th>
+                            <th>Waktu</th>
+                            <th>Tempat</th>
+                            <th>Penguji 1</th>
+                            <th>Penguji 2</th>
+                            <th>Pembimbing Utama</th>
+                            <th>Pembimbing Pendamping</th>
+                            <th>Nilai</th>
+                            <th>BAP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sistem Manajemen SW</td>
+                            <td>TA 1</td>
+                            <td>21 Oktober 2024<br>10.00 - 11.00</td>
+                            <td>AG2U.06.01.01</td>
+                            <td>Prof. Dr. Ir. Veronica Sri Moertini, M.T.</td>
+                            <td>Maria Veronica, S.T., M.T.</td>
+                            <td>Gede Karya, S.T., M.T., CISA, IPM</td>
+                            <td>Drs. Rose de Lima Endang Pranowitri, M.T.</td>
+                            <td><span class="grade" id="viewGradeBtn">85</span></td>
+                            <td><button class="view-bap">📄</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk Menampilkan Catatan Sidang -->
+    <div id="notesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeNotesModalBtn">&times;</span>
+            <h3>Catatan Sidang</h3>
+            <p>Berikut adalah catatan dari dosen:</p>
+            <p><em>"Presentasi berjalan dengan baik, namun masih ada beberapa kekurangan dalam analisis data. Saran:
+                    Perbaiki metodologi dan tambahkan studi kasus."</em></p>
+            <p>Terima kasih atas perhatian Anda.</p>
+            <!-- Menambahkan nama dosen yang memberikan catatan -->
+            <p class="dosen-info">Catatan diberikan oleh: Gede Karya, S.T., M.T., CISA, IPM</p>
+        </div>
+    </div>
+
+    <!-- Modal untuk Menampilkan Evaluasi Nilai -->
+    <div id="nilaiModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeNilaiModalBtn">&times;</span>
+            <h3>Evaluasi Nilai</h3>
+            <p><strong>Nama Mahasiswa:</strong> Kevin Halim</p>
+            <p><strong>Judul Skripsi:</strong> Sistem Manajemen SW</p>
+            <p><strong>Waktu Sidang:</strong> 21 Oktober 2024, 10:00 - 11:00</p>
+
+            <h4>Tata Tulis Laporan:</h4>
+            <textarea id="tataTulis" placeholder="80"></textarea>
+
+            <h4>Kelengkapan Materi:</h4>
+            <textarea id="kelengkapanMateri" placeholder="80"></textarea>
+
+            <h4>Proses Bimbingan:</h4>
+            <textarea id="prosesBimbingan" placeholder="90"></textarea>
+
+            <h4>Penguasaan Materi:</h4>
+            <textarea id="penguasaanMateri" placeholder="87"></textarea>
+
+            <h4><strong>Nilai Akhir: 85</strong> <span id="finalGrade"></span></h4>
+        </div>
+    </div>
+
+    <script>
+        // Modal untuk Catatan Sidang
+        var notesModal = document.getElementById("notesModal");
+        var viewNotesBtn = document.getElementById("viewNotesBtn");
+        var closeNotesModalBtn = document.getElementById("closeNotesModalBtn");
+
+        // Ketika tombol "Lihat Catatan Sidang" diklik, tampilkan modal
+        viewNotesBtn.onclick = function () {
+            notesModal.style.display = "block";
+        }
+
+        // Ketika tombol close (×) diklik, sembunyikan modal
+        closeNotesModalBtn.onclick = function () {
+            notesModal.style.display = "none";
+        }
+
+        // Jika pengguna mengklik di luar modal, tutup modal
+        window.onclick = function (event) {
+            if (event.target == notesModal) {
+                notesModal.style.display = "none";
+            }
+        }
+
+        // Modal untuk Evaluasi Nilai
+        var nilaiModal = document.getElementById("nilaiModal");
+        var viewGradeBtn = document.getElementById("viewGradeBtn");
+        var closeNilaiModalBtn = document.getElementById("closeNilaiModalBtn");
+
+        // Ketika nilai diklik, tampilkan modal
+        viewGradeBtn.onclick = function () {
+            nilaiModal.style.display = "block";
+        }
+
+        // Ketika tombol close (×) diklik, sembunyikan modal
+        closeNilaiModalBtn.onclick = function () {
+            nilaiModal.style.display = "none";
+        }
+
+        // Jika pengguna mengklik di luar modal, tutup modal
+        window.onclick = function (event) {
+            if (event.target == nilaiModal) {
+                nilaiModal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
