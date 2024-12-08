@@ -1,4 +1,4 @@
-package com.example.tubesRPL.Mahasiswa;
+package com.example.tubesRPL;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ public class SignUpController {
 
     @GetMapping("/signup")
     public String showSignUpForm() {
-        return "/mahasiswa/signup"; // Return the sign up HTML page (signup.html)
+        return "/signup"; // Return the sign up HTML page (signup.html)
     }
 
     @PostMapping("/signup")
