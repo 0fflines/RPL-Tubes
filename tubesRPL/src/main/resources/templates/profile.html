@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Profile - email>
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .header {
+            background-color: #0047ab;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header img {
+            width: 100px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-photo {
+            flex: 0 0 150px;
+            text-align: center;
+        }
+
+        .profile-photo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            object-fit: cover;
+        }
+
+        .profile-detail {
+            flex: 1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f7f7f7;
+        }
+
+        input[disabled] {
+            background-color: #e9e9e9;
+            cursor: not-allowed;
+        }
+
+        .button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #0047ab;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button input[type="submit"]:hover {
+            background-color: #003680;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <img src="/img/logo.png" alt="Logo Unpar">
+    </div>
+    <section>
+        <!-- Foto Profil -->
+        <div class="profile-photo">
+            <img src="/img/mahasiswa.png" alt="Profile Picture" id="profile-picture">
+        </div>
+
+        <!-- Detail Profil -->
+        <div class="profile-detail">
+            <h1>User Profile</h1>
+            <form action="/profile" method="POST">
+                <label for="name">Nama:</label>
+                <input type="text" value="name" disabled />
+
+                <label for="email">Alamat Email:</label>
+                <input type="email" value="email>" disabled />
+
+                <label for="role">Role:</label>
+                <input type="text" value="role>" disabled />
+
+                <!-- Hidden Inputs -->
+                <input type="hidden" name="email" value="<%= email %>">
+                <input type="hidden" name="role" value="<%= role %>">
+                <input type="hidden" name="name" value="<%= name %>">
+            </form>
+
+            <div class="button">
+                <form action="/home" method="POST">
+                    <input type="hidden" name="email" value="<%= email %>">
+                    <input type="hidden" name="role" value="<%= role %>">
+                    <input type="submit" value="Back">
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
