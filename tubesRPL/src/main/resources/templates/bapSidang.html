@@ -2,54 +2,164 @@
 <html>
 <head>
     <meta charset='utf-8'>
-    .<title>BAP</title>
+    <title>BAP</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #f9f9f9;
+            font-size: 20pt;
+        }
+        #container {
+            max-width: 1500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        #judulbap {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #judulbap img {
+            width: 100%;
+            height: auto;
+        }
+        h3, h5 {
+            margin: 5px 0;
+        }
+        p {
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            border: 1px solid white;
+            padding: 5px;
+            width: 300px;
+        }
+        input[type="button"]{
+            border: 1px solid black;
+            padding" 5px;
+            width:200px;
+            font-size:25pt;
+            color: white;
+            background-color: green;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        .signature-table {
+            width: 450px;
+            margin-top: 20px;
+            }
+</style>
 </head>
-<body>
-    <div id="judulbap">
-        <center><img src="img/headerBap.png" alt="" width="1050px" height="150px"></center>
-    <header class="title" >
-            <h3><center>Berita Acara</center> </h3> 
-            <h3> <center>Sidang Skripsi</center></h3>   
-            <h3><center>Semester: <input type="text" value=""></center></h3>
-            <h4><center>Telah diselenggarakan review untuk mata kuliah AIF234001-03  Tugas Akhir 1 bagi:</center></h4>
-    </div>
-    
-    <div id="bodybap">
-        <br>
-        <br>
-    <p><strong>NPM:</strong> <input type="text" name="" id="">
-                   <align="right"><strong >Nama:</strong> <input type="text" name="" id=""></align></p>
-    <p><strong>Topik:</strong> <input type="text" name="" id=""></p>
-<p><strong>dengan pembimbing dan penguji:</strong></p>
-<!--kasih while loop utk masukin pembimbing dan penguji-->
 
-<p><strong>Rekapitulasi nilai</strong> <input type="text" name="" id=""> <strong>yang diberikan oleh pembimbing, penguji, & koordinator skripsi:</strong></p>
-</div>
- 
-<div id="tablebap">
-    <table border="1px" solid black>
-        <tr>
-            <th>No.</th>
-            <th>Pembimbing/Penguji</th>
-            <th>Nilai</th>
-            <th>Bobot</th>
-            <th>Nilai Akhir</th>
-        </tr>
-        <!--input baris2 tabelnya-->
-    </table>
-    <p><strong>Ditetapkan di Bandung:</strong> <input type="text" name="" id=""></p>
-</div>
-<table border="1px" solid black>
-    <tr>
-        
-        <th><input type="file" name="" id=""></th>
-    </tr>
-    <tr>
-        <th>Koordinator Skripsi</th>
-    </tr>
-</table>
+<body>
+    <div id="container">
+        <div id="judulbap">
+            <center><img src="img/headerBap.png" alt=""></center>
+            <header class="title">
+                <h3>Berita Acara</h3>
+                <h3>Sidang Skripsi</h3>
+                <h3>Semester: <input type="text" value=""></h3>
+                <h5>Telah diselenggarakan review untuk mata kuliah <input type="text" value=""> bagi:</h5>
+            </header>
+        </div>
+
+        <div id="bodybap">
+            <p><strong>NPM:</strong> <input type="text" name="" id="">
+                <strong>Nama:</strong> <input type="text" name="" id=""></p>
+            <p><strong>Topik:</strong> <input type="text" name="" id=""></p>
+            <p><strong>dengan pembimbing dan penguji:</strong></p>
+            <p><strong>- Pembimbing Utama/Tunggal:</strong> <input type="text" value=""></p>
+            <p><strong>- Pembimbing Pendamping:</strong> <input type="text" value=""></p>
+            <p><strong>- Ketua Tim Penguji:</strong> <input type="text" value=""></p>
+            <p><strong>- Anggota Tim Penguji:</strong> <input type="text" value=""></p>
+            <br>
+            <p><strong>Rekapitulasi nilai</strong> <input type="text" name="" id=""> <strong>yang diberikan oleh pembimbing, penguji, & koordinator skripsi:</strong></p>
+        </div>
+
+        <div id="tablebap">
+            <table>
+                <tr>
+                    <th>No.</th>
+                    <th>Pembimbing/Penguji</th>
+                    <th>Nilai</th>
+                    <th>Bobot</th>
+                    <th>Nilai Akhir</th>
+                </tr>
+                <tr>
+                    <td>1.</td>
+                    <td>Ketua Tim Penguji</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>Anggota Tim Penguji</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>Pembimbing</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>Koordinator Skripsi</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <p><strong>Ditetapkan di Bandung:</strong> <input type="text" name="" id=""></p>
+        </div>
+
+        <div class="signature-table">
+            <table>
+                <tr>
+                    <td><input type="file" name="" id=""></td>
+                    <td><input type="file" name="" id=""></td>
+                    <td><input type="file" name="" id=""></td>
+                    <td><input type="file" name="" id=""></td>
+                    <td><input type="file" name="" id=""></td>
+                </tr>
+                <tr>
+                    <th>Ketua Tim Penguji</th>
+                    <th>Anggota Tim Penguji</th>
+                    <th>Pembimbing**</th>
+                    <th>Mahasiswa</th>
+                    <th>Koordinator Skripsi</th>
+                </tr>
+                
+            </table>
+        </div>
+       <center> <input type="button" name="unduh" id="unduhBAP" value="Unduh BAP"> </center>
+    </div>
 </body>
+
 </html>
