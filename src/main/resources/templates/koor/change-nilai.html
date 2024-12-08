@@ -31,7 +31,7 @@
       <section>
         <!-- Content Section -->
         <h2>Atur Komponen Nilai</h2>
-        <form class="container-config">
+        <div class="container-config">
           <div class="section-config-name">
             <div class="koor-name">
               <h3 class="label">Penguji</h3>
@@ -113,11 +113,48 @@
 
           <div class="action-buttons">
             <button class="btn-back">Back</button>
-            <button class="btn-tambah" disabled>Ubah Komponen penilaian</button>
+            <button class="btn-tambah disabled" disabled>
+              Ubah Komponen penilaian
+            </button>
             <button class="btn-save">SAVE</button>
           </div>
-        </form>
+        </div>
       </section>
+      <div class="modal-wrapper hidden">
+        <div class="modal">
+          <div class="modal-content">
+            <h2>Confirm Deletion</h2>
+            <div class="modal-buttons">
+              <button class="btn-confirm">Confirm</button>
+              <button class="btn-cancel">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <script>
+      const modalWrapper = document.querySelector(".modal-wrapper");
+      const btnCancel = document.querySelector(".btn-cancel");
+      const btnConfirm = document.querySelector(".btn-confirm");
+      const btnDelete = document.querySelectorAll(".btn-delete");
+
+      function showModal() {
+        modalWrapper.classList.remove("hidden");
+      }
+
+      function hideModal() {
+        modalWrapper.classList.add("hidden");
+      }
+
+      btnCancel.addEventListener("click", hideModal);
+      btnConfirm.addEventListener("click", hideModal);
+
+      btnDelete.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          showModal();
+        });
+      });
+    </script>
   </body>
 </html>
