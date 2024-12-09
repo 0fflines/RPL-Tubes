@@ -26,41 +26,43 @@
         <h1>Buat TA Baru</h1>
     </div>
     <section>
-        <form action="#" class="form-create">
+        <form action="/api/koordinator/ta/save" method="POST">
             <div class="left">
                 <label for="name">Nama Mahasiswa :</label>
-                <input type="text" name="name" id="name" placeholder="Masukkan nama mahasiswa" />
+                <input type="text" name="namaMahasiswa" id="name" placeholder="Masukkan nama mahasiswa" required />
 
                 <label for="judul">Judul Skripsi :</label>
-                <input type="text" name="judul" id="judul" placeholder="Masukkan judul skripsi" />
+                <input type="text" name="judulSkripsi" id="judul" placeholder="Masukkan judul skripsi" required />
 
                 <label for="jenis">Jenis TA :</label>
-                <select name="jenis" id="jenis">
+                <select name="jenisTa" id="jenis" required>
                     <option value="TA1">TA 1</option>
                     <option value="TA2">TA 2</option>
                 </select>
 
                 <label for="tempat">Tempat :</label>
-                <input type="text" name="tempat" id="tempat" placeholder="Masukkan lokasi sidang" />
+                <input type="text" name="tempat" id="tempat" placeholder="Masukkan lokasi sidang" required />
 
                 <label for="tanggal">Tanggal dan Waktu Sidang:</label>
-                <input type="datetime-local" name="tanggal" id="tanggal" />
+                <input type="datetime-local" name="tanggalSidang" id="tanggal" required />
             </div>
             <div class="right">
                 <label for="penguji-1">Penguji 1 :</label>
-                <input type="text" name="penguji-1" id="penguji-1" placeholder="Nama Penguji 1" />
+                <input type="text" name="penguji1" id="penguji-1" placeholder="Nama Penguji 1" required />
 
                 <label for="penguji-2">Penguji 2 :</label>
-                <input type="text" name="penguji-2" id="penguji-2" placeholder="Nama Penguji 2" />
+                <input type="text" name="penguji2" id="penguji-2" placeholder="Nama Penguji 2" required />
 
                 <label for="pembimbing-u">Pembimbing Utama :</label>
-                <input type="text" name="pembimbing-u" id="pembimbing-u" placeholder="Nama Pembimbing Utama" />
+                <input type="text" name="pembimbingUtama" id="pembimbing-u" placeholder="Nama Pembimbing Utama"
+                    required />
 
                 <label for="pembimbing-p">Pembimbing Pendamping :</label>
-                <input type="text" name="pembimbing-p" id="pembimbing-p" placeholder="Nama Pembimbing Pendamping" />
+                <input type="text" name="pembimbingPendamping" id="pembimbing-p"
+                    placeholder="Nama Pembimbing Pendamping" required />
 
                 <label for="semester">Semester Akademik:</label>
-                <select name="semester" id="semester">
+                <select name="semesterAkademik" id="semester" required>
                     <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
                     <option value="genap-2023-2024">Genap 2023/2024</option>
                     <option value="ganjil-2023-2024">Ganjil 2023/2024</option>

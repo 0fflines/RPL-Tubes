@@ -30,3 +30,17 @@ CREATE TABLE tugas_akhir(
     tipe_sidang INTEGER,
     bap_file BYTEA NOT NULL
 )
+
+CREATE TABLE ta_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_mahasiswa VARCHAR(100) NOT NULL,
+    judul_skripsi VARCHAR(255) NOT NULL,
+    jenis_ta ENUM('TA1', 'TA2') NOT NULL,
+    tempat VARCHAR(100),
+    tanggal_sidang DATETIME,
+    penguji_1 VARCHAR(100),
+    penguji_2 VARCHAR(100),
+    pembimbing_utama VARCHAR(100),
+    pembimbing_pendamping VARCHAR(100),
+    semester_akademik VARCHAR(50)
+);
