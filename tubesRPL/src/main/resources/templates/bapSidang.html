@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <title>BAP</title>
@@ -19,6 +20,7 @@
             display: grid;
             grid-template-rows: auto auto;
         }
+
         #container {
             max-width: 1500px;
             width: 100%;
@@ -30,23 +32,30 @@
             align-items: center;
             justify-content: center;
         }
+
         center {
             grid-row: 2;
         }
+
         #judulbap {
             text-align: center;
             margin-bottom: 20px;
         }
+
         #judulbap img {
             width: 100%;
             height: auto;
         }
-        h3, h5 {
+
+        h3,
+        h5 {
             margin: 5px 0;
         }
+
         p {
             margin: 10px 0;
         }
+
         input[type="text"] {
             border: 1px solid white;
             padding: 5px;
@@ -59,16 +68,19 @@
             margin-bottom: 20px;
             padding: 10px;
         }
-        table th, table td {
+
+        table th,
+        table td {
             border: 1px solid black;
             padding: 10px;
             text-align: center;
         }
-      
+
         .sign {
             height: 100px;
             width: 250px;
         }
+
         #button {
             color: #fff;
             border: none;
@@ -77,16 +89,17 @@
             border-radius: 5px;
             margin: 10px;
             transition: background-color 0.3s ease;
-            padding" 5px;
-            width:200px;
-            font-size:25pt;
+            padding: 5px;
+            width: 200px;
+            font-size: 25pt;
             color: white;
             background-color: green;
         }
+
         #button:hover {
             background-color: #0056b3;
         }
-</style>
+    </style>
 </head>
 
 
@@ -105,7 +118,8 @@
 
         <div id="bodybap">
             <p><strong>NPM:</strong> <input type="text" name="" id="">
-                <strong>Nama:</strong> <input type="text" name="" id=""></p>
+                <strong>Nama:</strong> <input type="text" name="" id="">
+            </p>
             <p><strong>Topik:</strong> <input type="text" name="" id=""></p>
             <p><strong>dengan pembimbing dan penguji:</strong></p>
             <p><strong>- Pembimbing Utama/Tunggal:</strong> <input type="text" value=""></p>
@@ -113,7 +127,8 @@
             <p><strong>- Ketua Tim Penguji:</strong> <input type="text" value=""></p>
             <p><strong>- Anggota Tim Penguji:</strong> <input type="text" value=""></p>
             <br>
-            <p><strong>Rekapitulasi nilai</strong> <input type="text" name="" id=""> <strong>yang diberikan oleh pembimbing, penguji, & koordinator skripsi:</strong></p>
+            <p><strong>Rekapitulasi nilai</strong> <input type="text" name="" id=""> <strong>yang diberikan oleh
+                    pembimbing, penguji, & koordinator skripsi:</strong></p>
         </div>
 
 
@@ -169,11 +184,21 @@
         <div class="signature-table">
             <table>
                 <tr>
-                    <td><div class="sign"></div></td>
-                    <td><div class="sign"></div></td>
-                    <td><div class="sign"></div></td>
-                    <td><div class="sign"></div></td>
-                    <td><div class="sign"></div></td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
                 </tr>
                 <tr>
                     <th>Ketua Tim Penguji</th>
@@ -182,7 +207,7 @@
                     <th>Mahasiswa</th>
                     <th>Koordinator Skripsi</th>
                 </tr>
-               
+
             </table>
         </div>
     </div>
@@ -190,23 +215,23 @@
     <script type="text/javascript">
         function convertHTMLtoPDF() {
             const { jsPDF } = window.jspdf;
-    
+
             // Ambil elemen container
             let pdfContainer = document.querySelector('#container');
-    
+
             // Ganti nilai input dengan teks statis
             const inputs = pdfContainer.querySelectorAll('input[type="text"]');
             inputs.forEach(input => {
                 const value = input.value || ''; // Ambil nilai dari input
                 const span = document.createElement('span'); // Buat elemen span
                 span.textContent = value; // Isi dengan nilai input
-                span.style= 'font-weight: bold;'; // Tambahkan garis bawah sebagai placeholder
+                span.style = 'font-weight: bold;'; // Tambahkan garis bawah sebagai placeholder
                 input.parentNode.replaceChild(span, input); // Ganti input dengan span
             });
-    
+
             // Buat dokumen PDF
             let doc = new jsPDF('p', 'mm', [1500, 1400]);
-    
+
             // Konversi HTML ke PDF
             doc.html(pdfContainer, {
                 callback: function (doc) {
@@ -216,9 +241,7 @@
                 y: 12
             });
         }
-    </script>    
+    </script>
 </body>
+
 </html>
-
-
-

@@ -20,4 +20,19 @@ public class KoordinatorPage {
         // Mengembalikan nama template untuk menampilkan halaman
         return "/koor/home"; // Halaman ini merujuk ke penguji.html di folder src/main/resources/templates
     }
+
+    @GetMapping("/bobot-nilai")
+    public String homeBobot() {
+        return "koor/bobot-nilai";
+    }
+
+    @GetMapping("/config-bobot")
+    public String homeConfig() {
+        return "koor/change-nilai";
+    }
+
+    @GetMapping("/create")
+    public String homeCreate() {
+        return "koor/create";
+    }
 }

@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="/img/logo.png" alt="Logo Universitas Parahyangan"  class="logo" />
+            <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
             <div class="sidebar">
                 <div id="role">Koordinator</div>
                 <div class="profile-info">
@@ -20,22 +20,20 @@
                 </div>
                 <a href="login" class="logout-button">Log out</a>
                 <a href="profile" class="profile-button">Profile</a>
-                <!--<button class="logout-button">Log Out</button>
-                <button class="profile-button">Profile</button>-->
             </div>
         </div>
-            <!-- Navigation Section -->
+        <!-- Navigation Section -->
         <section>
             <div class="navigation-koor">
                 <form action="/config-bobot" method="POST" class="back button" aria-label="Konfigurasi Bobot Nilai">
-                    <input type="email" value="<%= email %>" name="email" hidden />
-                    <input type="text" value="<%= role %>" name="role" hidden />
-                    <input type="submit" value="Konfigurasi Bobot Nilai" />
-                    </form>
+                    <input type="email" value="emailName" name="email" hidden />
+                    <input type="text" value="roleName" name="role" hidden />
+                    <a href="/bobot-nilai">Konfigurasi Bobot Nilai</a>
+                </form>
                 <form action="/create" method="POST" class="back button" aria-label="Create TA">
-                    <input type="email" value="<%= email %>" name="email" hidden />
-                    <input type="text" value="<%= role %>" name="role" hidden />
-                    <input type="submit" value="Create TA Here" />
+                    <input type="email" value="emailName" name=" email" hidden />
+                    <input type="text" value="roleName" name="role" hidden />
+                    <a href="/create">Create TA Here</a>
                 </form>
             </div>
             <form action="/select-semester" class="dropdown" aria-label="Pilih Semester">
@@ -45,7 +43,6 @@
                     <option value="Genap 2024/2025">Genap 2024/2025</option>
                     <option value="Ganjil 2023/2024">Ganjil 2023/2024</option>
                 </select>
-                <button type="submit">Pilih</button>
             </form>
             <!-- Content Section -->
             <div class="content">
@@ -56,7 +53,9 @@
                             <tr>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Skripsi</th>
-                                <th>Waktu</th>
+                                <th>Jenis TA</th>
+                                <th>Tempat</th>
+                                <th>Tanggal dan Waktu</th>
                                 <th>Penguji 1</th>
                                 <th>Penguji 2</th>
                                 <th>Pembimbing Utama</th>
@@ -68,6 +67,8 @@
                         <tbody>
                             <!-- Tambahkan data mahasiswa secara dinamis -->
                             <tr>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
