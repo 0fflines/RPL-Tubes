@@ -2,6 +2,7 @@ package com.example.tubesRPL.Koordinator.TA;
 
 import java.util.List;
 
+
 public interface TAInterface {
 
     // Method to save TA data
@@ -18,4 +19,10 @@ public interface TAInterface {
 
     // Method to update TA data
     int update(TAData taData);
+
+    //Method to fetch TA data by semesterAkademik
+    List<TAData> findBysemesterAkademik( String semesterAkademik);
+
+    //Method to fetch all TA data by semesterAkademik
+    List<String> findAllSemesterAkademik();
 }

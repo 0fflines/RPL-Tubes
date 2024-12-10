@@ -60,30 +60,78 @@
                                 <th>Penguji 2</th>
                                 <th>Pembimbing Utama</th>
                                 <th>Pembimbing Pendamping</th>
-                                <th>Nilai</th>
+                              
                                 <th>BAP</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Tambahkan data mahasiswa secara dinamis -->
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            <tbody id="TA-table-body">
                         </tbody>
                     </table>
                 </div>
         </section>
     </div>
+    <script>
+          // Fungsi untuk mengambil data skripsi berdasarkan semester
+        async function fetchTAData(semester = 'ganjil 2024/2025') {
+            const response = await fetch(`/api/koordinator/ta/daftar?semesterAkademik=${encodeURIComponent(semester)}`);
+            const data = await response.json();
+
+            const tableBody = document.getElementById('TA-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            // Jika data kosong, tampilkan pesan
+            if (data.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7">Tidak ada daftar mahasiswa.</td></tr>';
+            } else {
+                data.forEach((daftar) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${daftar.namaMahasiswa}</td>
+                        <td>${daftar.judulSkripsi}</td>
+                        <td>${daftar.jenisTA}</td>
+                        <td>${daftar.tempat}</td>
+                        <td>${new Date(daftar.tanggalSidang).toLocaleString()}</td>
+                        <td>${daftar.penguji1}</td>
+                        <td>${daftar.penguji2}</td>
+                        <td>${daftar.pembimbingUtama}</td>
+                        <td>${daftar.pembimbingPendamping}</td>
+                        <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        // Fungsi untuk mengambil daftar semester yang tersedia
+        async function fetchSemesters() {
+            const response = await fetch('/api/koordinator/ta/daftar/semesters');
+            const semesters = await response.json();
+
+            const semesterDropdown = document.getElementById('semester');
+            semesterDropdown.innerHTML = ''; // Clear existing options
+
+            semesters.forEach(semester => {
+                const option = document.createElement('option');
+                option.value = semester;
+                option.textContent = semester;
+                semesterDropdown.appendChild(option);
+            });
+        }
+
+        // Load semester saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', async function () {
+            await fetchSemesters();  // Memuat semester dari backend
+            const defaultSemester = document.getElementById('semester').value;  // Semester yang terpilih
+            await fetchTAData(defaultSemester); // Memanggil data dengan semester default
+        });
+
+        // Event listener untuk dropdown semester
+        document.getElementById('semester').addEventListener('change', async function () {
+            const semester = this.value;
+            await fetchTAData(semester); // Memanggil data berdasarkan semester yang dipilih
+        });
+    </script>
 </body>
 
 </html>

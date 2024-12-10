@@ -2,6 +2,7 @@ package com.example.tubesRPL.Koordinator.TA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
@@ -44,7 +45,16 @@ public class TADataManagementController {
         } catch (Exception e) {
             model.addAttribute("message", "Error: " + e.getMessage());
         }
-        return "ta-success";
+        return "TA berhasil dibuat";
+    }
+
+    @GetMapping("/daftar")
+    public List<TAData> getTAdataBySemesterAkademik(
+            @RequestParam(value = "semesterAkademik", required = false) String semesterAkademik) {
+        if (semesterAkademik == null || semesterAkademik.isEmpty()) {
+            semesterAkademik = "Ganjil 2024/2025"; // Default value
+        }
+        return  taInterface.findBysemesterAkademik(semesterAkademik);
     }
 
 
@@ -70,4 +80,10 @@ public class TADataManagementController {
             return "TA data tidak ditemukan!";
         }
     }
+
+    @GetMapping("/daftar/semesters")
+    public List<String> getAvailableSemesters() {
+        return taInterface.findAllSemesterAkademik();
+    }
+
 }
