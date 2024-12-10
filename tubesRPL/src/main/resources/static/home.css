@@ -78,6 +78,22 @@ body {
     width: 80px;
 }
 
+
+.logout-button:hover,
+.profile-button:hover {
+    display: block;
+    background-color: #fff;
+    color: #002855;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 section {
     margin-top: 50px;
     display: flex;
@@ -115,4 +131,15 @@ input[type="submit"] {
     align-items: center;
     color: white;
     font-size: 30px;
+}
+
+input[type="submit"]:hover {
+    background-color: #01428d;
+    border-radius: 25px;
+    width: 210px;
+    height: 210px;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
 }

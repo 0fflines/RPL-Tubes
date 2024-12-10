@@ -13,7 +13,7 @@ body {
     display: grid;
     grid-template-rows: auto auto auto;
     grid-template-columns: auto;
-    row-gap: 0;
+    row-gap: 5px;
 }
 
 .header {
@@ -93,6 +93,21 @@ body {
     text-decoration: none;
 }
 
+.logout-button:hover,
+.profile-button:hover {
+    display: block;
+    background-color: #fff;
+    color: #002855;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .table_component {
     width: 100%;
     border-collapse: collapse;
@@ -135,13 +150,27 @@ body {
     border-style: solid;
 }
 
-input[type="submit"] {
+form a {
     background-color: #002855;
     color: white;
-    margin: 10px;
+    margin: 15px;
     width: 200px;
     height: 40px;
     border-radius: 25px;
+    text-decoration: none;
+    padding: 5px;
+}
+
+form a:hover {
+    background-color: #01428d;
+    color: white;
+    margin: 15px;
+    width: 200px;
+    height: 40px;
+    border-radius: 25px;
+    text-decoration: none;
+    padding: 5px;
+    font-weight: bold;
 }
 
 section {
@@ -153,14 +182,6 @@ section {
     display: flex;
 }
 
-button[type="submit"] {
-    background-color: #002855;
-    color: white;
-    margin: 10px;
-    width: 80px;
-    height: 25px;
-    border-radius: 20px;
-}
 
 .container-config {
     display: grid;
@@ -209,12 +230,23 @@ button[type="submit"] {
 
 .btn-delete {
     padding: 5px 10px;
+    background-color: red;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.btn-delete:hover {
+    padding: 5px 10px;
     background-color: #dc3545;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: fit-content;
+    font-weight: bold;
 }
 
 .label {
@@ -246,17 +278,38 @@ button[type="submit"] {
     text-decoration: none;
 }
 
+.btn-back:hover {
+    background-color: #01428d;
+    font-weight: bold;
+}
+
 .btn-tambah {
-    background-color: #5cb85c;
+    background-color: green;
+}
+
+.btn-tambah:hover {
+    background-color: rgb(1, 161, 1);
+    font-weight: bold;
 }
 
 .disabled {
     opacity: 0.3;
-    background-color: #5cb85c;
+    background-color: green;
+}
+
+.disabled:hover {
+    opacity: 0.3;
+    background-color: rgb(1, 161, 1);
+    font-weight: bold;
 }
 
 .btn-save {
-    background-color: #5cb85c;
+    background-color: green;
+}
+
+.btn-save:hover {
+    background-color: rgb(1, 161, 1);
+    font-weight: bold;
 }
 
 .container-main {
@@ -353,13 +406,33 @@ button[type="submit"] {
     cursor: pointer;
 }
 
+.btn-cancel:hover {
+    background-color: #dc3545;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
 .btn-confirm {
     padding: 10px 20px;
-    background-color: #5cb85c;
+    background-color: green;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.btn-confirm:hover {
+    padding: 10px 20px;
+    background-color: rgb(1, 161, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .hidden {

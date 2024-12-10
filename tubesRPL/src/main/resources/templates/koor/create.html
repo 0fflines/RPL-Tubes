@@ -4,77 +4,79 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/dosen.css" />
+    <link rel="stylesheet" href="/create.css" />
     <title>Buat TA Baru</title>
 </head>
 
 <body>
-    <div class="header">
-        <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
-        <div class="sidebar">
-            <div id="role">Koordinator</div>
-            <div class="profile-info">
-                <div class="profile-pic"></div>
-                <p class="email">koordinator@unpar.ac.id</p>
+    <div class="container">
+        <div class="header">
+            <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
+            <div class="sidebar">
+                <div id="role">Koordinator</div>
+                <div class="profile-info">
+                    <div class="profile-pic"></div>
+                    <p class="email">koordinator@unpar.ac.id</p>
+                </div>
+                <a href="login" class="logout-button">Log out</a>
+                <a href="profile" class="profile-button">Profile</a>
             </div>
-            <a href="login" class="logout-button">Log out</a>
-            <a href="profile" class="profile-button">Profile</a>
         </div>
+        <a href="/koordinator" class="home-button">BACK TO HOME PAGE</a>
+        <div class="navigation create">
+            <h1>Buat TA Baru</h1>
+        </div>
+        <section>
+            <form action="/api/koordinator/ta/save" method="POST">
+                <div class="left">
+                    <label for="name">Nama Mahasiswa :</label>
+                    <input type="text" name="namaMahasiswa" id="name" placeholder="Masukkan nama mahasiswa" required />
+
+                    <label for="judul">Judul Skripsi :</label>
+                    <input type="text" name="judulSkripsi" id="judul" placeholder="Masukkan judul skripsi" required />
+
+                    <label for="jenis">Jenis TA :</label>
+                    <select name="jenisTa" id="jenis" required>
+                        <option value="TA1">TA 1</option>
+                        <option value="TA2">TA 2</option>
+                    </select>
+
+                    <label for="tempat">Tempat :</label>
+                    <input type="text" name="tempat" id="tempat" placeholder="Masukkan lokasi sidang" required />
+
+                    <label for="tanggal">Tanggal dan Waktu Sidang:</label>
+                    <input type="datetime-local" name="tanggalSidang" id="tanggal" required />
+                </div>
+                <div class="right">
+                    <label for="penguji-1">Penguji 1 :</label>
+                    <input type="text" name="penguji1" id="penguji-1" placeholder="Nama Penguji 1" required />
+
+                    <label for="penguji-2">Penguji 2 :</label>
+                    <input type="text" name="penguji2" id="penguji-2" placeholder="Nama Penguji 2" required />
+
+                    <label for="pembimbing-u">Pembimbing Utama :</label>
+                    <input type="text" name="pembimbingUtama" id="pembimbing-u" placeholder="Nama Pembimbing Utama"
+                        required />
+
+                    <label for="pembimbing-p">Pembimbing Pendamping :</label>
+                    <input type="text" name="pembimbingPendamping" id="pembimbing-p"
+                        placeholder="Nama Pembimbing Pendamping" required />
+
+                    <label for="semester">Semester Akademik:</label>
+                    <select name="semesterAkademik" id="semester" required>
+                        <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
+                        <option value="genap-2023-2024">Genap 2023/2024</option>
+                        <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
+                        <option value="genap-2022-2023">Genap 2022/2023</option>
+                        <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
+                    </select>
+                </div>
+                <div class="container-simpan">
+                    <input type="submit" value="Simpan Data" id="simpan-data" />
+                </div>
+            </form>
+        </section>
     </div>
-    <a href="/koordinator">BACK TO HOME PAGE</a>
-    <div class="navigation create">
-        <h1>Buat TA Baru</h1>
-    </div>
-    <section>
-        <form action="/api/koordinator/ta/save" method="POST">
-            <div class="left">
-                <label for="name">Nama Mahasiswa :</label>
-                <input type="text" name="namaMahasiswa" id="name" placeholder="Masukkan nama mahasiswa" required />
-
-                <label for="judul">Judul Skripsi :</label>
-                <input type="text" name="judulSkripsi" id="judul" placeholder="Masukkan judul skripsi" required />
-
-                <label for="jenis">Jenis TA :</label>
-                <select name="jenisTa" id="jenis" required>
-                    <option value="TA1">TA 1</option>
-                    <option value="TA2">TA 2</option>
-                </select>
-
-                <label for="tempat">Tempat :</label>
-                <input type="text" name="tempat" id="tempat" placeholder="Masukkan lokasi sidang" required />
-
-                <label for="tanggal">Tanggal dan Waktu Sidang:</label>
-                <input type="datetime-local" name="tanggalSidang" id="tanggal" required />
-            </div>
-            <div class="right">
-                <label for="penguji-1">Penguji 1 :</label>
-                <input type="text" name="penguji1" id="penguji-1" placeholder="Nama Penguji 1" required />
-
-                <label for="penguji-2">Penguji 2 :</label>
-                <input type="text" name="penguji2" id="penguji-2" placeholder="Nama Penguji 2" required />
-
-                <label for="pembimbing-u">Pembimbing Utama :</label>
-                <input type="text" name="pembimbingUtama" id="pembimbing-u" placeholder="Nama Pembimbing Utama"
-                    required />
-
-                <label for="pembimbing-p">Pembimbing Pendamping :</label>
-                <input type="text" name="pembimbingPendamping" id="pembimbing-p"
-                    placeholder="Nama Pembimbing Pendamping" required />
-
-                <label for="semester">Semester Akademik:</label>
-                <select name="semesterAkademik" id="semester" required>
-                    <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
-                    <option value="genap-2023-2024">Genap 2023/2024</option>
-                    <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
-                    <option value="genap-2022-2023">Genap 2022/2023</option>
-                    <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
-                </select>
-            </div>
-            <div class="container-simpan">
-                <input type="submit" value="Simpan Data" id="simpan-data" />
-            </div>
-        </form>
-    </section>
 </body>
 
 </html>

@@ -93,6 +93,22 @@ body {
     text-decoration: none;
 }
 
+
+.logout-button:hover,
+.profile-button:hover {
+    display: block;
+    background-color: #fff;
+    color: #002855;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .table_component {
     width: 100%;
     border-collapse: collapse;
@@ -140,6 +156,18 @@ body {
 
 .home-button{
     background-color: #002855;
+    color: white;
+    margin: 10px;
+    width: 200px;
+    height: 40px;
+    border-radius: 25px;
+    padding: 10px;
+    text-decoration: none;
+    margin: 20px;
+}
+
+.home-button:hover{
+    background-color: #01428d;
     color: white;
     margin: 10px;
     width: 200px;
