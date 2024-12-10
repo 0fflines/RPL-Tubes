@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -34,16 +35,18 @@ public class TADataManagementController {
 
     // Endpoint to save new TA data
     // Endpoint untuk menyimpan data TA baru
-    @PostMapping("/save") // Pastikan /save ada di URL dan menggunakan POST
+    @PostMapping("/save")
     public String saveTAData(@ModelAttribute TAData taData, Model model) {
-        int result = taInterface.save(taData);
-        if (result > 0) {
-            model.addAttribute("message", "TA data berhasil disimpan!");
-        } else {
-            model.addAttribute("message", "Gagal menyimpan data TA!");
+        try {
+            taData.setTanggalSidang(LocalDateTime.parse(taData.getTanggalSidang().toString())); // Parsing string ke LocalDateTime
+            int result = taInterface.save(taData);
+            model.addAttribute("message", result > 0 ? "TA data berhasil disimpan!" : "Gagal menyimpan data TA!");
+        } catch (Exception e) {
+            model.addAttribute("message", "Error: " + e.getMessage());
         }
-        return "ta-success"; // Arahkan ke halaman sukses
+        return "ta-success";
     }
+
 
     // Endpoint to update an existing TA data entry
     @PutMapping("/update/{id}")

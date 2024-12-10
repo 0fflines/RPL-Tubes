@@ -1,5 +1,7 @@
 package com.example.tubesRPL.Koordinator.TA;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ public class TAData {
     private String judulSkripsi;
     private String jenisTa;
     private String tempat;
-    private String tanggalSidang;
+    private LocalDateTime tanggalSidang; 
     private String penguji1;
     private String penguji2;
     private String pembimbingUtama;

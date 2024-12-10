@@ -26,30 +26,32 @@ public class TADataJdbcRepository implements TAInterface {
                 taData.getJudulSkripsi(),
                 taData.getJenisTa(),
                 taData.getTempat(),
-                taData.getTanggalSidang(),
+                java.sql.Timestamp.valueOf(taData.getTanggalSidang()), // Konversi LocalDateTime ke Timestamp
                 taData.getPenguji1(),
                 taData.getPenguji2(),
                 taData.getPembimbingUtama(),
                 taData.getPembimbingPendamping(),
                 taData.getSemesterAkademik());
     }
+    
 
     @Override
-    public List<TAData> findAll() {
-        String sql = "SELECT * FROM ta_data";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new TAData(
-                rs.getInt("id"),
-                rs.getString("nama_mahasiswa"),
-                rs.getString("judul_skripsi"),
-                rs.getString("jenis_ta"),
-                rs.getString("tempat"),
-                rs.getString("tanggal_sidang"),
-                rs.getString("penguji_1"),
-                rs.getString("penguji_2"),
-                rs.getString("pembimbing_utama"),
-                rs.getString("pembimbing_pendamping"),
-                rs.getString("semester_akademik")));
-    }
+public List<TAData> findAll() {
+    String sql = "SELECT * FROM ta_data";
+    return jdbcTemplate.query(sql, (rs, rowNum) -> new TAData(
+            rs.getInt("id"),
+            rs.getString("nama_mahasiswa"),
+            rs.getString("judul_skripsi"),
+            rs.getString("jenis_ta"),
+            rs.getString("tempat"),
+            rs.getTimestamp("tanggal_sidang").toLocalDateTime(), // Konversi Timestamp ke LocalDateTime
+            rs.getString("penguji_1"),
+            rs.getString("penguji_2"),
+            rs.getString("pembimbing_utama"),
+            rs.getString("pembimbing_pendamping"),
+            rs.getString("semester_akademik")));
+}
+
 
     @Override
     public boolean existsById(Integer id) {
@@ -74,7 +76,7 @@ public class TADataJdbcRepository implements TAInterface {
                 taData.getJudulSkripsi(),
                 taData.getJenisTa(),
                 taData.getTempat(),
-                taData.getTanggalSidang(),
+                java.sql.Timestamp.valueOf(taData.getTanggalSidang()), // Konversi LocalDateTime ke Timestamp
                 taData.getPenguji1(),
                 taData.getPenguji2(),
                 taData.getPembimbingUtama(),
@@ -82,4 +84,5 @@ public class TADataJdbcRepository implements TAInterface {
                 taData.getSemesterAkademik(),
                 taData.getId());
     }
+    
 }

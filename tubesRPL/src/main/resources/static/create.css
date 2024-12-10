@@ -220,6 +220,7 @@ h1 {
     border-color: rgb(1, 161, 1);
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
 input[type="text"], select, #tanggal {
