@@ -1,25 +1,5 @@
 --Data Masih Dummy
 
-CREATE TABLE skripsi_penguji (
-    id SERIAL PRIMARY KEY,
-    nama_mahasiswa VARCHAR(100) NOT NULL,
-    judul_skripsi VARCHAR(255),
-    waktu TIMESTAMP,
-    tempat VARCHAR(100),
-    nilai INTEGER,
-    tahun_akademik VARCHAR(9)
-);
-
-INSERT INTO skripsi_penguji (nama_mahasiswa, judul_skripsi, waktu, tempat, nilai, tahun_akademik) VALUES
-('Kevin', 'Skripsi A', '2023-08-01 10:00:00', 'Ruang A', 90, '2023/2024'),
-('Andini', 'Skripsi B', '2022-06-15 14:00:00', 'Ruang B', 85, '2021/2022'),
-('Hafiz', 'Skripsi C', '2024-01-10 09:00:00', 'Ruang C', 88, '2023/2024'),
-('Zaki', 'Skripsi A', '2024-08-10 10:00:00', 'Ruang C', 88, '2024/2025'),
-('Fahza', 'Skripsi B', '2024-08-10 10:00:00', 'Ruang C', 88, '2024/2025'),
-('Wombat', 'Skripsi A', '2022-09-10 13:00:00', 'Ruang D', 76, '2022/2023'),
-('Kapibara', 'Skripsi B', '2023-02-8 14:00:00', 'Ruang B', 86, '2022/2023'),
-('KapiDion', 'Skripsi B', '2020-02-8 16:00:00', 'Ruang D', 76, '2020/2021');
-
 CREATE TABLE ta_data (
     id SERIAL PRIMARY KEY,
     nama_mahasiswa VARCHAR(255) NOT NULL,
@@ -33,6 +13,26 @@ CREATE TABLE ta_data (
     pembimbing_pendamping VARCHAR(255),
     semester_akademik VARCHAR(50)
 );
+
+create table nama_dosen (
+	nama_dosen VARCHAR(255) PRIMARY KEY,
+	email_dosen VARCHAR(255),
+	password VARCHAR(50)
+)
+
+INSERT INTO nama_dosen (nama_dosen, email_dosen, password)
+VALUES
+('Keenan Adiwijaya Leman, S.T, M.T', 'keenan.leman@unpar.ac.id', 'dosen123'),
+('Maria Veronica, S.T, M.T', 'maria.veronica@unpar.ac.id', 'dosen123'),
+('Lionov, Ph.D', 'lionov@unpar.ac.id', 'dosen123'),
+('Raymond Chandra Putra, S.T., M.T', 'raymond.chandra@unpar.ac.id', 'dosen123'),
+('Mariskha Tri Adithia, S.Si., M.Sc., PDEng', 'mariskha@unpar.ac.id', 'dosen123'),
+('Husnul Hakim, S.Kom., M.T', 'husnulhakim@unpar.ac.id', 'dosen123'),
+('Pascal Alfadian Nugroho, S.Kom., M.Comp', 'pascal@unpar.ac.id', 'dosen123'),
+('Natalia, S.Si., M.Si', 'natalia@unpar.ac.id', 'dosen123'),
+('Vania Natali, S.Kom., M.T', 'vania.natali@unpar.ac.id', 'dosen123'),
+('Luciana Abednego, S.Kom., M.T', 'luciana@unpar.ac.id', 'dosen123');
+
 
 --buat bagian siapa aja penguji sama pembibing nyimpennya gimana belum kepikir sori
 -- CREATE TABLE tugas_akhir(
