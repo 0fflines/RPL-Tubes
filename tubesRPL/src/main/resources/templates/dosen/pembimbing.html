@@ -32,12 +32,12 @@
                     <!-- <input type="submit" value="BACK TO HOME PAGE" /> -->
                     <a href="home" class="home-button">BACK TO HOME PAGE</a>
                 </form>
-                <form action="#" class="dropdown">
+                <form action="/select-semester" class="dropdown" aria-label="Pilih Semester">
                     <label for="semester">Semester Akademik</label>
                     <select name="semester" id="semester">
+                        <option value="Ganjil 2024/2025">Genap 2024/2025</option>
                         <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
-                        <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
-                        <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
+                        <option value="Ganjil 2024/2025">Genap 2023/2024</option>
                     </select>
                 </form>
             </div>
@@ -49,29 +49,81 @@
                             <tr>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Skripsi</th>
-                                <th>Waktu</th>
+                                <th>Jenis TA</th>
                                 <th>Tempat</th>
+                                <th>Tanggal dan Waktu</th>
+                                <th>Semester Akademik</th>
                                 <th>Nilai</th>
-                                <th>Catatan</th>
                                 <th>BAP</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Kevin</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><button class="view-bap">📄</button></td>
-                            </tr>
+                            <tbody id="TA-table-body">
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
     </div>
+    <script>
+        // Fungsi untuk mengambil data skripsi berdasarkan semester
+        async function fetchTAData(semesterOption = "ganjil-2024-2025", namaDosen = "asdad") {
+            const response = await fetch(`/api/dosen/ta/pembimbing/daftar?semesterAkademik=${encodeURIComponent(semesterOption)}&namaDosen=${encodeURIComponent(namaDosen)}`);
+            const data = await response.json();
+
+            const tableBody = document.getElementById('TA-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+            
+            // Jika data kosong, tampilkan pesan
+            if (data.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7">Tidak ada TA yang ditugaskan</td></tr>';
+            } else {
+                data.forEach((daftar) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${daftar.namaMahasiswa}</td>
+                        <td>${daftar.judulSkripsi}</td>
+                        <td>${daftar.jenisTa}</td>
+                        <td>${daftar.tempat}</td>
+                        <td>${new Date(daftar.tanggalSidang).toLocaleString()}</td>
+                        <td>${daftar.semesterAkademik}</td>
+                        <td><a href="nilai"><button class="edit-nilai">📄</button></a></td>
+                        <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        // Fungsi untuk mengambil daftar semester yang tersedia
+        async function fetchSemesters(namaDosen = "asdad") {
+            const response = await fetch(`/api/dosen/ta/pembimbing/daftar/semesters?namaDosen=${encodeURIComponent(namaDosen)}`);
+            const semesters = await response.json();
+
+            const semesterDropdown = document.getElementById('semester');
+            semesterDropdown.innerHTML = ''; // Clear existing options
+
+            semesters.forEach(semester => {
+                const option = document.createElement('option');
+                option.value = semester;
+                option.textContent = semester;
+                semesterDropdown.appendChild(option);
+            });
+        }
+
+        // Load semester saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', async function () {
+            await fetchSemesters();  // Memuat semester dari backend
+            const defaultSemester = document.getElementById('semester').value;  // Semester yang terpilih
+            await fetchTAData(defaultSemester); // Memanggil data dengan semester default
+        });
+
+        // Event listener untuk dropdown semester
+        document.getElementById('semester').addEventListener('change', async function () {
+            const semester = this.value;
+            await fetchTAData(semester); // Memanggil data berdasarkan semester yang dipilih
+        });
+    </script>
 </body>
 
 </html>

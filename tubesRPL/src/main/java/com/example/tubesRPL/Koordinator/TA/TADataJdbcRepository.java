@@ -55,6 +55,19 @@ public class TADataJdbcRepository implements TAInterface {
         return jdbcTemplate.query(sql, rowMapper);
     }
 
+    @Override
+    public List<TAData> findBySemesterAkademikPenguji(String semesterAkademik, String namaDosen) {
+        String sql = "SELECT * FROM ta_data WHERE semester_akademik = ? "+
+        "AND (penguji_1 = ? OR penguji_2 = ?)";
+        return jdbcTemplate.query(sql, rowMapper, semesterAkademik, namaDosen, namaDosen);
+    }
+
+    @Override
+    public List<TAData> findBySemesterAkademikPembimbing(String semesterAkademik, String namaDosen) {
+        String sql = "SELECT * FROM ta_data WHERE semester_akademik = ? "+
+        "AND (pembimbing_utama = ? OR pembimbing_pendamping = ?)";
+        return jdbcTemplate.query(sql, rowMapper, semesterAkademik, namaDosen, namaDosen);
+    }
 
     @Override
     public boolean existsById(Integer id) {
@@ -97,6 +110,20 @@ public class TADataJdbcRepository implements TAInterface {
     @Override
     public List<String> findAllSemesterAkademik() {
         String sql = "SELECT DISTINCT semester_akademik FROM ta_data ORDER BY semester_akademik DESC";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    @Override
+    public List<String> findAllSemesterAkademikPembimbing(String namaDosen) {
+        String sql = "SELECT DISTINCT semester_akademik FROM ta_data "+
+        "WHERE pembimbing_utama = ? OR pembimbing_pendamping = ? ORDER BY semester_akademik DESC";
+        return jdbcTemplate.queryForList(sql, String.class, namaDosen, namaDosen);
+    }
+
+    @Override
+    public List<String> findAllSemesterAkademikPenguji(String namaDosen) {
+        String sql = "SELECT DISTINCT semester_akademik FROM ta_data "+
+        "WHERE penguji_1 = ? OR penguji_2 = ? ORDER BY semester_akademik DESC";
         return jdbcTemplate.queryForList(sql, String.class);
     }
 }
