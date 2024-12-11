@@ -25,16 +25,4 @@ public interface TAInterface {
 
     //Method to fetch all TA data by semesterAkademik
     List<String> findAllSemesterAkademik();
-
-    //Method to fetch TA data by nama dosen as Penguji
-    List<TAData> findBySemesterAkademikPenguji(String semesterAkademik, String nama);
-
-    //Method to fetch TA data by nama dosen as Pembimbing
-    List<TAData> findBySemesterAkademikPembimbing(String semesterAkademik, String nama);
-
-    //Method to fetch all TA data by semesterAkademik
-    List<String> findAllSemesterAkademikPembimbing(String namaDosen);
-
-    //Method to fetch all TA data by semesterAkademik
-    List<String> findAllSemesterAkademikPenguji(String namaDosen);
 }

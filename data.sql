@@ -33,6 +33,16 @@ VALUES
 ('Vania Natali, S.Kom., M.T', 'vania.natali@unpar.ac.id', 'dosen123'),
 ('Luciana Abednego, S.Kom., M.T', 'luciana@unpar.ac.id', 'dosen123');
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    nama_lengkap VARCHAR(100) NOT NULL,
+    npm VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+	role VARCHAR(255) NOT NULL
+);
+
+
 
 --buat bagian siapa aja penguji sama pembibing nyimpennya gimana belum kepikir sori
 -- CREATE TABLE tugas_akhir(
