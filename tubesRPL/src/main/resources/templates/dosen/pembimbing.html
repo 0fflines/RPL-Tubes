@@ -20,24 +20,23 @@
                 </div>
                 <a href="login" class="logout-button">Log out</a>
                 <a href="profile" class="profile-button">Profile</a>
-                <!-- <button class="logout-button">Log Out</button>
-                <button class="profile-button">Profile</button> -->
             </div>
         </div>
         <section>
             <div class="navigation">
                 <form action="/dosen/home" method="GET" class="back button">
-                    <input type="email" value="<%= email %>" name="email" hidden />
-                    <input type="text" value="<%= role %>" name="role" hidden />
-                    <!-- <input type="submit" value="BACK TO HOME PAGE" /> -->
+                    <input type="email" value="email" name="email" hidden />
+                    <input type="text" value="role" name="role" hidden />
                     <a href="home" class="home-button">BACK TO HOME PAGE</a>
                 </form>
                 <form action="#" class="dropdown">
                     <label for="semester">Semester Akademik</label>
-                    <select name="semester" id="semester">
-                        <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
-                        <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
-                        <option value="Ganjil 2024/2025">Ganjil 2024/2025</option>
+                    <select name="semesterAkademik" id="semester" required>
+                        <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
+                        <option value="genap-2023-2024">Genap 2023/2024</option>
+                        <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
+                        <option value="genap-2022-2023">Genap 2022/2023</option>
+                        <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
                     </select>
                 </form>
             </div>
@@ -47,6 +46,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>NPM</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Skripsi</th>
                                 <th>Waktu</th>
@@ -56,22 +56,55 @@
                                 <th>BAP</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Kevin</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><button class="view-bap">📄</button></td>
-                            </tr>
+                        <tbody id="skripsi-table-body">
+                            <!-- Data akan diisi oleh JavaScript -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
     </div>
+    <script>
+        const semesterDropdown = document.getElementById('semester');
+        const tableBody = document.getElementById('skripsi-table-body');
+
+        // Fungsi untuk fetch data dari API
+        async function fetchData(semester) {
+            try {
+                const response = await fetch(`/api/skripsi?semester=${semester}`);
+                const data = await response.json();
+
+                // Kosongkan tabel
+                tableBody.innerHTML = "";
+
+                // Tambahkan data ke tabel
+                data.forEach((item) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.namaMahasiswa}</td>
+                        <td>${item.judulSkripsi}</td>
+                        <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
+                        <td>${item.tempat || '-'}</td>
+                        <td>Nilai</td>
+                        <td>Catatan</td>
+                        <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        // Event listener untuk dropdown
+        semesterDropdown.addEventListener('change', (event) => {
+            fetchData(event.target.value);
+        });
+
+        // Panggilan awal untuk semester default
+        fetchData(semesterDropdown.value);
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,3 @@
---Data Masih Dummy
-
 CREATE TABLE ta_data (
     id SERIAL PRIMARY KEY,
     nama_mahasiswa VARCHAR(255) NOT NULL,
@@ -41,7 +39,6 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
 	role VARCHAR(255) NOT NULL
 );
-
 
 
 --buat bagian siapa aja penguji sama pembibing nyimpennya gimana belum kepikir sori
