@@ -118,9 +118,9 @@
         <div class="popup-content">
             <span class="close" id="tombolTutupCatatan">&times;</span>
             <h3>Evaluasi Nilai</h3>
-            <p><strong>Nama Mahasiswa:</strong> Kevin Halim</p>
-            <p><strong>Judul Skripsi:</strong> Sistem Manajemen SW</p>
-            <p><strong>Waktu Sidang:</strong> 21 Oktober 2024, 10:00 - 11:00</p>
+            <p><strong>Nama Mahasiswa:</strong></p>
+            <p><strong>Judul Skripsi:</strong></p>
+            <p><strong>Waktu Sidang:</strong></p>
 
             <h4>Catatan:</h4>
             <textarea id="catatanTextBox" placeholder="Isi Catatan"></textarea>
@@ -153,15 +153,27 @@
                         <td><span class="tombolBukaCatatan" id="tombolBukaCatatan">Catatan</span></td>
                         <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                     `;
-                    tableBody.appendChild(row);
-                });
 
-                //tambahin button ke semua Catatan buat buka pop up
-                const buttons = document.querySelectorAll(".tombolBukaCatatan");
-                buttons.forEach((button) => {
-                    button.onclick= function(){
-                        popupCatatan.style.display = "block";
+                    //tambahin button ke semua Catatan di row
+                    const button = row.querySelector(".tombolBukaCatatan");
+                    button.onclick = function(){
+                        //baca info ta dari table
+                        //cek apakah isi item null atau tidak, jika null akan value akan menjadi --
+                        const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
+                        const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
+                        const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
+
+                        document.querySelector("#catatan .popup-content p:nth-child(3)").innerHTML =
+                        `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
+                        document.querySelector("#catatan .popup-content p:nth-child(4)").innerHTML =
+                        `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
+                        document.querySelector("#catatan .popup-content p:nth-child(5)").innerHTML =
+                        `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
+
+                        document.getElementById("catatan").style.display = "block"
                     }
+
+                    tableBody.appendChild(row);
                 });
             } catch (error) {
                 console.error("Error fetching data:", error);
