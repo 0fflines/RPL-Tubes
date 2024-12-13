@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/koordinator.css" />
-    <title>Penguji</title>
+    <title>Koordinator</title>
 </head>
 
 <body>
@@ -60,19 +60,19 @@
                                 <th>Penguji 2</th>
                                 <th>Pembimbing Utama</th>
                                 <th>Pembimbing Pendamping</th>
-                              
+
                                 <th>BAP</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tbody id="TA-table-body">
+                        <tbody id="TA-table-body">
                         </tbody>
                     </table>
                 </div>
         </section>
     </div>
     <script>
-          // Fungsi untuk mengambil data skripsi berdasarkan semester
+        // Fungsi untuk mengambil data skripsi berdasarkan semester
         async function fetchTAData(semester = 'ganjil 2024/2025') {
             const response = await fetch(`/api/koordinator/ta/daftar?semesterAkademik=${encodeURIComponent(semester)}`);
             const data = await response.json();

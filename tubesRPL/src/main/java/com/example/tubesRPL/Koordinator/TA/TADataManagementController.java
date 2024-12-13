@@ -39,8 +39,7 @@ public class TADataManagementController {
     @PostMapping("/save")
     public String saveTAData(@ModelAttribute TAData taData, Model model) {
         try {
-            taData.setTanggalSidang(LocalDateTime.parse(taData.getTanggalSidang().toString())); // Parsing string ke
-                                                                                                // LocalDateTime
+            taData.setTanggalSidang(LocalDateTime.parse(taData.getTanggalSidang().toString())); // Parsing string ke LocalDateTime
             int result = taInterface.save(taData);
             model.addAttribute("message", result > 0 ? "TA data berhasil disimpan!" : "Gagal menyimpan data TA!");
         } catch (Exception e) {
@@ -55,8 +54,9 @@ public class TADataManagementController {
         if (semesterAkademik == null || semesterAkademik.isEmpty()) {
             semesterAkademik = "Ganjil 2024/2025"; // Default value
         }
-        return taInterface.findBysemesterAkademik(semesterAkademik);
+        return  taInterface.findBysemesterAkademik(semesterAkademik);
     }
+
 
     // Endpoint to update an existing TA data entry
     @PutMapping("/update/{id}")
