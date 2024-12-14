@@ -1,16 +1,5 @@
---Query untuk membuat data users
-create table users (
-	id_users SERIAL,
-	nama_users VARCHAR(100) NOT NULL,
-	email_users VARCHAR(100) UNIQUE NOT NULL,
-	nomor_induk VARCHAR(100) UNIQUE NOT NULL,
-	password VARCHAR(255) NOT NULL,
-	role VARCHAR(100) NOT NULL
-);
-
 -- Query untuk membuat tabel mahasiswa
 CREATE TABLE mahasiswa (
-	id_mahasiswa SERIAL,
     nama_mahasiswa VARCHAR(255) PRIMARY KEY,
     npm VARCHAR(15) NOT NULL,
     email_mahasiswa VARCHAR(100) UNIQUE NOT NULL,
@@ -21,19 +10,26 @@ CREATE TABLE mahasiswa (
 CREATE TABLE dosen (
     id_dosen SERIAL PRIMARY KEY,
     nama_dosen VARCHAR(100) NOT NULL,
-    no_dosen VARCHAR(100) NOT NULL,
     email_dosen VARCHAR(100) UNIQUE NOT NULL,
     password_dosen VARCHAR(255) NOT NULL
 );
 
---Query Untuk Membuat tabel koordinator
-CREATE TABLE koordinator (
-    id_dosen SERIAL PRIMARY KEY,
-    nama_dosen VARCHAR(100) NOT NULL,
-    no_dosen VARCHAR(100) NOT NULL,
-    email_dosen VARCHAR(100) UNIQUE NOT NULL,
-    password_dosen VARCHAR(255) NOT NULL
-);
+-- insert data mahasiswa
+INSERT INTO mahasiswa (nama_mahasiswa, npm, email_mahasiswa, password_mahasiswa) VALUES ('Zefandion Benaya Teja', '6182201042', '6182201042@student.unpar.ac.id', '618042IC');
+
+-- insert data dosen
+INSERT INTO dosen (nama_dosen, email_dosen, password_dosen)
+VALUES
+('Keenan Adiwijaya Leman, S.T, M.T', 'keenan.leman@unpar.ac.id', 'dosen123'),
+('Maria Veronica, S.T, M.T', 'maria.veronica@unpar.ac.id', 'dosen123'),
+('Lionov, Ph.D', 'lionov@unpar.ac.id', 'dosen123'),
+('Raymond Chandra Putra, S.T., M.T', 'raymond.chandra@unpar.ac.id', 'dosen123'),
+('Mariskha Tri Adithia, S.Si., M.Sc., PDEng', 'mariskha@unpar.ac.id', 'dosen123'),
+('Husnul Hakim, S.Kom., M.T', 'husnulhakim@unpar.ac.id', 'dosen123'),
+('Pascal Alfadian Nugroho, S.Kom., M.Comp', 'pascal@unpar.ac.id', 'dosen123'),
+('Natalia, S.Si., M.Si', 'natalia@unpar.ac.id', 'dosen123'),
+('Vania Natali, S.Kom., M.T', 'vania.natali@unpar.ac.id', 'dosen123'),
+('Luciana Abednego, S.Kom., M.T', 'luciana@unpar.ac.id', 'dosen123');
 
 -- -- Query untuk membuat tabel daftar dosen penguji
 -- CREATE TABLE penguji (
@@ -49,7 +45,7 @@ CREATE TABLE koordinator (
 -- Query untuk membuat tabel TA
 CREATE TABLE ta_data (
     id_ta SERIAL PRIMARY KEY,
-    nama_mahasiswa VARCHAR(255)  REFERENCES mahasiswa(nama_mahasiswa)  NOT NULL,
+    nama_mahasiswa VARCHAR(255),
     judul_skripsi VARCHAR(255) NOT NULL,
     jenis_ta VARCHAR(50) NOT NULL,
     ruangan VARCHAR(255) NOT NULL,
@@ -108,7 +104,7 @@ CREATE TABLE avg_nilaiPembimbing(
 
 -- Query untuk menyimpan nilai kedisiplinan dari koordinator
 CREATE TABLE nilai_kedisiplinan(
-	id_ta INT REFERENCES ta_data(id_ta),
+	id_ta SERIAL REFERENCES ta_data(id_ta),
 	nilai_disiplin NUMERIC(5, 2)NOT NULL CHECK (nilai_disiplin >= 0 AND nilai_disiplin <= 100)
 );
 

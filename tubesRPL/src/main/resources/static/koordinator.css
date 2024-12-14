@@ -121,8 +121,12 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
     width: 400px;
+}
+
+.table_component td {
+    font-size: 10px;
 }
 
 .view-bap {
@@ -438,3 +442,4 @@ section {
 .hidden {
     display: none;
 }
+

@@ -20,10 +20,9 @@ public class TADataJdbcRepository implements TAInterface {
 
     @Override
     public int save(TAData taData) {
-        String sql = "INSERT INTO ta_data (nama_mahasiswa, judul_skripsi, jenis_ta, tempat, tanggal_sidang, " +
-                "penguji_1, penguji_2, pembimbing_utama, pembimbing_pendamping, semester_akademik) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        System.out.println("save");
+        String sql = "INSERT INTO ta_data (nama_mahasiswa, judul_skripsi, jenis_ta, ruangan, tanggal_sidang, " +
+                "penguji_1, penguji_2, pembimbing, semester_akademik) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
                 taData.getNamaMahasiswa(),
                 taData.getJudulSkripsi(),
@@ -32,22 +31,26 @@ public class TADataJdbcRepository implements TAInterface {
                 java.sql.Timestamp.valueOf(taData.getTanggalSidang()), // Konversi LocalDateTime ke Timestamp
                 taData.getPenguji1(),
                 taData.getPenguji2(),
-                taData.getPembimbingUtama(),
-                taData.getPembimbingPendamping(),
+                taData.getPembimbing(),
                 taData.getSemesterAkademik());
+    }
+
+    @Override
+    public int saveNilaiDisiplin(TAData taData) {
+        String sql2 = "INSERT INTO nilai_kedisiplinan (nilai_disiplin) VALUES (100)";
+        return jdbcTemplate.update(sql2);
     }
     
     private final RowMapper<TAData> rowMapper = (rs, rowNum) -> new TAData(
-        rs.getInt("id"),
+        rs.getInt("id_ta"),
         rs.getString("nama_mahasiswa"),
         rs.getString("judul_skripsi"),
         rs.getString("jenis_ta"),
-        rs.getString("tempat"),
+        rs.getString("ruangan"),
         rs.getTimestamp("tanggal_sidang").toLocalDateTime(), // Konversi Timestamp ke LocalDateTime
         rs.getString("penguji_1"),
         rs.getString("penguji_2"),
-        rs.getString("pembimbing_utama"),
-        rs.getString("pembimbing_pendamping"),
+        rs.getString("pembimbing"),
         rs.getString("semester_akademik"));
 
     @Override
@@ -66,28 +69,28 @@ public class TADataJdbcRepository implements TAInterface {
     @Override
     public List<TAData> findBySemesterAkademikPembimbing(String semesterAkademik, String namaDosen) {
         String sql = "SELECT * FROM ta_data WHERE semester_akademik = ? "+
-        "AND (pembimbing_utama = ? OR pembimbing_pendamping = ?)";
+        "AND (pembimbing = ?)";
         return jdbcTemplate.query(sql, rowMapper, semesterAkademik, namaDosen, namaDosen);
     }
 
     @Override
     public boolean existsById(Integer id) {
-        String sql = "SELECT COUNT(*) FROM ta_data WHERE id = ?";
+        String sql = "SELECT COUNT(*) FROM ta_data WHERE id_ta = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
         return count != null && count > 0;
     }
 
     @Override
     public int deleteById(Integer id) {
-        String sql = "DELETE FROM ta_data WHERE id = ?";
+        String sql = "DELETE FROM ta_data WHERE id_ta = ?";
         return jdbcTemplate.update(sql, id);
     }
 
     @Override
     public int update(TAData taData) {
-        String sql = "UPDATE ta_data SET nama_mahasiswa = ?, judul_skripsi = ?, jenis_ta = ?, tempat = ?, " +
-                "tanggal_sidang = ?, penguji_1 = ?, penguji_2 = ?, pembimbing_utama = ?, pembimbing_pendamping = ?, " +
-                "semester_akademik = ? WHERE id = ?";
+        String sql = "UPDATE ta_data SET nama_mahasiswa = ?, judul_skripsi = ?, jenis_ta = ?, ruangan = ?, " +
+                "tanggal_sidang = ?, penguji_1 = ?, penguji_2 = ?, pembimbing = ?, " +
+                "semester_akademik = ? WHERE id_ta = ?";
         return jdbcTemplate.update(sql,
                 taData.getNamaMahasiswa(),
                 taData.getJudulSkripsi(),
@@ -96,8 +99,7 @@ public class TADataJdbcRepository implements TAInterface {
                 java.sql.Timestamp.valueOf(taData.getTanggalSidang()), // Konversi LocalDateTime ke Timestamp
                 taData.getPenguji1(),
                 taData.getPenguji2(),
-                taData.getPembimbingUtama(),
-                taData.getPembimbingPendamping(),
+                taData.getPembimbing(),
                 taData.getSemesterAkademik(),
                 taData.getId());
     }
@@ -117,7 +119,7 @@ public class TADataJdbcRepository implements TAInterface {
     @Override
     public List<String> findAllSemesterAkademikPembimbing(String namaDosen) {
         String sql = "SELECT DISTINCT semester_akademik FROM ta_data "+
-        "WHERE pembimbing_utama = ? OR pembimbing_pendamping = ? ORDER BY semester_akademik DESC";
+        "WHERE pembimbing = ? ORDER BY semester_akademik DESC";
         return jdbcTemplate.queryForList(sql, String.class, namaDosen, namaDosen);
     }
 
@@ -127,4 +129,25 @@ public class TADataJdbcRepository implements TAInterface {
         "WHERE penguji_1 = ? OR penguji_2 = ? ORDER BY semester_akademik DESC";
         return jdbcTemplate.queryForList(sql, String.class);
     }
+
+    @Override
+    public List<String> findAllDosen() {
+        String sql = "SELECT DISTINCT nama_dosen FROM dosen ORDER BY nama_dosen ASC";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    @Override
+    public List<String> findAllMahasiswa() {
+        String sql = "SELECT DISTINCT nama_mahasiswa FROM mahasiswa ORDER BY nama_mahasiswa ASC";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    @Override
+    public List<String> findAllTempat() {
+        String sql = "SELECT DISTINCT nama_ruangan FROM ruangan ORDER BY nama_ruangan ASC";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+
+
 }

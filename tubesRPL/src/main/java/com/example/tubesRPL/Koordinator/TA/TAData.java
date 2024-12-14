@@ -18,7 +18,6 @@ public class TAData {
     private LocalDateTime tanggalSidang; 
     private String penguji1;
     private String penguji2;
-    private String pembimbingUtama;
-    private String pembimbingPendamping;
+    private String pembimbing;
     private String semesterAkademik;
 }
