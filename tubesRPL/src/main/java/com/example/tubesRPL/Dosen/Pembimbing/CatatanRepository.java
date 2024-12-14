@@ -27,12 +27,13 @@ public class CatatanRepository{
     //Jika belum ada catatan untuk TAnya akan dibuat dan direturns
     public Catatan loadCatatan(int idTA){
         String sqlFind = "SELECT * FROM catatan WHERE id_ta = ?";
-        Catatan result = jdbcTemplate.queryForObject(sqlFind, rowMapper, idTA);
-        if(result == null){
+        try {
+            Catatan result = jdbcTemplate.queryForObject(sqlFind, rowMapper, idTA);
+            return result;
+        } catch (Exception e) {
             String sqlSave = "INSERT INTO catatan (id_ta, isi_catatan) VALUES (?,?)";
             jdbcTemplate.update(sqlSave, idTA, "");
             return jdbcTemplate.queryForObject(sqlFind, rowMapper, idTA);
         }
-        return result;
     }
 }
