@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Sidang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            background-color: #ccc;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #002855;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h4, h5 {
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            width: 60px;
+            padding: 5px;
+            margin: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .nilai-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .nilai-section {
+            flex: 1;
+            margin: 0 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .nilai-section h5 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .nilai-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            align-items: center;
+        }
+        .add-button, .save-button {
+            background-color: #adff2f;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .save-button {
+            background-color: #00ff00;
+            margin: 10px auto;
+            display: block;
+        }
+        .remove-button {
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .back-button {
+            background-color: #4169e1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Informasi Sidang</h1>
+    </header>
+    <div class="container">
+        <div class="center">
+            <center><h4>Semester Akademik <input type="text" name="smt" id="smt"></h4></center>
+        </div>
+
+        <h5>Nama Mahasiswa: <input type="text" name="nama" id="nama"></h5>
+        <h5>NPM: <input type="text" name="npm" id="npm"></h5>
+        <br>
+        <h5>Judul Skripsi: <input type="text" name="judul" id="judul"></h5>
+        <h5>Waktu Sidang: <input type="text" name="waktu" id="waktu"></h5>
+        <br>
+        <h5>Dosen Pembimbing: <input type="text" name="dosbing" id="dosbing"></h5>
+        
+        <h5>Dosen Penguji 1: <input type="text" name="dj1" id="dj1"></h5>
+        <h5>Dosen Penguji 2: <input type="text" name="dj2" id="dj2"></h5>
+        <br>
+        <h5>Nilai:</h5>
+        <div class="container">
+            <div class="nilai-container">
+                <div class="nilai-section">
+                    <h5>Penguji <input type="text" value=""</h5>
+                    <div class="nilai-item">Tata tulis laporan <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <div class="nilai-item">Kelengkapan materi <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <div class="nilai-item">Pencapaian tujuan <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <div class="nilai-item">Penguasaan materi <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <div class="nilai-item">Presentasi <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <button class="add-button">Tambah Komponen penilaian</button>
+                </div>
+    
+                <div class="nilai-section">
+                    <h5>Pembimbing <input type="text" value=""></h5>
+                    <div class="nilai-item">Tata tulis laporan <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <div class="nilai-item">Kelengkapan materi <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <div class="nilai-item">Proses Bimbingan <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <div class="nilai-item">Penguasaan materi <input type="text" value=""> <button class="remove-button">-</button></div>
+                    <button class="add-button">Tambah Komponen penilaian</button>
+                </div>
+    
+                <div class="nilai-section">
+                    <h5>Koordinator TA <input type="text" value=""</h5>
+                    <div class="nilai-item">Kedisiplinan <input type="text" value="100%"> <button class="remove-button">-</button></div>
+                    <button class="add-button">Tambah Komponen penilaian</button>
+                </div>
+            </div>
+            <button class="save-button">SAVE</button>
+            <div class="button-container">
+                <button class="back-button">Back</button>
+                <button class="save-button">Ubah Komponen Penilaian</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
