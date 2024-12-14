@@ -17,17 +17,17 @@ public class PengujiRepo {
     // Method untuk mapping ResultSet ke TugasAkhir
     private SkripsiData mapRowToTugasAkhir(ResultSet rs, int rowNum) throws SQLException {
         return new SkripsiData(
-                rs.getInt("id"),
+                rs.getInt("id_ta"),
                 rs.getString("nama_mahasiswa"),
                 rs.getString("judul_skripsi"),
-                rs.getString("tempat"),
+                rs.getString("ruangan"),
                 rs.getString("tanggal_sidang"),
                 rs.getString("semester_akademik"));
     }
 
     // Method untuk mengambil semua skripsi berdasarkan semester
     public List<SkripsiData> findBySemester(String semester) {
-        String sql = "SELECT id, nama_mahasiswa, judul_skripsi, tempat, tanggal_sidang, semester_akademik " +
+        String sql = "SELECT id_ta, nama_mahasiswa, judul_skripsi, ruangan, tanggal_sidang, semester_akademik " +
                 "FROM ta_data WHERE semester_akademik = ?";
         return jdbcTemplate.query(sql, this::mapRowToTugasAkhir, semester);
     }

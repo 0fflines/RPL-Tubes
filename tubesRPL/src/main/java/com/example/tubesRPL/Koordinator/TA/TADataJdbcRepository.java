@@ -23,6 +23,7 @@ public class TADataJdbcRepository implements TAInterface {
         String sql = "INSERT INTO ta_data (nama_mahasiswa, judul_skripsi, jenis_ta, tempat, tanggal_sidang, " +
                 "penguji_1, penguji_2, pembimbing_utama, pembimbing_pendamping, semester_akademik) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        System.out.println("save");
         return jdbcTemplate.update(sql,
                 taData.getNamaMahasiswa(),
                 taData.getJudulSkripsi(),

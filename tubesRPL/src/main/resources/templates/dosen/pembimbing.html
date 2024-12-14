@@ -124,6 +124,7 @@
 
             <h4>Catatan:</h4>
             <textarea id="catatanTextBox" placeholder="Isi Catatan"></textarea>
+            <span class="save" id="tombolSaveCatatan">SAVE</span>
         </div>
     </div>
     
@@ -155,8 +156,8 @@
                     `;
 
                     //tambahin button ke semua Catatan di row
-                    const button = row.querySelector(".tombolBukaCatatan");
-                    button.onclick = function(){
+                    const buttonCatatan = row.querySelector(".tombolBukaCatatan");
+                    buttonCatatan.onclick = function(){
                         //baca info ta dari table
                         //cek apakah isi item null atau tidak, jika null akan value akan menjadi --
                         const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
@@ -171,6 +172,32 @@
                         `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
 
                         document.getElementById("catatan").style.display = "block"
+
+                        //load catatannya, kalau sebelumnya sudah ada ditambah ke textbox
+                        // const responseCatatan = fetch("/api/catatan/load?idTA=${item.id}");
+                        // const resultCatatanTA = responseCatatan.json();
+                        const isiCatatan = document.getElementById("catatanTextBox");
+                        const isiCatatanValue = isiCatatan.value;
+                        //perlu pake then biar load dulu baru di-display
+                        const loadCatatanTA = fetch(`/api/catatan/load?idTA=${item.id}`).then((result) =>{
+                            return result.json();
+                        }).then((catatanTA) =>{
+                            isiCatatan.innerHTML = catatanTA.isiCatatan;
+                        })
+
+                        const buttonSaveCatatan = document.getElementById("tombolSaveCatatan");
+                        buttonSaveCatatan.onclick = function(){
+                            const isiCatatanValue = isiCatatan.value;
+                            const idTA = item.id;
+                            //kaigini soalnya controller pake POST method
+                            fetch(`/api/catatan/save`,{
+                                method: "POST",
+                                headers:{
+                                    "Content-Type": "application/x-www-form-urlencoded", 
+                                },
+                                body: `isiCatatan=${encodeURIComponent(isiCatatanValue)}&idTA=${idTA}`,
+                            }).then(response => response.text());
+                        }
                     }
 
                     tableBody.appendChild(row);
