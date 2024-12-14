@@ -30,7 +30,7 @@ public class BatchInsertUser {
 
         // Data Mahasiswa
         users.add(
-                new User("Faisal Surya Setya Pratama", "6181901073@student.unpar.ac.id", "6186181901073",
+                new User("Faisal Surya Setya Pratama", "6181901073@student.unpar.ac.id", "6181901073",
                         "mahasiswa123", "mahasiswa"));
         users.add(new User("Richard Sastraputra", "6182201001@student.unpar.ac.id", "6182201001", "mahasiswa123",
                 "mahasiswa"));
@@ -38,7 +38,7 @@ public class BatchInsertUser {
                 new User("Alvin Chandra", "6182201005@student.unpar.ac.id", "6182201005", "mahasiswa123", "mahasiswa"));
         users.add(new User("Zefandion Benaya Teja", "6182201042@student.unpar.ac.id", "6182201042", "mahasiswa123",
                 "mahasiswa"));
-        users.add(new User("Kevin Halim", "6182201102@student.unpar.ac.id", "6182201042", "mahasiswa123", "mahasiswa"));
+        users.add(new User("Kevin Halim", "6182201102@student.unpar.ac.id", "6182201102", "mahasiswa123", "mahasiswa"));
 
         // Data Koordinator
         users.add(
@@ -50,6 +50,12 @@ public class BatchInsertUser {
 
         // Mengisi tabel mahasiswa secara otomatis
         insertMahasiswa();
+
+        // Mengisi tabel dosen secara otomatis
+        insertDosen();
+
+        // Mengisi tabel koordinator secara otomatis
+        insertKoordinator();
     }
 
     public static void insertUsers(List<User> users) {
@@ -61,14 +67,15 @@ public class BatchInsertUser {
         String dbPassword = "7november2003";
 
         try (Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {
-            String sql = "INSERT INTO users (nama_users, email_users, password, role) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO users (nama_users, email_users, nomor_induk, password, role) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 // Tambahkan setiap data pengguna ke batch
                 for (User user : users) {
                     preparedStatement.setString(1, user.getNama());
                     preparedStatement.setString(2, user.getEmail());
-                    preparedStatement.setString(3, passwordEncoder.encode(user.getPassword()));
-                    preparedStatement.setString(4, user.getRole());
+                    preparedStatement.setString(3, user.getNomorInduk());
+                    preparedStatement.setString(4, passwordEncoder.encode(user.getPassword()));
+                    preparedStatement.setString(5, user.getRole());
                     preparedStatement.addBatch();
                 }
 
@@ -99,6 +106,54 @@ public class BatchInsertUser {
             try (Statement statement = connection.createStatement()) {
                 int rowsInserted = statement.executeUpdate(sql);
                 System.out.println(rowsInserted + " mahasiswa berhasil ditambahkan!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void insertDosen() {
+        // Informasi koneksi database
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/rpl";
+        String dbUser = "postgres";
+        String dbPassword = "7november2003";
+
+        String sql = "INSERT INTO dosen (nama_dosen, no_dosen, email_dosen, password_dosen) " +
+                "SELECT u.nama_users, " +
+                "       u.nomor_induk AS no_dosen, " +
+                "       u.email_users, " +
+                "       u.password " +
+                "FROM users u " +
+                "WHERE u.role = 'dosen'";
+
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {
+            try (Statement statement = connection.createStatement()) {
+                int rowsInserted = statement.executeUpdate(sql);
+                System.out.println(rowsInserted + " dosen berhasil ditambahkan!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void insertKoordinator() {
+        // Informasi koneksi database
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/rpl";
+        String dbUser = "postgres";
+        String dbPassword = "7november2003";
+
+        String sql = "INSERT INTO koordinator(nama_dosen, no_dosen, email_dosen, password_dosen) " +
+                "SELECT u.nama_users, " +
+                "       u.nomor_induk AS no_dosen, " +
+                "       u.email_users, " +
+                "       u.password " +
+                "FROM users u " +
+                "WHERE u.role = 'koordinator'";
+
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {
+            try (Statement statement = connection.createStatement()) {
+                int rowsInserted = statement.executeUpdate(sql);
+                System.out.println(rowsInserted + " koordinator berhasil ditambahkan!");
             }
         } catch (Exception e) {
             e.printStackTrace();

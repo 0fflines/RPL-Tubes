@@ -10,6 +10,7 @@ create table users (
 
 -- Query untuk membuat tabel mahasiswa
 CREATE TABLE mahasiswa (
+	id_mahasiswa SERIAL,
     nama_mahasiswa VARCHAR(255) PRIMARY KEY,
     npm VARCHAR(15) NOT NULL,
     email_mahasiswa VARCHAR(100) UNIQUE NOT NULL,
@@ -20,6 +21,16 @@ CREATE TABLE mahasiswa (
 CREATE TABLE dosen (
     id_dosen SERIAL PRIMARY KEY,
     nama_dosen VARCHAR(100) NOT NULL,
+    no_dosen VARCHAR(100) NOT NULL,
+    email_dosen VARCHAR(100) UNIQUE NOT NULL,
+    password_dosen VARCHAR(255) NOT NULL
+);
+
+--Query Untuk Membuat tabel koordinator
+CREATE TABLE koordinator (
+    id_dosen SERIAL PRIMARY KEY,
+    nama_dosen VARCHAR(100) NOT NULL,
+    no_dosen VARCHAR(100) NOT NULL,
     email_dosen VARCHAR(100) UNIQUE NOT NULL,
     password_dosen VARCHAR(255) NOT NULL
 );
@@ -126,3 +137,7 @@ CREATE TABLE bap (
 	id_bobot INT REFERENCES bobotRole(id_bobotRole),
     nilai_total NUMERIC(5, 2)NOT NULL CHECK (nilai_total >= 0 AND  nilai_total <= 100)
 );
+
+select * from users
+select * from mahasiswa
+select * from dosen
