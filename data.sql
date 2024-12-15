@@ -10,7 +10,7 @@ create table users (
 
 -- Query untuk membuat tabel mahasiswa
 CREATE TABLE mahasiswa (
-	id_mahasiswa SERIAL,
+    id_mahasiswa SERIAL,
     nama_mahasiswa VARCHAR(255) PRIMARY KEY,
     npm VARCHAR(15) NOT NULL,
     email_mahasiswa VARCHAR(100) UNIQUE NOT NULL,
@@ -138,6 +138,3 @@ CREATE TABLE bap (
     nilai_total NUMERIC(5, 2)NOT NULL CHECK (nilai_total >= 0 AND  nilai_total <= 100)
 );
 
-select * from users
-select * from mahasiswa
-select * from dosen
