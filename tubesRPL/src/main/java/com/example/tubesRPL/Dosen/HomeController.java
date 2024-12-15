@@ -19,6 +19,36 @@ public class HomeController {
         return "dosen/home"; // Nama file HTML di dalam folder templates/dosen/home.html
     }
 
+    @GetMapping("/penguji")
+    public String homePenguji() {
+        return "dosen/penguji";
+    }
+
+    @GetMapping("/pembimbing")
+    public String homePembimbing() {
+        return "dosen/pembimbing";
+    }
+
+    @GetMapping("/profileDosenPenguji")
+    public String profilePenguji() {
+        return "dosen/profileDosenPenguji";
+    }
+
+    @GetMapping("/profileDosenPembimbing")
+    public String profilePembimbing() {
+        return "dosen/profileDosenPembimbing";
+    }
+
+    @GetMapping("/profileKoordinator")
+    public String profileKoordinator() {
+        return "koor/profileKoordinator";
+    }
+
+    @GetMapping("/profileMahasiswa")
+    public String profileMahasiswa() {
+        return "mahasiswa/profileMahasiswa";
+    }
+
     // POST method untuk menangani form profile
     @PostMapping("/profile")
     public String handleProfile(@RequestParam("email") String email,
@@ -26,7 +56,7 @@ public class HomeController {
             Model model) {
         model.addAttribute("email", email);
         model.addAttribute("role", role);
-        return "dosen/profile"; // Nama file HTML untuk profile
+        return "dosen/profileDosen"; // Nama file HTML untuk profile
     }
 
     // POST method untuk memilih role penguji
