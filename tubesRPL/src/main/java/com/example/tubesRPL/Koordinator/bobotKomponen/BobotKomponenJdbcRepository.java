@@ -34,8 +34,8 @@ public class BobotKomponenJdbcRepository {
     }
 
     public void updateBobotKomponen(BobotKomponen bobotKomponen){
-        String sql = "UPDATE bobot_nilaiKomponen SET bobot = ? WHERE id_komponen = ?";
-        jdbcTemplate.update(sql, bobotKomponen.getBobot(), bobotKomponen.getId_komponen());
+        String sql = "UPDATE bobot_nilaiKomponen SET nama_komponen = ?, nama_role = ?, bobot = ? WHERE id_komponen = ?";
+        jdbcTemplate.update(sql, bobotKomponen.getNama_komponen(), bobotKomponen.getNama_role(), bobotKomponen.getBobot(), bobotKomponen.getId_komponen());
     }
 
     public void deleteBobotKomponen(int id_komponen){
@@ -52,8 +52,8 @@ public class BobotKomponenJdbcRepository {
     }
 
     // Mendapatkan data mesin berdasarkan ID
-    public BobotKomponen findById(int id) {
-        String sql = "SELECT * WHERE id_komponen = ?";
-        return jdbcTemplate.queryForObject(sql, this::mapRowToBobotKomponen, id);
+    public BobotKomponen findById(int id_komponen) {
+        String sql = "SELECT * From bobot_nilaiKomponen WHERE id_komponen = ?";
+        return jdbcTemplate.queryForObject(sql, this::mapRowToBobotKomponen, id_komponen);
     }
 }

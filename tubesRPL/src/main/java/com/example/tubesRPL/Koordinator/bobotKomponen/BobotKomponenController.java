@@ -12,12 +12,8 @@ import java.util.Map;
 @RequestMapping("/api/bobot-komponen")
 public class BobotKomponenController {
 
-    private final BobotKomponenJdbcRepository bobotKomponenRepository;
-
     @Autowired
-    public BobotKomponenController(BobotKomponenJdbcRepository bobotKomponenRepository) {
-        this.bobotKomponenRepository = bobotKomponenRepository;
-    }
+    private BobotKomponenJdbcRepository bobotKomponenRepository;
 
     // Endpoint untuk mendapatkan semua komponen penguji
     @GetMapping("/penguji")
@@ -33,9 +29,9 @@ public class BobotKomponenController {
         return ResponseEntity.ok(komponenPembimbing);
     }
 
-    @GetMapping("/{id}")
-    public BobotKomponen getKomponenById(@PathVariable int id) {
-        return bobotKomponenRepository.findById(id);
+    @GetMapping("/{id_komponen}")
+    public BobotKomponen getKomponenById(@PathVariable int id_komponen) {
+        return bobotKomponenRepository.findById(id_komponen);
     }
 
     // Endpoint untuk menambahkan komponen baru
@@ -55,15 +51,15 @@ public class BobotKomponenController {
     }
 
     // Endpoint untuk memperbarui komponen berdasarkan id
-    @PutMapping("/{id}")
+    @PutMapping("/{id_komponen}")
     public Map<String, String> updateKomponen(@PathVariable int id_komponen,
         @RequestParam String nama_komponen,
         @RequestParam String nama_role, 
         @RequestParam double bobot) {
         BobotKomponen bobotKomponen = new BobotKomponen() ;
         bobotKomponen.setId_komponen(id_komponen);
-        bobotKomponen.setNama_komponen(null);
-        bobotKomponen.setNama_role(null);
+        bobotKomponen.setNama_komponen(nama_komponen);
+        bobotKomponen.setNama_role(nama_role);
         bobotKomponen.setBobot(bobot);
         bobotKomponenRepository.updateBobotKomponen(bobotKomponen);
     
@@ -73,7 +69,7 @@ public class BobotKomponenController {
     }
 
     // Endpoint untuk menghapus komponen
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id_komponen}")
     public Map<String, String> deleteKomponen(@PathVariable int id_komponen) {
         bobotKomponenRepository.deleteBobotKomponen(id_komponen);
 
