@@ -217,8 +217,6 @@
                             const responseNilai = await fetch(`/api/nilai/load?namaRole=${encodeURIComponent("pembimbing")}&idTA=${idTa}`)
                             const dataNilai = await responseNilai.json();
 
-
-
                             dataNilai.forEach((itemNilai) =>{
                                 const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
                                 formBody.innerHTML +=`
@@ -232,20 +230,6 @@
                         }catch(error){
                             console.error("error nilai:", error);
                         }
-
-                        // const buttonSaveNilai = document.getElementById("tombolSaveNilai");
-                        // buttonSaveNilai.onclick = function(){
-                        //     const isiCatatanValue = isiCatatan.value;
-                        //     const idTA = item.id;
-                        //     //kaigini soalnya controller pake POST method
-                        //     fetch(`/api/catatan/save`,{
-                        //         method: "POST",
-                        //         headers:{
-                        //             "Content-Type": "application/x-www-form-urlencoded", 
-                        //         },
-                        //         body: `isiCatatan=${encodeURIComponent(isiCatatanValue)}&idTA=${idTA}`,
-                        //     }).then(response => response.text());
-                        // }
                     }
 
                     //tambahin button ke semua Catatan di row
