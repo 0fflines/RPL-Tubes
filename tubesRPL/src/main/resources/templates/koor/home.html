@@ -13,10 +13,10 @@
         <div class="header">
             <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
             <div class="sidebar">
-                <div id="role">Koordinator</div>
                 <div class="profile-info">
+                    <p class="role" id="role"><b>Role: </b><span id="role-text"></span></p>
                     <div class="profile-pic"></div>
-                    <p class="email">koordinator@unpar.ac.id</p>
+                    <p class="email" id="email"></p>
                 </div>
                 <a href="login" class="logout-button">Log out</a>
                 <a href="profile" class="profile-button">Profile</a>
@@ -46,6 +46,7 @@
             </form>
             <!-- Content Section -->
             <div class="content">
+                <center><h1 id="nama"></h1></center>
                 <h2 id="daftar-mahasiswa">Daftar Mahasiswa</h2>
                 <div class="table_component" role="region" aria-labelledby="daftar-mahasiswa">
                     <table>
@@ -151,6 +152,15 @@
             const semester = this.value;
             await fetchTAData(semester); // Memanggil data berdasarkan semester yang dipilih
         });
+
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("role-text").innerText = data.role;
+                document.getElementById("nama").innerText = data.nama;
+            })
+            .catch(error => console.error('Error:', error));
 
         // document.querySelectorAll('.edit-discipline-btn').forEach(button => {
         //     button.addEventListener('click', async (event) => {

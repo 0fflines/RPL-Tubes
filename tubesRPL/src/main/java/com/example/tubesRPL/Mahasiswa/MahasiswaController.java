@@ -11,15 +11,15 @@ public class MahasiswaController {
     @PreAuthorize("hasRole('mahasiswa')")
     @GetMapping("/mahasiswa")
     public String showMahasiswaPage(Model model) {
-        // Data yang dibutuhkan oleh template
+        // Pastikan atribut model ini sesuai dengan template
         model.addAttribute("nama", "Kevin Halim");
         model.addAttribute("email", "kevin.halim@example.com");
         model.addAttribute("role", "Mahasiswa");
-        return "mahasiswa/index";
+        return "/mahasiswa/index"; // Pastikan file ini ada
     }
 
     @GetMapping("/profile")
     public String viewProfile() {
-        return "/profile"; // Mengarah ke file profile.html di folder templates
+        return "profile"; // Pastikan file profile.html ada di templates/
     }
 }

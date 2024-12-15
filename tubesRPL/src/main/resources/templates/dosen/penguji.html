@@ -13,10 +13,10 @@
         <div class="header">
             <img src="/img/logo.png" alt="logo unpar" class="logo" />
             <div class="sidebar">
-                <div id="role">Penguji</div>
                 <div class="profile-info">
+                    <p class="role" id="role"><b>Role: </b><span id="role-text"></span></p>
                     <div class="profile-pic"></div>
-                    <p class="email">dosen@unpar.ac.id</p>
+                    <p class="email" id="email"></p>
                 </div>
                 <a href="login" class="logout-button">Log out</a>
                 <a href="profile" class="profile-button">Profile</a>
@@ -43,6 +43,7 @@
             <section>
                 <!-- Content -->
                 <div class="content">
+                    <h1 id="nama"></h1>
                     <h2>Daftar Skripsi Penguji</h2>
                     <div class="table_component" role="region" tabindex="0">
                         <table>
@@ -104,6 +105,15 @@
 
         // Panggilan awal untuk semester default
         fetchData(semesterDropdown.value);
+
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("role-text").innerText = data.role;
+                document.getElementById("nama").innerText = data.nama;
+            })
+            .catch(error => console.error('Error:', error));
     </script>
 </body>
 
