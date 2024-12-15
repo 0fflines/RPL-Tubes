@@ -8,6 +8,8 @@ public interface TAInterface {
     // Method to save TA data
     int save(TAData taData);
 
+    int saveNilaiDisiplin(TAData taData);
+
     // Method to fetch all TA data
     List<TAData> findAll();
 
@@ -37,4 +39,11 @@ public interface TAInterface {
 
     //Method to fetch all TA data by semesterAkademik
     List<String> findAllSemesterAkademikPenguji(String namaDosen);
+
+    List<String> findAllDosen();
+
+    List<String> findAllMahasiswa();
+
+    List<String> findAllTempat();
+
 }

@@ -30,7 +30,13 @@
             <form action="/api/koordinator/ta/save" method="POST">
                 <div class="left">
                     <label for="name">Nama Mahasiswa :</label>
-                    <input type="text" name="namaMahasiswa" id="name" placeholder="Masukkan nama mahasiswa" required />
+                    <select name="namaMahasiswa" id="name" required>
+                        <option value="" disabled selected>Pilih Mahasiswa</option>
+                        <!-- Loop untuk nama mahasiswa -->
+                        <th:block th:each="nama : ${listNamaMahasiswa}">
+                            <option th:value="${nama}" th:text="${nama}"></option>
+                        </th:block>
+                    </select>
 
                     <label for="judul">Judul Skripsi :</label>
                     <input type="text" name="judulSkripsi" id="judul" placeholder="Masukkan judul skripsi" required />
@@ -42,25 +48,45 @@
                     </select>
 
                     <label for="tempat">Tempat :</label>
-                    <input type="text" name="tempat" id="tempat" placeholder="Masukkan lokasi sidang" required />
+                    <select name="tempat" id="tempat" required>
+                        <option value="" disabled selected>Pilih Tempat</option>
+                        <!-- Loop untuk tempat -->
+                        <th:block th:each="tempat : ${listRuangan}">
+                            <option th:value="${tempat}" th:text="${tempat}"></option>
+                        </th:block>
+                    </select>
 
                     <label for="tanggal">Tanggal dan Waktu Sidang:</label>
                     <input type="datetime-local" name="tanggalSidang" id="tanggal" required />
                 </div>
                 <div class="right">
                     <label for="penguji-1">Penguji 1 :</label>
-                    <input type="text" name="penguji1" id="penguji-1" placeholder="Nama Penguji 1" required />
+                    <select name="penguji1" id="penguji-1" required>
+                        <option value="" disabled selected>Pilih Dosen</option>
+                        <!-- Loop untuk dosen -->
+                        <th:block th:each="dosen : ${listDosen}">
+                            <option th:value="${dosen}" th:text="${dosen}"></option>
+                        </th:block>
+                    </select>
 
                     <label for="penguji-2">Penguji 2 :</label>
-                    <input type="text" name="penguji2" id="penguji-2" placeholder="Nama Penguji 2" required />
+                    <select name="penguji2" id="penguji-2" required>
+                        <option value="" disabled selected>Pilih Dosen</option>
+                        <!-- Loop untuk dosen -->
+                        <th:block th:each="dosen : ${listDosen}">
+                            <option th:value="${dosen}" th:text="${dosen}"></option>
+                        </th:block>
+                    </select>
 
-                    <label for="pembimbing-u">Pembimbing Utama :</label>
-                    <input type="text" name="pembimbingUtama" id="pembimbing-u" placeholder="Nama Pembimbing Utama"
-                        required />
+                    <label for="pembimbing">Pembimbing Utama :</label>
+                    <select name="pembimbing" id="pembimbing" required>
+                        <option value="" disabled selected>Pilih Dosen</option>
+                        <!-- Loop untuk dosen -->
+                        <th:block th:each="dosen : ${listDosen}">
+                            <option th:value="${dosen}" th:text="${dosen}"></option>
+                        </th:block>
+                    </select>
 
-                    <label for="pembimbing-p">Pembimbing Pendamping :</label>
-                    <input type="text" name="pembimbingPendamping" id="pembimbing-p"
-                        placeholder="Nama Pembimbing Pendamping" required />
 
                     <label for="semester">Semester Akademik:</label>
                     <select name="semesterAkademik" id="semester" required>
