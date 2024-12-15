@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/dosen.css" />
     <title>Penguji</title>
+    <style>
+        /* ... */
+    </style>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
@@ -65,55 +66,102 @@
                     </div>
                 </div>
             </section>
-    </div>
-    <script>
-        const semesterDropdown = document.getElementById('semester');
-        const tableBody = document.getElementById('skripsi-table-body');
+        </div>
+        <div id="nilai" class="popupNilai">
+            <div class="popup-content-nilai">
+                <span class="close" id="tombolTutupNilai">&times;</span>
+                <h3>Penilaian</h3>
+                <p><strong>Nama Mahasiswa:</strong></p>
+                <p><strong>Judul Skripsi:</strong></p>
+                <p><strong>Waktu Sidang:</strong></p>
+                <form action="/api/nilai/save" method="post">
+                    <div id="form-nilai"></div>
+                    <button type="submit" id="tombolSaveNilai">SAVE</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            const semesterDropdown = document.getElementById('semester');
+            const tableBody = document.getElementById('skripsi-table-body');
 
-        // Fungsi untuk fetch data dari API
-        async function fetchData(semester) {
-            try {
-                const response = await fetch(`/api/skripsi?semester=${semester}`);
-                const data = await response.json();
-
-                // Kosongkan tabel
-                tableBody.innerHTML = "";
-
-                // Tambahkan data ke tabel
-                data.forEach((item) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.id}</td>
-                        <td>${item.namaMahasiswa}</td>
-                        <td>${item.judulSkripsi}</td>
-                        <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
-                        <td>${item.tempat || '-'}</td>
-                        <td>Nilai</td>
-                        <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error("Error fetching data:", error);
+            async function fetchData(semester) {
+                try {
+                    const response = await fetch(`/api/skripsi?semester=${semester}`);
+                    const data = await response.json();
+                    tableBody.innerHTML = "";
+                    data.forEach((item) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${(link unavailable)}</td>
+                            <td>${item.namaMahasiswa}</td>
+                            <td>${item.judulSkripsi}</td>
+                            <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
+                            <td>${item.tempat || '-'}</td>
+                            <td><span class="tombolBukaNilai" id="tombolBukaNilai" data-id="${(link unavailable)}">Nilai</span></td>
+                            <td><a href="bapSidang"><button class="view-bap"></button></a></td>
+                        `;
+                        const buttonNilai = row.querySelector(".tombolBukaNilai");
+                        buttonNilai.onclick = async function(){
+                            const formBody = document.getElementById("form-nilai");
+                            formBody.innerHTML = "";
+                            const idTa = buttonNilai.getAttribute("data-id");
+                            const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
+                            const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
+                            const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
+                            document.querySelector("#nilai .popup-content-nilai p:nth-child(3)").innerHTML = `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
+                            document.querySelector("#nilai .popup-content-nilai p:nth-child(4)").innerHTML = `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
+                            document.querySelector("#nilai .popup-content-nilai p:nth-child(5)").innerHTML = `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
+                            document.getElementById("nilai").style.display = "block";
+                            try{
+                                const responseNilai = await fetch(`/api/nilai/load?namaRole=${encodeURIComponent("penguji")}&idTA=${idTa}`)
+                                const dataNilai = await responseNilai.json();
+                                dataNilai.forEach((itemNilai) =>{
+                                    const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
+                                    formBody.innerHTML +=`
+                                        <div class="form-group">
+                                            <label>${itemNilai.namaKomponen}</label>
+                                            <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
+                                            <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
+                                        </div>
+                                    `
+                                })
+                            }catch(error){
+                                console.error("error nilai:", error);
+                            }
+                        }
+                        tableBody.appendChild(row);
+                    });
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
             }
-        }
 
-        // Event listener untuk dropdown
-        semesterDropdown.addEventListener('change', (event) => {
-            fetchData(event.target.value);
-        });
+            var popupNilai = document.getElementById("nilai");
+            var buttonCloseNilai = document.getElementById("tombolTutupNilai");
+            buttonCloseNilai.onclick = function(){
+                popupNilai.style.display = "none";
+            }
 
-        // Panggilan awal untuk semester default
-        fetchData(semesterDropdown.value);
+            window.onclick = function (event) {
+                if (event.target == popupNilai){
+                    popupNilai.style.display = "none";
+                }
+            }
 
-        fetch('/userdata')
+            semesterDropdown.addEventListener('change', (event) => {
+                fetchData(event.target.value);
+            });
+
+            fetchData(semesterDropdown.value);
+
+            fetch('/userdata')
             .then(response => response.json())
             .then(data => {
                 document.getElementById("email").innerText = data.email;
                 document.getElementById("nama").innerText = data.nama;
             })
             .catch(error => console.error('Error:', error));
-    </script>
-</body>
-
+        </script>
+    </body>
 </html>
+                                    

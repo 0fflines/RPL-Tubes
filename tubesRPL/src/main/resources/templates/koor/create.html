@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/create.css" />
     <title>Buat TA Baru</title>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
@@ -37,16 +35,13 @@
                             <option th:value="${nama}" th:text="${nama}"></option>
                         </th:block>
                     </select>
-
                     <label for="judul">Judul Skripsi :</label>
                     <input type="text" name="judulSkripsi" id="judul" placeholder="Masukkan judul skripsi" required />
-
                     <label for="jenis">Jenis TA :</label>
                     <select name="jenisTa" id="jenis" required>
                         <option value="TA1">TA 1</option>
                         <option value="TA2">TA 2</option>
                     </select>
-
                     <label for="tempat">Tempat :</label>
                     <select name="tempat" id="tempat" required>
                         <option value="" disabled selected>Pilih Tempat</option>
@@ -55,7 +50,6 @@
                             <option th:value="${tempat}" th:text="${tempat}"></option>
                         </th:block>
                     </select>
-
                     <label for="tanggal">Tanggal dan Waktu Sidang:</label>
                     <input type="datetime-local" name="tanggalSidang" id="tanggal" required />
                 </div>
@@ -68,7 +62,6 @@
                             <option th:value="${dosen}" th:text="${dosen}"></option>
                         </th:block>
                     </select>
-
                     <label for="penguji-2">Penguji 2 :</label>
                     <select name="penguji2" id="penguji-2" required>
                         <option value="" disabled selected>Pilih Dosen</option>
@@ -77,32 +70,28 @@
                             <option th:value="${dosen}" th:text="${dosen}"></option>
                         </th:block>
                     </select>
-
                     <label for="pembimbing">Pembimbing Utama :</label>
                     <select name="pembimbing" id="pembimbing" required>
                         <option value="" disabled selected>Pilih Dosen</option>
                         <!-- Loop untuk dosen -->
-                        <th:block th:each="dosen : ${listDosen}">
-                            <option th:value="${dosen}" th:text="${dosen}"></option>
-                        </th:block>
-                    </select>
-
-
-                    <label for="semester">Semester Akademik:</label>
-                    <select name="semesterAkademik" id="semester" required>
-                        <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
-                        <option value="genap-2023-2024">Genap 2023/2024</option>
-                        <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
-                        <option value="genap-2022-2023">Genap 2022/2023</option>
-                        <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
-                    </select>
-                </div>
-                <div class="container-simpan">
-                    <input type="submit" value="Simpan Data" id="simpan-data" />
-                </div>
-            </form>
-        </section>
-    </div>
+                    <th:block th:each="dosen : ${listDosen}">
+                        <option th:value="${dosen}" th:text="${dosen}"></option>
+                    </th:block>
+                </select>
+                <label for="semester">Semester Akademik:</label>
+                <select name="semesterAkademik" id="semester" required>
+                    <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
+                    <option value="genap-2023-2024">Genap 2023/2024</option>
+                    <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
+                    <option value="genap-2022-2023">Genap 2022/2023</option>
+                    <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
+                </select>
+            </div>
+            <div class="container-simpan">
+                <input type="submit" value="Simpan Data" id="simpan-data" />
+            </div>
+        </form>
+    </section>
+</div>
 </body>
-
 </html>
