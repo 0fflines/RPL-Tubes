@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/dosen.css" />
+    <title>Pembimbing</title>
+    <style>
+        /* Tambahkan CSS jika diperlukan */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="/img/logo.png" alt="logo unpar" class="logo" />
+            <div class="sidebar">
+                <div class="profile-info">
+                    <p class="role" id="role">
+                        <b>Role: Pembimbing</b><span id="role-text"></span>
+                    </p>
+                    <div class="profile-pic"></div>
+                    <p class="email" id="email"></p>
+                </div>
+                <a href="login" class="logout-button">Log out</a>
+                <a href="profileDosenPembimbing" class="profile-button">Profile</a>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <section>
+            <div class="navigation">
+                <form action="/dosen/home" method="GET" class="back button">
+                    <input type="email" name="email" hidden />
+                    <input type="text" name="role" hidden />
+                    <a href="home" class="home-button">BACK TO HOME PAGE</a>
+                </form>
+                <form action="#" class="dropdown">
+                    <label for="semester">Semester Akademik</label>
+                    <select name="semesterAkademik" id="semester" required>
+                        <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
+                        <option value="genap-2023-2024">Genap 2023/2024</option>
+                        <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
+                        <option value="genap-2022-2023">Genap 2022/2023</option>
+                        <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <h2 id="nama"></h2>
+                <h2>Daftar Skripsi Pembimbing</h2>
+                <div class="table_component" role="region" tabindex="0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Mahasiswa</th>
+                                <th>Judul Skripsi</th>
+                                <th>Waktu</th>
+                                <th>Tempat</th>
+                                <th>Nilai</th>
+                                <th>Catatan</th>
+                                <th>BAP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="skripsi-table-body">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Popup Catatan -->
+    <div id="catatan" class="popupCatatan">
+        <div class="popup-content-catatan">
+            <span class="close" id="tombolTutupCatatan">&times;</span>
+            <p><strong>Nama Mahasiswa:</strong></p>
+            <p><strong>Judul Skripsi:</strong></p>
+            <p><strong>Waktu Sidang:</strong></p>
+            <h4>Catatan:</h4>
+            <textarea id="catatanTextBox" placeholder="Isi Catatan"></textarea>
+            <span class="save" id="tombolSaveCatatan">SAVE</span>
+        </div>
+    </div>
+
+    <!-- Popup Nilai -->
+    <div id="nilai" class="popupNilai">
+        <div class="popup-content-nilai">
+            <span class="close" id="tombolTutupNilai">&times;</span>
+            <h3>Penilaian</h3>
+            <p><strong>Nama Mahasiswa:</strong></p>
+            <p><strong>Judul Skripsi:</strong></p>
+            <p><strong>Waktu Sidang:</strong></p>
+            <form action="/api/nilai/save" method="post">
+                <div id="form-nilai"></div>
+                <button type="submit" id="tombolSaveNilai">SAVE</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const semesterDropdown = document.getElementById('semester');
+        const tableBody = document.getElementById('skripsi-table-body');
+
+        async function fetchData(semester) {
+            try {
+                const response = await fetch(`/api/skripsi?semester=${semester}`);
+                const data = await response.json();
+                tableBody.innerHTML = "";
+
+                data.forEach((item) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.namaMahasiswa}</td>
+                        <td>${item.judulSkripsi}</td>
+                        <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
+                        <td>${item.tempat || '-'}</td>
+                        <td><span class="tombolBukaNilai" data-id="${item.id}">Nilai</span></td>
+                        <td><span class="tombolBukaCatatan">Catatan</span></td>
+                        <td><a href="bapSidang"><button class="view-bap"></button></a></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        semesterDropdown.addEventListener('change', (event) => fetchData(event.target.value));
+        fetchData(semesterDropdown.value);
+
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("nama").innerText = data.nama;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+
+</html>

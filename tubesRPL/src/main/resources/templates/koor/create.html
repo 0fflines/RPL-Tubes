@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/create.css" />
+    <title>Buat TA Baru</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
+            <div class="sidebar">
+                <div id="role">Koordinator</div>
+                <div class="profile-info">
+                    <div class="profile-pic"></div>
+                    <p class="email">koordinator@unpar.ac.id</p>
+                </div>
+                <a href="login" class="logout-button">Log out</a>
+                <a href="profile" class="profile-button">Profile</a>
+            </div>
+        </div>
+        <a href="/koordinator" class="home-button">BACK TO HOME PAGE</a>
+        <div class="navigation create">
+            <h1>Buat TA Baru</h1>
+        </div>
+        <section>
+            <form action="/api/koordinator/ta/save" method="POST">
+                <div class="left">
+                    <label for="name">Nama Mahasiswa :</label>
+                    <select name="namaMahasiswa" id="name" required>
+                        <option value="" disabled selected>Pilih Mahasiswa</option>
+                        <!-- Loop untuk nama mahasiswa -->
+                        <th:block th:each="nama : ${listNamaMahasiswa}">
+                            <option th:value="${nama}" th:text="${nama}"></option>
+                        </th:block>
+                    </select>
+                    <label for="judul">Judul Skripsi :</label>
+                    <input type="text" name="judulSkripsi" id="judul" placeholder="Masukkan judul skripsi" required />
+                    <label for="jenis">Jenis TA :</label>
+                    <select name="jenisTa" id="jenis" required>
+                        <option value="TA1">TA 1</option>
+                        <option value="TA2">TA 2</option>
+                    </select>
+                    <label for="tempat">Tempat :</label>
+                    <select name="tempat" id="tempat" required>
+                        <option value="" disabled selected>Pilih Tempat</option>
+                        <!-- Loop untuk tempat -->
+                        <th:block th:each="tempat : ${listRuangan}">
+                            <option th:value="${tempat}" th:text="${tempat}"></option>
+                        </th:block>
+                    </select>
+                    <label for="tanggal">Tanggal dan Waktu Sidang:</label>
+                    <input type="datetime-local" name="tanggalSidang" id="tanggal" required />
+                </div>
+                <div class="right">
+                    <label for="penguji-1">Penguji 1 :</label>
+                    <select name="penguji1" id="penguji-1" required>
+                        <option value="" disabled selected>Pilih Dosen</option>
+                        <!-- Loop untuk dosen -->
+                        <th:block th:each="dosen : ${listDosen}">
+                            <option th:value="${dosen}" th:text="${dosen}"></option>
+                        </th:block>
+                    </select>
+                    <label for="penguji-2">Penguji 2 :</label>
+                    <select name="penguji2" id="penguji-2" required>
+                        <option value="" disabled selected>Pilih Dosen</option>
+                        <!-- Loop untuk dosen -->
+                        <th:block th:each="dosen : ${listDosen}">
+                            <option th:value="${dosen}" th:text="${dosen}"></option>
+                        </th:block>
+                    </select>
+                    <label for="pembimbing">Pembimbing Utama :</label>
+                    <select name="pembimbing" id="pembimbing" required>
+                        <option value="" disabled selected>Pilih Dosen</option>
+                        <!-- Loop untuk dosen -->
+                    <th:block th:each="dosen : ${listDosen}">
+                        <option th:value="${dosen}" th:text="${dosen}"></option>
+                    </th:block>
+                </select>
+                <label for="semester">Semester Akademik:</label>
+                <select name="semesterAkademik" id="semester" required>
+                    <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
+                    <option value="genap-2023-2024">Genap 2023/2024</option>
+                    <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
+                    <option value="genap-2022-2023">Genap 2022/2023</option>
+                    <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
+                </select>
+            </div>
+            <div class="container-simpan">
+                <input type="submit" value="Simpan Data" id="simpan-data" />
+            </div>
+        </form>
+    </section>
+</div>
+</body>
+</html>
