@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahasiswa - Informasi Sidang</title>
-    <link rel="stylesheet" href="/mahasiswa.css">
+    <link rel="stylesheet" href="mahasiswa.css">
     <style>
         /* Style untuk modal (popup) catatan sidang */
         .modal {
@@ -19,7 +19,6 @@
             overflow: auto;
             background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
-            /* Black with opacity */
         }
 
         .modal-content {
@@ -66,26 +65,30 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
+        #role {
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <img src="/img/logo.png/" alt="Logo Unpar" class="logo">
+            <img src="img/logo.png" alt="Logo Unpar" class="logo">
         </div>
         <div class="content">
             <div class="sidebar">
                 <div class="profile-info">
                     <div class="profile-pic"></div>
-                    <p class="email">6182201102@unpar.ac.id</p>
-                    <p class="role">Your role: <strong>Mahasiswa</strong></p>
+                    <p class="email" id="email"></p>
+                    <p class="role" id="role"><b>Role: </b><span id="role-text"></span></p>
                 </div>
                 <a href="/login" class="logout-button">Log Out</a>
-                <a href="/profile" class="profile-button">Profile</a>
+                <a href="/profileMahasiswa" class="profile-button">Profile</a>
             </div>
             <div class="main">
-                <h2>Kevin Halim</h2>
+                <h2 id="nama"></h2>
                 <button class="view-notes" id="viewNotesBtn">Lihat Catatan Sidang</button>
                 <table class="info-table">
                     <thead>
@@ -113,7 +116,7 @@
                             <td>Gede Karya, S.T., M.T., CISA, IPM</td>
                             <td>Drs. Rose de Lima Endang Pranowitri, M.T.</td>
                             <td><span class="grade" id="viewGradeBtn">85</span></td>
-                            <td><a href="bapSidang"><button class="view-bap">📄</button></td></a>
+                            <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -140,22 +143,17 @@
         <div class="modal-content">
             <span class="close" id="closeNilaiModalBtn">&times;</span>
             <h3>Evaluasi Nilai</h3>
-            <p><strong>Nama Mahasiswa:</strong> Kevin Halim</p>
+            <p><strong>Nama Mahasiswa:</strong> <span id="nama-mahasiswa"></span></p>
             <p><strong>Judul Skripsi:</strong> Sistem Manajemen SW</p>
             <p><strong>Waktu Sidang:</strong> 21 Oktober 2024, 10:00 - 11:00</p>
-
             <h4>Tata Tulis Laporan:</h4>
             <textarea id="tataTulis" placeholder="80"></textarea>
-
             <h4>Kelengkapan Materi:</h4>
             <textarea id="kelengkapanMateri" placeholder="80"></textarea>
-
             <h4>Proses Bimbingan:</h4>
             <textarea id="prosesBimbingan" placeholder="90"></textarea>
-
             <h4>Penguasaan Materi:</h4>
             <textarea id="penguasaanMateri" placeholder="87"></textarea>
-
             <h4><strong>Nilai Akhir: 85</strong> <span id="finalGrade"></span></h4>
         </div>
     </div>
@@ -204,6 +202,18 @@
                 nilaiModal.style.display = "none";
             }
         }
+
+        // Mengambil data dari session
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("role-text").innerText = data.role;
+                document.getElementById("nama").innerText = data.nama;
+                document.getElementById("nama-mahasiswa").innerText = data.nama;
+            })
+            .catch(error => console.error('Error:', error));
+
     </script>
 </body>
 

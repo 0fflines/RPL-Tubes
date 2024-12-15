@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
-    <title>Profile - email>
+    <title>Profile
     </title>
     <style>
         body {
@@ -87,7 +87,8 @@
             margin-top: 20px;
         }
 
-        .button input[type="submit"] {
+        .button a {
+            display: inline-block;
             padding: 10px 20px;
             background-color: #0047ab;
             color: white;
@@ -95,9 +96,10 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            text-decoration: none;
         }
 
-        .button input[type="submit"]:hover {
+        .button a:hover {
             background-color: #003680;
         }
     </style>
@@ -110,37 +112,36 @@
     <section>
         <!-- Foto Profil -->
         <div class="profile-photo">
-            <img src="/img/mahasiswa.png" alt="Profile Picture" id="profile-picture">
+            <img src="/img/profil-kosong-bulat.jpg" alt="Profile Picture" id="profile-picture">
         </div>
 
         <!-- Detail Profil -->
         <div class="profile-detail">
             <h1>User Profile</h1>
-            <form action="/profile" method="POST">
-                <label for="name">Nama:</label>
-                <input type="text" value="name" disabled />
+            <label for="name">Nama:</label>
+            <input type="text" id="nama" value="" disabled />
 
-                <label for="email">Alamat Email:</label>
-                <input type="email" value="email>" disabled />
+            <label for="email">Alamat Email:</label>
+            <input type="email" id="email" value="" disabled />
 
-                <label for="role">Role:</label>
-                <input type="text" value="role>" disabled />
-
-                <!-- Hidden Inputs -->
-                <input type="hidden" name="email" value="<%= email %>">
-                <input type="hidden" name="role" value="<%= role %>">
-                <input type="hidden" name="name" value="<%= name %>">
-            </form>
+            <label for="role">Role:</label>
+            <input type="text" value="Pembimbing" disabled />
 
             <div class="button">
-                <form action="/home" method="POST">
-                    <input type="hidden" name="email" value="<%= email %>">
-                    <input type="hidden" name="role" value="<%= role %>">
-                    <input type="submit" value="Back">
-                </form>
+                <a href="pembimbing" class="back-button">Back</a>
             </div>
         </div>
     </section>
+
+    <script>
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("nama").value = data.nama;
+                document.getElementById("email").value = data.email;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
 </body>
 
 </html>

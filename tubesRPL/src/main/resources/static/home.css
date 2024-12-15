@@ -76,6 +76,8 @@ body {
     cursor: pointer;
     height: 20px;
     width: 80px;
+    text-align: center;
+    text-decoration: none;
 }
 
 
@@ -93,6 +95,7 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+
 
 section {
     margin-top: 50px;

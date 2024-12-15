@@ -11,14 +11,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="/img/logo.png" alt="logo unpar" class="logo"/>
+            <img src="/img/logo.png" alt="logo unpar" class="logo" />
             <div class="sidebar">
                 <div class="profile-info">
-                    <div class="profile-pic"></div>
-                    <p class="email">dosen@unpar.ac.id</p>
+                    <p id="nama"></p>
                 </div>
-                <button class="logout-button">Log Out</button>
-                <button class="profile-button">Profile</button>
             </div>
         </div>
         <section>
@@ -36,6 +33,15 @@
             </form>
         </section>
     </div>
+
+    <script>
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("nama").innerText = data.nama;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
 </body>
 
 </html>
