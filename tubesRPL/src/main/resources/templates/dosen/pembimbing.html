@@ -136,6 +136,14 @@
 
         semesterDropdown.addEventListener('change', (event) => fetchData(event.target.value));
         fetchData(semesterDropdown.value);
+
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("nama").innerText = data.nama;
+            })
+            .catch(error => console.error('Error:', error));
     </script>
 </body>
 
