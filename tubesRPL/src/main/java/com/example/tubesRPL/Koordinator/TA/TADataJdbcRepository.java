@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Repository
 public class TADataJdbcRepository implements TAInterface {
@@ -44,8 +43,7 @@ public class TADataJdbcRepository implements TAInterface {
             rs.getString("penguji_1"),
             rs.getString("penguji_2"),
             rs.getString("pembimbing"),
-            rs.getString("semester_akademik")
-    );
+            rs.getString("semester_akademik"));
 
     @Override
     public List<TAData> findAll() {
@@ -97,32 +95,35 @@ public class TADataJdbcRepository implements TAInterface {
     public List<String> findAllSemesterAkademik() {
         String sql = "SELECT DISTINCT semester_akademik FROM ta_data ORDER BY semester_akademik DESC";
         return jdbcTemplate.queryForList(sql, String.class);
-      
+    }
+
     @Override
-public List<String> findAllSemesterAkademikPembimbing(String namaDosen) {
-    String sql = "SELECT DISTINCT semester_akademik FROM ta_data WHERE pembimbing = ? ORDER BY semester_akademik DESC";
-    return jdbcTemplate.queryForList(sql, String.class, namaDosen);
-}
-      @Override
-public List<String> findAllSemesterAkademikPenguji(String namaDosen) {
-    String sql = "SELECT DISTINCT semester_akademik FROM ta_data WHERE penguji_1 = ? OR penguji_2 = ? ORDER BY semester_akademik DESC";
-    return jdbcTemplate.queryForList(sql, String.class, namaDosen, namaDosen);
-}
-@Override
-public List<String> findAllDosen() {
-    String sql = "SELECT DISTINCT nama_dosen FROM dosen ORDER BY nama_dosen ASC";
-    return jdbcTemplate.queryForList(sql, String.class);
-}
+    public List<String> findAllSemesterAkademikPembimbing(String namaDosen) {
+        String sql = "SELECT DISTINCT semester_akademik FROM ta_data WHERE pembimbing = ? ORDER BY semester_akademik DESC";
+        return jdbcTemplate.queryForList(sql, String.class, namaDosen);
+    }
 
-@Override
-public List<String> findAllMahasiswa() {
-    String sql = "SELECT DISTINCT nama_mahasiswa FROM mahasiswa ORDER BY nama_mahasiswa ASC";
-    return jdbcTemplate.queryForList(sql, String.class);
-}
+    @Override
+    public List<String> findAllSemesterAkademikPenguji(String namaDosen) {
+        String sql = "SELECT DISTINCT semester_akademik FROM ta_data WHERE penguji_1 = ? OR penguji_2 = ? ORDER BY semester_akademik DESC";
+        return jdbcTemplate.queryForList(sql, String.class, namaDosen, namaDosen);
+    }
 
-@Override
-public List<String> findAllTempat() {
-    String sql = "SELECT DISTINCT nama_ruangan FROM ruangan ORDER BY nama_ruangan ASC";
-    return jdbcTemplate.queryForList(sql, String.class);
-}
+    @Override
+    public List<String> findAllDosen() {
+        String sql = "SELECT DISTINCT nama_dosen FROM dosen ORDER BY nama_dosen ASC";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    @Override
+    public List<String> findAllMahasiswa() {
+        String sql = "SELECT DISTINCT nama_mahasiswa FROM mahasiswa ORDER BY nama_mahasiswa ASC";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    @Override
+    public List<String> findAllTempat() {
+        String sql = "SELECT DISTINCT nama_ruangan FROM ruangan ORDER BY nama_ruangan ASC";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
 }
