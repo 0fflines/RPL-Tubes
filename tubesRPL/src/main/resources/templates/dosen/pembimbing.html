@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/dosen.css" />
     <title>Pembimbing</title>
     <style>
-        /* ... */
+        /* Tambahkan CSS jika diperlukan */
     </style>
 </head>
+
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header">
             <img src="/img/logo.png" alt="logo unpar" class="logo" />
             <div class="sidebar">
                 <div class="profile-info">
-                    <p class="role" id="role"><b>Role: Pembimbing</b><span id="role-text"></span></p>
+                    <p class="role" id="role">
+                        <b>Role: Pembimbing</b><span id="role-text"></span>
+                    </p>
                     <div class="profile-pic"></div>
                     <p class="email" id="email"></p>
                 </div>
@@ -23,11 +28,13 @@
                 <a href="profileDosenPembimbing" class="profile-button">Profile</a>
             </div>
         </div>
+
+        <!-- Navigation -->
         <section>
             <div class="navigation">
                 <form action="/dosen/home" method="GET" class="back button">
-                    <input type="email" value="email" name="email" hidden />
-                    <input type="text" value="role" name="role" hidden />
+                    <input type="email" name="email" hidden />
+                    <input type="text" name="role" hidden />
                     <a href="home" class="home-button">BACK TO HOME PAGE</a>
                 </form>
                 <form action="#" class="dropdown">
@@ -41,6 +48,8 @@
                     </select>
                 </form>
             </div>
+
+            <!-- Content -->
             <div class="content">
                 <h2 id="nama"></h2>
                 <h2>Daftar Skripsi Pembimbing</h2>
@@ -66,6 +75,8 @@
             </div>
         </section>
     </div>
+
+    <!-- Popup Catatan -->
     <div id="catatan" class="popupCatatan">
         <div class="popup-content-catatan">
             <span class="close" id="tombolTutupCatatan">&times;</span>
@@ -77,9 +88,11 @@
             <span class="save" id="tombolSaveCatatan">SAVE</span>
         </div>
     </div>
+
+    <!-- Popup Nilai -->
     <div id="nilai" class="popupNilai">
         <div class="popup-content-nilai">
-         <span class="close" id="tombolTutupNilai">&times;</span>
+            <span class="close" id="tombolTutupNilai">&times;</span>
             <h3>Penilaian</h3>
             <p><strong>Nama Mahasiswa:</strong></p>
             <p><strong>Judul Skripsi:</strong></p>
@@ -91,6 +104,7 @@
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
         const semesterDropdown = document.getElementById('semester');
         const tableBody = document.getElementById('skripsi-table-body');
@@ -100,74 +114,19 @@
                 const response = await fetch(`/api/skripsi?semester=${semester}`);
                 const data = await response.json();
                 tableBody.innerHTML = "";
+
                 data.forEach((item) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${(link unavailable)}</td>
+                        <td>${item.npm}</td>
                         <td>${item.namaMahasiswa}</td>
                         <td>${item.judulSkripsi}</td>
                         <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
                         <td>${item.tempat || '-'}</td>
-                        <td><span class="tombolBukaNilai" id="tombolBukaNilai" data-id="${(link unavailable)}">Nilai</span></td>
-                        <td><span class="tombolBukaCatatan" id="tombolBukaCatatan">Catatan</span></td>
+                        <td><span class="tombolBukaNilai" data-id="${item.id}">Nilai</span></td>
+                        <td><span class="tombolBukaCatatan">Catatan</span></td>
                         <td><a href="bapSidang"><button class="view-bap"></button></a></td>
                     `;
-                    const buttonNilai = row.querySelector(".tombolBukaNilai");
-                    buttonNilai.onclick = async function(){
-                        const formBody = document.getElementById("form-nilai");
-                        formBody.innerHTML = "";
-                        const idTa = buttonNilai.getAttribute("data-id");
-                        const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
-                        const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
-                        const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
-                        document.querySelector("#nilai .popup-content-nilai p:nth-child(3)").innerHTML = `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
-                        document.querySelector("#nilai .popup-content-nilai p:nth-child(4)").innerHTML = `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
-                        document.querySelector("#nilai .popup-content-nilai p:nth-child(5)").innerHTML = `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
-                        document.getElementById("nilai").style.display = "block";
-                        try{
-                            const responseNilai = await fetch(`/api/nilai/load?namaRole=${encodeURIComponent("pembimbing")}&idTA=${idTa}`)
-                            const dataNilai = await responseNilai.json();
-                            dataNilai.forEach((itemNilai) =>{
-                                const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
-                                formBody.innerHTML +=`
-                                    <div class="form-group">
-                                        <label>${itemNilai.namaKomponen}</label>
-                                        <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
-                                        <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
-                                    </div>
-                                `
-                            })
-                        }catch(error){
-                            console.error("error nilai:", error);
-                        }
-                    }
-
-                    const buttonCatatan = row.querySelector(".tombolBukaCatatan");
-                    buttonCatatan.onclick = function(){
-                        const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
-                        const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
-                        const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
-                        document.querySelector("#catatan .popup-content-catatan p:nth-child(2)").innerHTML = `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
-                        document.querySelector("#catatan .popup-content-catatan p:nth-child(3)").innerHTML = `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
-                        document.querySelector("#catatan .popup-content-catatan p:nth-child(4)").innerHTML = `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
-                        document.getElementById("catatan").style.display = "block";
-                        const isiCatatan = document.getElementById("catatanTextBox");
-                        const loadCatatanTA = fetch(`/api/catatan/load?idTA=${(link unavailable)}`)
-                            .then((result) => { return result.json(); })
-                            .then((catatanTA) => { isiCatatan.value = catatanTA.isiCatatan; });
-                        const buttonSaveCatatan = document.getElementById("tombolSaveCatatan");
-                        buttonSaveCatatan.onclick = function () {
-                            const isiCatatanValue = isiCatatan.value;
-                            const idTA = (link unavailable);
-                            fetch(`/api/catatan/save`, {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/x-www-form-urlencoded",
-                                },
-                                body: `isiCatatan=${encodeURIComponent(isiCatatanValue)}&idTA=${idTA}`,
-                            }).then(response => response.text());
-                        }
-                    }
                     tableBody.appendChild(row);
                 });
             } catch (error) {
@@ -175,29 +134,9 @@
             }
         }
 
-        var popupCatatan = document.getElementById("catatan");
-        var buttonCloseCatatan = document.getElementById("tombolTutupCatatan");
-        buttonCloseCatatan.onclick = function () { popupCatatan.style.display = "none"; }
-
-        var popupNilai = document.getElementById("nilai");
-        var buttonCloseNilai = document.getElementById("tombolTutupNilai");
-        buttonCloseNilai.onclick = function () { popupNilai.style.display = "none"; }
-
-        window.onclick = function (event) {
-            if (event.target == popupCatatan) { popupCatatan.style.display = "none"; }
-            if (event.target == popupNilai) { popupNilai.style.display = "none"; }
-        }
-
-        semesterDropdown.addEventListener('change', (event) => { fetchData(event.target.value); });
+        semesterDropdown.addEventListener('change', (event) => fetchData(event.target.value));
         fetchData(semesterDropdown.value);
-
-        fetch('/userdata')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("email").innerText = data.email;
-                document.getElementById("nama").innerText = data.nama;
-            })
-            .catch(error => console.error('Error:', error));
     </script>
 </body>
+
 </html>
