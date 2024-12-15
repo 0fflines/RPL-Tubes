@@ -21,7 +21,7 @@
             /* Black with opacity */
         }
 
-        .popup-content {
+        .popup-content-catatan {
             background-color: #fefefe;
             margin: 15% auto;
             padding: 20px;
@@ -53,6 +53,29 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
+        }
+
+        .popupNilai {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black with opacity */
+        }
+
+        .popup-content-nilai {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
         }
     </style>
 </head>
@@ -115,9 +138,8 @@
     </div>
 
     <div id="catatan" class="popupCatatan">
-        <div class="popup-content">
+        <div class="popup-content-catatan">
             <span class="close" id="tombolTutupCatatan">&times;</span>
-            <h3>Evaluasi Nilai</h3>
             <p><strong>Nama Mahasiswa:</strong></p>
             <p><strong>Judul Skripsi:</strong></p>
             <p><strong>Waktu Sidang:</strong></p>
@@ -125,6 +147,20 @@
             <h4>Catatan:</h4>
             <textarea id="catatanTextBox" placeholder="Isi Catatan"></textarea>
             <span class="save" id="tombolSaveCatatan">SAVE</span>
+        </div>
+    </div>
+
+    <div id="nilai" class="popupNilai">
+        <div class="popup-content-nilai">
+            <span class="close" id="tombolTutupNilai">&times;</span>
+            <h3>Penilaian</h3>
+            <p><strong>Nama Mahasiswa:</strong></p>
+            <p><strong>Judul Skripsi:</strong></p>
+            <p><strong>Waktu Sidang:</strong></p>
+            <form action="/api/nilai/save" method="post">
+                <div id = "form-nilai"></div>
+                <button type="submit" id="tombolSaveNilai">SAVE</button>
+            </form>
         </div>
     </div>
     
@@ -150,10 +186,67 @@
                         <td>${item.judulSkripsi}</td>
                         <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
                         <td>${item.tempat || '-'}</td>
-                        <td>Nilai</td>
+                        <td><span class="tombolBukaNilai" id="tombolBukaNilai" data-id="${item.id}">Nilai</span></td>
                         <td><span class="tombolBukaCatatan" id="tombolBukaCatatan">Catatan</span></td>
                         <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                     `;
+
+                    //tambahin tombol nilai ke semua row
+                    const buttonNilai = row.querySelector(".tombolBukaNilai");
+                    buttonNilai.onclick = async function(){
+                        //ngosongin di atas biar g keliatan input sebelumnya kalo dibuka lagi
+                        const formBody = document.getElementById("form-nilai");
+                        formBody.innerHTML = "";
+
+                        const idTa = buttonNilai.getAttribute("data-id");
+
+                        const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
+                        const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
+                        const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
+
+                        document.querySelector("#nilai .popup-content-nilai p:nth-child(3)").innerHTML =
+                            `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
+                        document.querySelector("#nilai .popup-content-nilai p:nth-child(4)").innerHTML =
+                            `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
+                        document.querySelector("#nilai .popup-content-nilai p:nth-child(5)").innerHTML =
+                            `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
+
+                        document.getElementById("nilai").style.display = "block";
+
+                        try{
+                            const responseNilai = await fetch(`/api/nilai/load?namaRole=${encodeURIComponent("pembimbing")}&idTA=${idTa}`)
+                            const dataNilai = await responseNilai.json();
+
+
+
+                            dataNilai.forEach((itemNilai) =>{
+                                const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
+                                formBody.innerHTML +=`
+                                    <div class="form-group">
+                                        <label>${itemNilai.namaKomponen}</label>
+                                        <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
+                                        <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
+                                    </div>
+                                `
+                            })
+                        }catch(error){
+                            console.error("error nilai:", error);
+                        }
+
+                        // const buttonSaveNilai = document.getElementById("tombolSaveNilai");
+                        // buttonSaveNilai.onclick = function(){
+                        //     const isiCatatanValue = isiCatatan.value;
+                        //     const idTA = item.id;
+                        //     //kaigini soalnya controller pake POST method
+                        //     fetch(`/api/catatan/save`,{
+                        //         method: "POST",
+                        //         headers:{
+                        //             "Content-Type": "application/x-www-form-urlencoded", 
+                        //         },
+                        //         body: `isiCatatan=${encodeURIComponent(isiCatatanValue)}&idTA=${idTA}`,
+                        //     }).then(response => response.text());
+                        // }
+                    }
 
                     //tambahin button ke semua Catatan di row
                     const buttonCatatan = row.querySelector(".tombolBukaCatatan");
@@ -164,11 +257,11 @@
                         const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
                         const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
 
-                        document.querySelector("#catatan .popup-content p:nth-child(3)").innerHTML =
+                        document.querySelector("#catatan .popup-content-catatan p:nth-child(2)").innerHTML =
                         `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
-                        document.querySelector("#catatan .popup-content p:nth-child(4)").innerHTML =
+                        document.querySelector("#catatan .popup-content-catatan p:nth-child(3)").innerHTML =
                         `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
-                        document.querySelector("#catatan .popup-content p:nth-child(5)").innerHTML =
+                        document.querySelector("#catatan .popup-content-catatan p:nth-child(4)").innerHTML =
                         `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
 
                         document.getElementById("catatan").style.display = "block"
@@ -209,14 +302,25 @@
 
         //fungsi buat nutup pop up buat catatan
         var popupCatatan = document.getElementById("catatan");
-        var buttonCloseCatatan = document.getElementById("tombolTutupCatatan")
+        var buttonCloseCatatan = document.getElementById("tombolTutupCatatan");
 
         buttonCloseCatatan.onclick = function(){
             popupCatatan.style.display = "none";
         }
+
+        var popupNilai = document.getElementById("nilai");
+        var buttonCloseNilai = document.getElementById("tombolTutupNilai");
+
+        buttonCloseNilai.onclick = function(){
+            popupNilai.style.display = "none";
+        }
+
         window.onclick = function (event) {
             if (event.target == popupCatatan) {
                 popupCatatan.style.display = "none";
+            }
+            if(event.target == popupNilai){
+                popupNilai.style.display = "none";
             }
         }
 
