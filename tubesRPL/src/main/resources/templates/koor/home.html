@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/koordinator.css" />
-    <title>Koordinator</title>
+    <title>Sidang Tugas Akhir</title>
 </head>
 
 <body>
@@ -25,10 +25,10 @@
         <!-- Navigation Section -->
         <section>
             <div class="navigation-koor">
-                <form action="/config-bobot" method="POST" class="back button" aria-label="Konfigurasi Bobot Nilai">
+                <form action="/bobotKomponen" method="POST" class="back button" aria-label="Konfigurasi Bobot Nilai">
                     <input type="email" value="emailName" name="email" hidden />
                     <input type="text" value="roleName" name="role" hidden />
-                    <a href="/bobot-nilai">Konfigurasi Bobot Nilai</a>
+                    <a href="/bobotKomponen">Konfigurasi Bobot Nilai</a>
                 </form>
                 <form action="/create" method="POST" class="back button" aria-label="Create TA">
                     <input type="email" value="emailName" name=" email" hidden />
@@ -54,25 +54,45 @@
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Skripsi</th>
                                 <th>Jenis TA</th>
-                                <th>Tempat</th>
+                                <th>Ruangan</th>
                                 <th>Tanggal dan Waktu</th>
                                 <th>Penguji 1</th>
                                 <th>Penguji 2</th>
-                                <th>Pembimbing Utama</th>
-                                <th>Pembimbing Pendamping</th>
-
+                                <th>Pembimbing</th>
+                                <th>Nilai Kedisiplinan</th>
                                 <th>BAP</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tbody id="TA-table-body">
+                            <tbody id="TA-table-body">
+                                <!-- <td>
+                                    <input type="number" 
+                                           class="nilai-disiplin" 
+                                           min="0" 
+                                           max="100" 
+                                           value="${daftar.nilaiKedisiplinan || 0}" 
+                                           data-id="${daftar.idTA}" />
+                                    <button class="save-disiplin" data-id="${daftar.idTA}">Simpan</button>
+                                </td> -->
                         </tbody>
+                        
                     </table>
                 </div>
         </section>
     </div>
+        <!-- Modal untuk Mengedit Nilai Kedisiplinan -->
+    <!-- <div id="disciplineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Edit Nilai Kedisiplinan</h2>
+            <form id="disciplineForm">
+                <input type="number" id="nilaiKedisiplinan" name="nilaiKedisiplinan" min="0" max="100" required />
+                <button type="submit">Simpan</button>
+            </form>
+        </div>
+    </div> -->
     <script>
-        // Fungsi untuk mengambil data skripsi berdasarkan semester
+          // Fungsi untuk mengambil data skripsi berdasarkan semester
         async function fetchTAData(semester = 'ganjil 2024/2025') {
             const response = await fetch(`/api/koordinator/ta/daftar?semesterAkademik=${encodeURIComponent(semester)}`);
             const data = await response.json();
@@ -82,7 +102,7 @@
 
             // Jika data kosong, tampilkan pesan
             if (data.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="7">Tidak ada daftar mahasiswa.</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="10">Tidak ada daftar mahasiswa.</td></tr>';
             } else {
                 data.forEach((daftar) => {
                     const row = document.createElement('tr');
@@ -94,8 +114,8 @@
                         <td>${new Date(daftar.tanggalSidang).toLocaleString()}</td>
                         <td>${daftar.penguji1}</td>
                         <td>${daftar.penguji2}</td>
-                        <td>${daftar.pembimbingUtama}</td>
-                        <td>${daftar.pembimbingPendamping}</td>
+                        <td>${daftar.pembimbing}</td>
+                        <td> <button class="edit-discipline-btn" data-id="<%= daftar.id_ta %>">Edit</button></td>
                         <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                     `;
                     tableBody.appendChild(row);
@@ -131,6 +151,50 @@
             const semester = this.value;
             await fetchTAData(semester); // Memanggil data berdasarkan semester yang dipilih
         });
+
+        // document.querySelectorAll('.edit-discipline-btn').forEach(button => {
+        //     button.addEventListener('click', async (event) => {
+        //         const taId = event.target.dataset.id;
+                
+        //         // Memunculkan modal
+        //         const modal = document.getElementById('disciplineModal');
+        //         modal.style.display = 'block';
+
+        //         // Menangani pengisian form
+        //         const form = document.getElementById('disciplineForm');
+        //         form.onsubmit = async (e) => {
+        //             e.preventDefault();
+        //             const nilaiKedisiplinan = document.getElementById('nilaiKedisiplinan').value;
+
+        //             // Mengirim data ke server untuk mengupdate nilai kedisiplinan
+        //             const response = await fetch(`/api/koordinator/ta/updateKedisiplinan`, {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'Content-Type': 'application/json',
+        //                 },
+        //                 body: JSON.stringify({
+        //                     taId,
+        //                     nilaiKedisiplinan,
+        //                 }),
+        //             });
+
+        //             if (response.ok) {
+        //                 alert('Nilai Kedisiplinan berhasil diperbarui');
+        //                 modal.style.display = 'none';
+        //                 location.reload();  // Menyegarkan halaman setelah pembaruan
+        //             } else {
+        //                 alert('Gagal memperbarui nilai kedisiplinan');
+        //             }
+        //         };
+        //     });
+        // });
+
+        // // Menutup modal
+        // document.querySelector('.close-btn').addEventListener('click', () => {
+        //     const modal = document.getElementById('disciplineModal');
+        //     modal.style.display = 'none';
+        // });
+
     </script>
 </body>
 

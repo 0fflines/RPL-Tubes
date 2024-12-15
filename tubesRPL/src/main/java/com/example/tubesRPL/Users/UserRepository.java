@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public class UserRepository {
     private final String jdbcUrl = "jdbc:postgresql://localhost:5432/rpl";
     private final String dbUser = "postgres";
-    private final String dbPassword = "7november2003";
+    private final String dbPassword = "agpd2107";
 
     public User findByEmail(String email) {
         try (Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {

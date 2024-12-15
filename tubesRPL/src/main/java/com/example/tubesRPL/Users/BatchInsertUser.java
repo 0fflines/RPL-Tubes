@@ -64,7 +64,7 @@ public class BatchInsertUser {
         // Informasi koneksi database
         String jdbcUrl = "jdbc:postgresql://localhost:5432/rpl";
         String dbUser = "postgres";
-        String dbPassword = "7november2003";
+        String dbPassword = "agpd2107";
 
         try (Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)) {
             String sql = "INSERT INTO users (nama_users, email_users, nomor_induk, password, role) VALUES (?, ?, ?, ?, ?)";
@@ -92,7 +92,7 @@ public class BatchInsertUser {
         // Informasi koneksi database
         String jdbcUrl = "jdbc:postgresql://localhost:5432/rpl";
         String dbUser = "postgres";
-        String dbPassword = "7november2003";
+        String dbPassword = "agpd2107";
 
         String sql = "INSERT INTO mahasiswa (nama_mahasiswa, npm, email_mahasiswa, password_mahasiswa) " +
                 "SELECT u.nama_users, " +
@@ -116,7 +116,7 @@ public class BatchInsertUser {
         // Informasi koneksi database
         String jdbcUrl = "jdbc:postgresql://localhost:5432/rpl";
         String dbUser = "postgres";
-        String dbPassword = "7november2003";
+        String dbPassword = "agpd2107";
 
         String sql = "INSERT INTO dosen (nama_dosen, no_dosen, email_dosen, password_dosen) " +
                 "SELECT u.nama_users, " +
@@ -140,7 +140,7 @@ public class BatchInsertUser {
         // Informasi koneksi database
         String jdbcUrl = "jdbc:postgresql://localhost:5432/rpl";
         String dbUser = "postgres";
-        String dbPassword = "7november2003";
+        String dbPassword = "agpd2107";
 
         String sql = "INSERT INTO koordinator(nama_dosen, no_dosen, email_dosen, password_dosen) " +
                 "SELECT u.nama_users, " +

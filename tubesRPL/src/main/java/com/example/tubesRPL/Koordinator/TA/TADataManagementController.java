@@ -41,6 +41,7 @@ public class TADataManagementController {
         try {
             taData.setTanggalSidang(LocalDateTime.parse(taData.getTanggalSidang().toString())); // Parsing string ke LocalDateTime
             int result = taInterface.save(taData);
+            taInterface.saveNilaiDisiplin(taData);
             model.addAttribute("message", result > 0 ? "TA data berhasil disimpan!" : "Gagal menyimpan data TA!");
         } catch (Exception e) {
             model.addAttribute("message", "Error: " + e.getMessage());

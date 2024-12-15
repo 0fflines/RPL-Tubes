@@ -121,8 +121,12 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
     width: 400px;
+}
+
+.table_component td {
+    font-size: 10px;
 }
 
 .view-bap {
@@ -438,3 +442,24 @@ section {
 .hidden {
     display: none;
 }
+
+
+/* .home-button {
+    background-color: #002855;
+    color: white;
+    margin: 15px;
+    width: 180px;
+    height: 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.home-button:hover {
+    background-color: #01428d;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    padding: 5px;
+    font-weight: bold;
+} */
