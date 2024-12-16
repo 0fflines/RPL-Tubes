@@ -13,4 +13,5 @@ public class NilaiKomponenTA {
     private String rolePenilai;
     private int nilai;
     private int idTA;
+    private String namaDosen;
 }

@@ -16,8 +16,8 @@ public class NilaiKomponenTAController {
     private NilaiKomponenTARepository nilaiKomponenTARepository;
 
     @GetMapping("/load")
-    private List<NilaiKomponenTA> loadNilai(@RequestParam("namaRole") String role, @RequestParam("idTA") int idTA) {
-        return nilaiKomponenTARepository.loadNilai(role, idTA);
+    private List<NilaiKomponenTA> loadNilai(@RequestParam("namaRole") String role, @RequestParam("idTA") int idTA, @RequestParam("namaDosen") String namaDosen) {
+        return nilaiKomponenTARepository.loadNilai(role, idTA, namaDosen);
     }
 
     @PostMapping("/save")
