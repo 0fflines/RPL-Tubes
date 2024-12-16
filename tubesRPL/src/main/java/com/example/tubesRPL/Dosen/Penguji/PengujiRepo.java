@@ -37,4 +37,11 @@ public class PengujiRepo {
         System.out.println("Executing query: " + sql + " with params: " + penguji);
         return jdbcTemplate.query(sql, this::mapRowToTugasAkhir, penguji, penguji);
     }
+
+    public List<SkripsiData> findByPembimbing(String pembimbing) {
+        String sql = "SELECT id_ta, nama_mahasiswa, judul_skripsi, ruangan, tanggal_sidang, semester_akademik " +
+                "FROM ta_data WHERE pembimbing = ?";
+        System.out.println("Executing query: " + sql + " with params: " + pembimbing);
+        return jdbcTemplate.query(sql, this::mapRowToTugasAkhir, pembimbing);
+    }
 }

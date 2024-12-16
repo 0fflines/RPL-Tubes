@@ -30,4 +30,14 @@ public class PengujiController {
         }
     }
 
+    @GetMapping("/pembimbing")
+    public ResponseEntity<List<SkripsiData>> getSkripsiByPembimbing(@RequestParam String pembimbing) {
+        try {
+            List<SkripsiData> data = repository.findByPembimbing(pembimbing);
+            return ResponseEntity.ok(data);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

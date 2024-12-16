@@ -108,12 +108,28 @@
         const semesterDropdown = document.getElementById('semester');
         const tableBody = document.getElementById('skripsi-table-body');
 
-        async function fetchData(semester) {
+        // Fungsi untuk mengambil data skripsi berdasarkan nama pembimbing
+        async function fetchDataByPembimbing(pembimbing) {
             try {
-                const response = await fetch(`/api/skripsi?semester=${semester}`);
+                const response = await fetch(`/api/skripsi/pembimbing?pembimbing=${pembimbing}`);
+                if (!response.ok) {
+                    console.error("Error fetching data:", response.status);
+                    tableBody.innerHTML = `<tr><td colspan="6">Error fetching data</td></tr>`;
+                    return;
+                }
+
                 const data = await response.json();
+                console.log("Response Data from Backend:", data); // Debugging log
+
+                // Kosongkan tabel sebelum menambahkan data baru
                 tableBody.innerHTML = "";
 
+                if (data.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="6">No data available</td></tr>`;
+                    return;
+                }
+
+                // Iterasi data untuk ditampilkan di tabel
                 data.forEach((item) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -122,27 +138,54 @@
                         <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
                         <td>${item.tempat || '-'}</td>
                         <td><span class="tombolBukaNilai" data-id="${item.id}">Nilai</span></td>
-                        <td><span class="tombolBukaCatatan">Catatan</span></td>
-                        <td><a href="bapSidang"><button class="view-bap"></button></a></td>
+                        <td><a href="bapSidang"><button class="view-bap">BAP</button></a></td>
                     `;
                     tableBody.appendChild(row);
                 });
             } catch (error) {
                 console.error("Error fetching data:", error);
+                tableBody.innerHTML = `<tr><td colspan="6">Error fetching data</td></tr>`;
             }
         }
 
-        semesterDropdown.addEventListener('change', (event) => fetchData(event.target.value));
-        fetchData(semesterDropdown.value);
-
+        // Fungsi untuk mendapatkan data user yang login
         fetch('/userdata')
             .then(response => response.json())
             .then(data => {
+                // Update tampilan profil di sidebar
                 document.getElementById("email").innerText = data.email;
                 document.getElementById("nama").innerText = data.nama;
+
+                const pembimbing = data.nama; // Mendapatkan nama pembimbing dari data user
+                if (pembimbing) {
+                    // Panggil fetchDataByPembimbing untuk menampilkan data berdasarkan nama pembimbing
+                    fetchDataByPembimbing(pembimbing);
+                } else {
+                    console.log("Data pembimbing kosong");
+                }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error fetching user data:', error));
+
+        // Event listener untuk dropdown semester
+        semesterDropdown.addEventListener('change', (event) => {
+            const pembimbing = document.getElementById("nama").innerText; // Ambil nama pembimbing yang sudah dimuat sebelumnya
+            if (pembimbing) {
+                fetchDataByPembimbing(pembimbing); // Panggil ulang fetchDataByPembimbing dengan nama pembimbing
+            }
+        });
+
+        // Popup untuk form penilaian (opsional, jika diperlukan)
+        document.getElementById("tombolTutupNilai").onclick = function () {
+            document.getElementById("nilai").style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target === document.getElementById("nilai")) {
+                document.getElementById("nilai").style.display = "none";
+            }
+        };
     </script>
+
 </body>
 
 </html>
