@@ -89,7 +89,8 @@ CREATE TABLE nilai_komponenTa (
     nama_komponen VARCHAR(100),
 	role_penilai VARCHAR(100),
     nilai NUMERIC(5, 2) CHECK (nilai >= 0 AND nilai <= 100),
-    id_ta INT NOT NULL REFERENCES ta_data(id_ta)
+    id_ta INT NOT NULL REFERENCES ta_data(id_ta),
+    nama_dosen VARCHAR(100)
 );
 
 -- Query untuk menyimpan rata-rata nilai semua komponen dari Penguji
