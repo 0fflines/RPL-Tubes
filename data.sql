@@ -138,3 +138,4 @@ CREATE TABLE bap (
     nilai_total NUMERIC(5, 2)NOT NULL CHECK (nilai_total >= 0 AND  nilai_total <= 100)
 );
 
+INSERT INTO bobotrole(bobotPenguji, bobotPembimbing, bobotKoordinator) VALUES (35, 20, 10);

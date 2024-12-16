@@ -49,6 +49,21 @@ public class HomeController {
         return "mahasiswa/profileMahasiswa";
     }
 
+    @GetMapping("/bapSidangDosen")
+    public String profileBAPDosen() {
+        return "dosen/bapSidangdosen";
+    }
+
+    @GetMapping("/bapSidangKoordinator")
+    public String profileBAPKoordinator() {
+        return "koor/bapSidangkoordinator";
+    }
+
+    @GetMapping("/bapSidangmahasiswa")
+    public String profileBAPMahasiswa() {
+        return "mahasiswa/bapSidangMahasiswa";
+    }
+
     // POST method untuk menangani form profile
     @PostMapping("/profile")
     public String handleProfile(@RequestParam("email") String email,

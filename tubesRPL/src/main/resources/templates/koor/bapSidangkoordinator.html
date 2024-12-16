@@ -119,94 +119,100 @@
             <header class="title">
                 <h3>Berita Acara</h3>
                 <h3>Sidang Skripsi</h3>
-                <h3>Semester: <span th:text="${taData.semesterAkademik}"></span></h3>
-                <h5>Telah diselenggarakan review untuk mata kuliah <span th:text="${taData.judulSkripsi}"></span> bagi:
-                </h5>
+                <h3>Semester: <input type="text" value=""></h3>
+                <h5>Telah diselenggarakan review untuk mata kuliah AIF234002 bagi:</h5>
             </header>
         </div>
-        <div th:each="taData : ${taDataList}">
-            <div id="bodybap">
-                <p><strong>NPM:</strong> <span th:text="${taData.namaMahasiswa}"></span></p>
-                <p><strong>Nama:</strong> <span th:text="${taData.namaMahasiswa}"></span></p>
-                <p><strong>Topik:</strong> <span th:text="${taData.judulSkripsi}"></span></p>
-                <p><strong>dengan pembimbing dan penguji:</strong></p>
-                <p><strong>- Pembimbing Utama/Tunggal:</strong> <span th:text="${taData.pembimbing}"></span></p>
-                <p><strong>- Ketua Tim Penguji:</strong> <span th:text="${taData.penguji1}"></span></p>
-                <p><strong>- Anggota Tim Penguji:</strong> <span th:text="${taData.penguji2}"></span></p>
-            </div>
-            <div id="tablebap">
-                <table>
-                    <tr>
-                        <th>No.</th>
-                        <th>Pembimbing/Penguji</th>
-                        <th>Nilai</th>
-                        <th>Bobot</th>
-                        <th>Nilai Akhir</th>
-                    </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>Ketua Tim Penguji</td>
-                        <td><span th:text="${taData.nilaiPenguji1}"></span></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>Anggota Tim Penguji</td>
-                        <td><span th:text="${taData.nilaiPenguji2}"></span></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>Pembimbing</td>
-                        <td><span th:text="${taData.nilaiPembimbing}"></span></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>4.</td>
-                        <td>Koordinator Skripsi</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">Total</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-                <p><strong>Ditetapkan di Bandung:</strong> <span th:text="${taData.tanggalSidang}"></span></p>
-            </div>
-            <div class="signature-table">
-                <table>
-                    <tr>
-                        <td>
-                            <div class="sign"></div>
-                        </td>
-                        <td>
-                            <div class="sign"></div>
-                        </td>
-                        <td>
-                            <div class="sign"></div>
-                        </td>
-                        <td>
-                            <div class="sign"></div>
-                        </td>
-                        <td>
-                            <div class="sign"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Ketua Tim Penguji</th>
-                        <th>Anggota Tim Penguji</th>
-                        <th>Pembimbing</th>
-                        <th>Mahasiswa</th>
-                        <th>Koordinator Skripsi</th>
-                    </tr>
-                </table>
-            </div>
+
+        <div id="bodybap">
+            <p><strong>NPM:</strong> <input type="text" name="" id="">
+                <strong>Nama:</strong> <input type="text" name="" id="">
+            </p>
+            <p><strong>Topik:</strong> <input type="text" name="" id=""></p>
+            <p><strong>dengan pembimbing dan penguji:</strong></p>
+            <p><strong>- Pembimbing Utama/Tunggal:</strong> <input type="text" value=""></p>
+            <p><strong>- Pembimbing Pendamping:</strong> <input type="text" value="-"></p>
+            <p><strong>- Ketua Tim Penguji:</strong> <input type="text" value=""></p>
+            <p><strong>- Anggota Tim Penguji:</strong> <input type="text" value=""></p>
+            <br>
+            <p><strong>Rekapitulasi nilai</strong> <input type="text" name="" id=""> <strong>yang diberikan oleh
+                    pembimbing, penguji, & koordinator skripsi:</strong></p>
+        </div>
+
+        <div id="tablebap">
+            <table>
+                <tr>
+                    <th>No.</th>
+                    <th>Pembimbing/Penguji</th>
+                    <th>Nilai</th>
+                    <th>Bobot</th>
+                    <th>Nilai Akhir</th>
+                </tr>
+                <tr>
+                    <td>1.</td>
+                    <td>Ketua Tim Penguji</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>Anggota Tim Penguji</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>Pembimbing</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>Koordinator Skripsi</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3">Total</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <p><strong>Ditetapkan di Bandung:</strong> <input type="text" name="" id=""></p>
+        </div>
+
+        <div class="signature-table">
+            <table class="signature-table">
+                <tr>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                    <td>
+                        <div class="sign"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ketua Tim Penguji</th>
+                    <th>Anggota Tim Penguji</th>
+                    <th>Pembimbing</th>
+                    <th>Mahasiswa</th>
+                    <th>Koordinator Skripsi</th>
+                </tr>
+
+            </table>
         </div>
     </div>
     <center> <input id="button" type="button" value="Unduh BAP" onclick="convertHTMLtoPDF()"> </center>

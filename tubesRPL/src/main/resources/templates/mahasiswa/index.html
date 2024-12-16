@@ -99,15 +99,12 @@
                             <th>Tempat</th>
                             <th>Penguji 1</th>
                             <th>Penguji 2</th>
-                            <th>Pembimbing Utama</th>
+                            <th>Pembimbing</th>
                             <th>Nilai</th>
                             <th>BAP</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <!-- diisi menggunakan javaScript -->
-                        </tr>
+                    <tbody id="mahasiswa-table-body">
                     </tbody>
                 </table>
             </div>
@@ -161,7 +158,7 @@
                     console.log("Data kosong");
                     return;
                 }
-                const tableBody = document.querySelector(".info-table tbody");
+               const tableBody = document.getElementById("mahasiswa-table-body");
                 tableBody.innerHTML = "";
                 data.forEach((skripsi) => {
                     const row = document.createElement("tr");

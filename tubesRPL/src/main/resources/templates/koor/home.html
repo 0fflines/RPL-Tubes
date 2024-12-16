@@ -14,7 +14,7 @@
             <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
             <div class="sidebar">
                 <div class="profile-info">
-                    <p class="role" id="role"><b>Role: </b><span id="role-text"></span></p>
+                    <p class="role" id="role"><b>Role: Koordinator </b><span id="role-text"></span></p>
                     <div class="profile-pic"></div>
                     <p class="email" id="email"></p>
                 </div>
@@ -25,15 +25,23 @@
         <!-- Navigation Section -->
         <section>
             <div class="navigation-koor">
-                <form action="/config-bobot" method="POST" class="back button" aria-label="Konfigurasi Bobot Nilai">
-                    <input type="email" value="emailName" name="email" hidden />
-                    <input type="text" value="roleName" name="role" hidden />
-                    <a href="/bobot-nilai">Konfigurasi Bobot Nilai</a>
-                </form>
+                <div id="konfigurasiBobot">
+                    <form action="/bobotRole" method="POST" class="back button" aria-label="Konfigurasi Bobot Penilai">
+                        <input type="email" value="emailName" name="email" hidden />
+                        <input type="text" value="roleName" name="role" hidden />
+                        <a href="/bobotRole">Konfigurasi Bobot Penilai</a>
+                    </form>
+                    <form action="/bobotKomponen" method="POST" class="back button"
+                        aria-label="Konfigurasi Bobot Nilai">
+                        <input type="email" value="emailName" name="email" hidden />
+                        <input type="text" value="roleName" name="role" hidden />
+                        <a href="/bobotKomponen">Konfigurasi Bobot Nilai</a>
+                    </form>
+                </div>
                 <form action="/create" method="POST" class="back button" aria-label="Create TA">
                     <input type="email" value="emailName" name=" email" hidden />
                     <input type="text" value="roleName" name="role" hidden />
-                    <a href="/create">Create TA Here</a>
+                    <a href="/create" id="CreateTa">Create TA Here</a>
                 </form>
             </div>
             <form action="/select-semester" class="dropdown" aria-label="Pilih Semester">
@@ -46,7 +54,9 @@
             </form>
             <!-- Content Section -->
             <div class="content">
-                <center><h1 id="nama"></h1></center>
+                <center>
+                    <h1 id="nama"></h1>
+                </center>
                 <h2 id="daftar-mahasiswa">Daftar Mahasiswa</h2>
                 <div class="table_component" role="region" aria-labelledby="daftar-mahasiswa">
                     <table>
@@ -60,13 +70,13 @@
                                 <th>Penguji 1</th>
                                 <th>Penguji 2</th>
                                 <th>Pembimbing</th>
-                                <th>Nilai Kedisiplinan</th>
+                                <!-- <th>Nilai Kedisiplinan</th> -->
                                 <th>BAP</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tbody id="TA-table-body">
-                                <!-- <td>
+                        <tbody id="TA-table-body">
+                            <!-- <td>
                                     <input type="number" 
                                            class="nilai-disiplin" 
                                            min="0" 
@@ -76,24 +86,26 @@
                                     <button class="save-disiplin" data-id="${daftar.idTA}">Simpan</button>
                                 </td> -->
                         </tbody>
-                        
+
                     </table>
                 </div>
         </section>
     </div>
-        <!-- Modal untuk Mengedit Nilai Kedisiplinan -->
-    <!-- <div id="disciplineModal" class="modal">
+    <!-- Modal untuk Mengedit Nilai Kedisiplinan -->
+    <div id="disciplineModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
             <h2>Edit Nilai Kedisiplinan</h2>
-            <form id="disciplineForm">
-                <input type="number" id="nilaiKedisiplinan" name="nilaiKedisiplinan" min="0" max="100" required />
+            <form id="disciplineForm" method="POST" action="/api/koordinator/updateKedisiplinan">
+                <input type="hidden" id="edit-idTA" name="id_ta">
+                <label for="nilaiKedisiplinan">Nilai Kedisiplinan</label>
+                <input type="number" id="nilaiKedisiplinan" name="nilai_disiplin" min="0" max="100" required>
                 <button type="submit">Simpan</button>
+                <button type="button" id="cancel-discipline-button">Batal</button>
             </form>
         </div>
-    </div> -->
+    </div>
     <script>
-          // Fungsi untuk mengambil data skripsi berdasarkan semester
+        // Fungsi untuk mengambil data skripsi berdasarkan semester
         async function fetchTAData(semester = 'ganjil 2024/2025') {
             const response = await fetch(`/api/koordinator/ta/daftar?semesterAkademik=${encodeURIComponent(semester)}`);
             const data = await response.json();
@@ -116,7 +128,7 @@
                         <td>${daftar.penguji1}</td>
                         <td>${daftar.penguji2}</td>
                         <td>${daftar.pembimbing}</td>
-                        <td> <button class="edit-discipline-btn" data-id="<%= daftar.id_ta %>">Edit</button></td>
+                    
                         <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                     `;
                     tableBody.appendChild(row);
@@ -153,20 +165,10 @@
             await fetchTAData(semester); // Memanggil data berdasarkan semester yang dipilih
         });
 
-
-        fetch('/userdata')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("email").innerText = data.email;
-                document.getElementById("role-text").innerText = data.role;
-                document.getElementById("nama").innerText = data.nama;
-            })
-            .catch(error => console.error('Error:', error));
-
         // document.querySelectorAll('.edit-discipline-btn').forEach(button => {
         //     button.addEventListener('click', async (event) => {
         //         const taId = event.target.dataset.id;
-                
+
         //         // Memunculkan modal
         //         const modal = document.getElementById('disciplineModal');
         //         modal.style.display = 'block';
@@ -205,6 +207,39 @@
         //     const modal = document.getElementById('disciplineModal');
         //     modal.style.display = 'none';
         // });
+
+        // Menangani aksi tombol update bobot
+        document.querySelector('.update-button').addEventListener('click', () => {
+            document.getElementById('form-update-BobotRole').style.display = 'block';
+        });
+
+        document.getElementById('cancel-update-button').addEventListener('click', () => {
+            document.getElementById('form-update-BobotRole').style.display = 'none';
+        });
+
+        // Menangani aksi tombol edit nilai disiplin
+        document.querySelectorAll('.edit-discipline-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const idTA = event.target.getAttribute('data-id');
+                document.getElementById('edit-idTA').value = idTA;
+                document.getElementById('disciplineModal').style.display = 'block';
+            });
+        });
+
+        document.getElementById('cancel-discipline-button').addEventListener('click', () => {
+            document.getElementById('disciplineModal').style.display = 'none';
+        });
+
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);  // Log data untuk pemeriksaan
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("role-text").innerText = data.role;
+                document.getElementById("nama").innerText = data.nama || 'Nama Tidak Tersedia';
+            })
+            .catch(error => console.error('Error:', error));
+
 
     </script>
 </body>

@@ -26,6 +26,7 @@ public class LoginController {
         User user = (User) httpSession.getAttribute("userdata");
         if (user != null) {
             model.addAttribute("user", user);
+            return "redirect:/bap"; // Redirect ke halaman utama jika sudah login
         }
         return "login";
     }
@@ -34,6 +35,11 @@ public class LoginController {
     public String handleLogin(@RequestParam("email") String email,
             @RequestParam("password") String password,
             Model model, HttpSession httpSession) {
+        if (email.isEmpty() || password.isEmpty()) {
+            model.addAttribute("error", "Email dan password harus diisi.");
+            return "login";
+        }
+
         User user = userRepository.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             httpSession.setAttribute("userdata", user);

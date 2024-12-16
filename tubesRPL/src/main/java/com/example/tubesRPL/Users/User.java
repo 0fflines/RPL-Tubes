@@ -1,5 +1,7 @@
 package com.example.tubesRPL.Users;
 
+import com.example.tubesRPL.Koordinator.TA.TAData;
+
 public class User {
     private String nama;
     private String email;
@@ -15,6 +17,8 @@ public class User {
         this.role = role;
     }
 
+    private TAData taData;
+
     public String getNama() {
         return nama;
     }
@@ -23,7 +27,7 @@ public class User {
         return email;
     }
 
-    public String getNomorInduk(){
+    public String getNomorInduk() {
         return nomorInduk;
     }
 
@@ -33,5 +37,9 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public TAData getTaData() {
+        return taData;
     }
 }

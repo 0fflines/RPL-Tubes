@@ -1,0 +1,276 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto;
+    row-gap: 5px;
+    position: relative;
+    z-index: 2;
+}
+
+.header {
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    background-color: #002855;
+    color: #fff;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 10px;
+    grid-column: 1;
+}
+
+.sidebar {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#role {
+    grid-column: 1/3;
+    grid-row: 1;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.profile-info {
+    text-align: center;
+    grid-column: 1/3;
+    grid-row: 2;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+.email {
+    margin: 5px 0;
+}
+
+.logout-button {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.profile-button {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.logout-button,
+.profile-button {
+    display: block;
+    background-color: #fff;
+    color: #002855;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.logout-button:hover,
+.profile-button:hover {
+    display: block;
+    background-color: #fff;
+    color: #002855;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.home-button{
+    grid-row: 2;
+    background-color: #002855;
+    color: white;
+    margin: 10px;
+    width: 180px;
+    height: 20px;
+    border-radius: 25px;
+    padding: 10px;
+    text-decoration: none;
+    margin: 20px;
+}
+
+.home-button:hover{
+    background-color: #01428d;
+    color: white;
+    font-weight: bold;
+}
+h2 {
+    grid-row: 3;
+    text-align: center;
+}
+
+#tambah-komponen-button {
+    grid-row: 4;
+    background-color:  #002855;
+    border: #002855;
+    border-radius: 20px;
+    padding: 5px;
+    color: white;
+    width: 180px;
+}
+
+#tambah-komponen-button:hover {
+    grid-row: 4;
+    background-color: #01428d;
+    border: #01428d;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 5px;
+    color: white;
+    width: 180px;
+}
+
+section {
+    grid-row: 5;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+}
+
+
+
+h3{
+    text-align: center;
+}
+
+table{
+    background-color: #002855;
+    color: white;
+}
+
+th, td {
+    padding: 5px;
+    margin: 5px;
+}
+
+tbody {
+    background-color: white;
+    color: black;
+}
+
+.update-button, .delete-button{
+    background-color: #002855;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.update-button:hover, .delete-button:hover{
+    background-color:#01428d;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#form-tambah-komponen,
+#form-update-komponen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 1000;
+    width: 400px;
+}
+
+#form-tambah-komponen h3,
+#form-update-komponen h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: inline-block;
+    width: 40%;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-right: 10px;
+    grid-column: 1;
+}
+
+form input,
+form select {
+    grid-column: 2y;
+    width: 55%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button[type="submit"],
+form button[type="button"] {
+    display: block;
+    width: calc(50% - 10px);
+    padding: 10px;
+    margin: 10px 5px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #002855;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover,
+form button[type="button"]:hover {
+    background-color: #01428d;
+    font-weight: bold;
+}
+
+form button[type="button"] {
+    background-color: #ccc;
+    color: #333;
+}
+
+form button[type="button"]:hover {
+    background-color: #999;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
