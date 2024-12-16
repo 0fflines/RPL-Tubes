@@ -152,7 +152,7 @@
                         <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
                         <td>${item.tempat || '-'}</td>
                         <td><span class="tombolBukaNilai" data-id="${item.id}">Nilai</span></td>
-                        <td><a href="bapSidang"><button class="view-bap">BAP</button></a></td>
+                        <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                     `;
                     const buttonNilai = row.querySelector(".tombolBukaNilai");
                     buttonNilai.onclick = async function(){
