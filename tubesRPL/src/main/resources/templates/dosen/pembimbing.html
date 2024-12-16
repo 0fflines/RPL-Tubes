@@ -211,46 +211,8 @@
                         <td><span class="tombolBukaCatatan" id="tombolBukaCatatan">Catatan</span></td>
                         <td><a href="bapSidang"><button class="view-bap">BAP</button></a></td>
                     `;
-                    //tambah tombol nilai
-                    const buttonNilai = row.querySelector(".tombolBukaNilai");
-                    buttonNilai.onclick = async function(){
-                        //ngosongin di atas biar g keliatan input sebelumnya kalo dibuka lagi
-                        const formBody = document.getElementById("form-nilai");
-                        formBody.innerHTML = "";
 
-                        const idTa = buttonNilai.getAttribute("data-id");
-
-                        const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
-                        const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
-                        const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
-
-                        document.querySelector("#nilai .popup-content-nilai p:nth-child(3)").innerHTML =
-                            `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
-                        document.querySelector("#nilai .popup-content-nilai p:nth-child(4)").innerHTML =
-                            `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
-                        document.querySelector("#nilai .popup-content-nilai p:nth-child(5)").innerHTML =
-                            `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
-
-                        document.getElementById("nilai").style.display = "block";
-
-                        try{
-                            const responseNilai = await fetch(`/api/nilai/load?`+
-                            `namaRole=${encodeURIComponent("pembimbing")}&idTA=${idTa}&`+
-                            `namaDosen=${encodeURIComponent(document.getElementById("nama").innerText)}`)
-                            const dataNilai = await responseNilai.json();
-
-                            dataNilai.forEach((itemNilai) =>{
-                                const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
-                                formBody.innerHTML +=`
-                                    <div class="form-group">
-                                        <label>${itemNilai.namaKomponen}</label>
-                                        <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
-                                        <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
-                                    </div>
-                                `
-                            })
-
-                        //tambahin button ke semua Catatan di row
+                    //tambahin button ke semua Catatan di row
                     const buttonCatatan = row.querySelector(".tombolBukaCatatan");
                     buttonCatatan.onclick = function(){
                         //baca info ta dari table
@@ -291,7 +253,46 @@
                                 body: `isiCatatan=${encodeURIComponent(isiCatatanValue)}&idTA=${idTA}`,
                             }).then(response => response.text());
                         }
-                        }
+                    }
+
+                    //tambah tombol nilai
+                    const buttonNilai = row.querySelector(".tombolBukaNilai");
+                    buttonNilai.onclick = async function(){
+                        //ngosongin di atas biar g keliatan input sebelumnya kalo dibuka lagi
+                        const formBody = document.getElementById("form-nilai");
+                        formBody.innerHTML = "";
+
+                        const idTa = buttonNilai.getAttribute("data-id");
+
+                        const namaMahasiswa = item.namaMahasiswa ? item.namaMahasiswa : "--";
+                        const judulSkripsi = item.judulSkripsi ? item.judulSkripsi : "--";
+                        const tanggalSidang = item.tanggalSidang ? item.tanggalSidang : "--";
+
+                        document.querySelector("#nilai .popup-content-nilai p:nth-child(3)").innerHTML =
+                            `<strong>Nama Mahasiswa:</strong> ${namaMahasiswa}`;
+                        document.querySelector("#nilai .popup-content-nilai p:nth-child(4)").innerHTML =
+                            `<strong>Judul Skripsi:</strong> ${judulSkripsi}`;
+                        document.querySelector("#nilai .popup-content-nilai p:nth-child(5)").innerHTML =
+                            `<strong>Waktu Sidang:</strong> ${new Date(tanggalSidang).toLocaleString()}`;
+
+                        document.getElementById("nilai").style.display = "block";
+
+                        try{
+                            const responseNilai = await fetch(`/api/nilai/load?`+
+                            `namaRole=${encodeURIComponent("pembimbing")}&idTA=${idTa}&`+
+                            `namaDosen=${encodeURIComponent(document.getElementById("nama").innerText)}`)
+                            const dataNilai = await responseNilai.json();
+
+                            dataNilai.forEach((itemNilai) =>{
+                                const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
+                                formBody.innerHTML +=`
+                                    <div class="form-group">
+                                        <label>${itemNilai.namaKomponen}</label>
+                                        <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
+                                        <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
+                                    </div>
+                                `
+                            })
                         }catch(error){
                             console.error("error nilai:", error);
                         }
