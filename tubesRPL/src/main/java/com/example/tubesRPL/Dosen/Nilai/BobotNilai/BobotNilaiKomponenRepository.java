@@ -32,4 +32,9 @@ public class BobotNilaiKomponenRepository {
         String sql = "SELECT nama_komponen FROM bobot_nilaikomponen WHERE nama_role = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("nama_komponen"), role);
     }
+
+    public Integer getBobotByKomponen(String role, String namaKomponen){
+        String sql = "SELECT bobot FROM bobot_nilaikomponen WHERE nama_role=? AND nama_komponen=?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> rs.getInt("bobot"),role, namaKomponen);
+    }
 }

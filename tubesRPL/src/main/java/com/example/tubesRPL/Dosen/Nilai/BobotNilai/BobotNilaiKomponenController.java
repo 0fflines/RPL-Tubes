@@ -18,4 +18,9 @@ public class BobotNilaiKomponenController {
     public List<BobotNilaiKomponen> getBobotByRole(@RequestParam String role){
         return bobotNilaiKomponenRepository.getBobotByRole(role);
     }
+
+    @GetMapping("/bobot")
+    public Integer getBobotByKomponen(@RequestParam("namaRole") String role, @RequestParam("namaKomponen") String namaKomponen){
+        return bobotNilaiKomponenRepository.getBobotByKomponen(role, namaKomponen);
+    }
 }

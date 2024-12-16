@@ -285,13 +285,16 @@
 
                             dataNilai.forEach((itemNilai) =>{
                                 const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
-                                formBody.innerHTML +=`
+                                fetch(`/api/bobotNilai/bobot?namaRole=${"pembimbing"}&`+
+                                `namaKomponen=${encodeURIComponent(itemNilai.namaKomponen)}`).then(response=>response.json())
+                                .then(bobotNilai=>{
+                                    formBody.innerHTML +=`
                                     <div class="form-group">
-                                        <label>${itemNilai.namaKomponen}</label>
+                                        <label>${itemNilai.namaKomponen}(${bobotNilai}%):</label>
                                         <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
                                         <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
-                                    </div>
-                                `
+                                    </div>`
+                                }) 
                             })
                         }catch(error){
                             console.error("error nilai:", error);
