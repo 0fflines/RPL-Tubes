@@ -100,23 +100,13 @@
                             <th>Penguji 1</th>
                             <th>Penguji 2</th>
                             <th>Pembimbing Utama</th>
-                            <th>Pembimbing Pendamping</th>
                             <th>Nilai</th>
                             <th>BAP</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Sistem Manajemen SW</td>
-                            <td>TA 1</td>
-                            <td>21 Oktober 2024<br>10.00 - 11.00</td>
-                            <td>AG2U.06.01.01</td>
-                            <td>Prof. Dr. Ir. Veronica Sri Moertini, M.T.</td>
-                            <td>Maria Veronica, S.T., M.T.</td>
-                            <td>Gede Karya, S.T., M.T., CISA, IPM</td>
-                            <td>Drs. Rose de Lima Endang Pranowitri, M.T.</td>
-                            <td><span class="grade" id="viewGradeBtn">85</span></td>
-                            <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
+                            <!-- diisi menggunakan javaScript -->
                         </tr>
                     </tbody>
                 </table>
@@ -159,49 +149,41 @@
     </div>
 
     <script>
-        // Modal untuk Catatan Sidang
-        var notesModal = document.getElementById("notesModal");
-        var viewNotesBtn = document.getElementById("viewNotesBtn");
-        var closeNotesModalBtn = document.getElementById("closeNotesModalBtn");
-
-        // Ketika tombol "Lihat Catatan Sidang" diklik, tampilkan modal
-        viewNotesBtn.onclick = function () {
-            notesModal.style.display = "block";
-        }
-
-        // Ketika tombol close (×) diklik, sembunyikan modal
-        closeNotesModalBtn.onclick = function () {
-            notesModal.style.display = "none";
-        }
-
-        // Jika pengguna mengklik di luar modal, tutup modal
-        window.onclick = function (event) {
-            if (event.target == notesModal) {
-                notesModal.style.display = "none";
+        // Fungsi untuk memuat data dari endpoint menggunakan async/await
+        async function fetchSkripsiData() {
+            try {
+                const response = await fetch('/api/dataSidang');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (!data.length) {
+                    console.log("Data kosong");
+                    return;
+                }
+                const tableBody = document.querySelector(".info-table tbody");
+                tableBody.innerHTML = "";
+                data.forEach((skripsi) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+          <td>${skripsi.judulSkripsi}</td>
+          <td>${skripsi.jenisTA}</td>
+          <td>${skripsi.waktu}</td>
+          <td>${skripsi.ruangan || '-'}</td>
+          <td>${skripsi.penguji1}</td>
+          <td>${skripsi.penguji2}</td>
+          <td>${skripsi.pembimbingUtama}</td>
+          <td class="grade" onclick="showGradeModal()">${skripsi.nilai}</td>
+          <td><a href="/bap/${skripsi.judulSkripsi}" target="_blank">Download</a></td>
+        `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching skripsi data:', error);
             }
         }
 
-        // Modal untuk Evaluasi Nilai
-        var nilaiModal = document.getElementById("nilaiModal");
-        var viewGradeBtn = document.getElementById("viewGradeBtn");
-        var closeNilaiModalBtn = document.getElementById("closeNilaiModalBtn");
-
-        // Ketika nilai diklik, tampilkan modal
-        viewGradeBtn.onclick = function () {
-            nilaiModal.style.display = "block";
-        }
-
-        // Ketika tombol close (×) diklik, sembunyikan modal
-        closeNilaiModalBtn.onclick = function () {
-            nilaiModal.style.display = "none";
-        }
-
-        // Jika pengguna mengklik di luar modal, tutup modal
-        window.onclick = function (event) {
-            if (event.target == nilaiModal) {
-                nilaiModal.style.display = "none";
-            }
-        }
+        document.addEventListener("DOMContentLoaded", fetchSkripsiData);
 
         // Mengambil data dari session
         fetch('/userdata')
@@ -214,6 +196,48 @@
             })
             .catch(error => console.error('Error:', error));
 
+        //Fungsi untuk menampilkan modal nilai
+        function showGradeModal() {
+            const nilaiModal = document.getElementById("nilaiModal");
+            nilaiModal.style.display = "block";
+        }
+
+        // Panggil fungsi fetchSkripsiData setelah halaman selesai dimuat
+        document.addEventListener("DOMContentLoaded", fetchSkripsiData);
+
+        // Modal untuk Catatan Sidang
+        const notesModal = document.getElementById("notesModal");
+        const viewNotesBtn = document.getElementById("viewNotesBtn");
+        const closeNotesModalBtn = document.getElementById("closeNotesModalBtn");
+
+        viewNotesBtn.addEventListener("click", () => {
+            notesModal.style.display = "block";
+        });
+
+        closeNotesModalBtn.addEventListener("click", () => {
+            notesModal.style.display = "none";
+        });
+
+        // Modal untuk Evaluasi Nilai
+        const nilaiModal = document.getElementById("nilaiModal");
+        const viewGradeBtn = document.getElementById("viewGradeBtn");
+        const closeNilaiModalBtn = document.getElementById("closeNilaiModalBtn");
+
+        viewGradeBtn.addEventListener("click", () => {
+            nilaiModal.style.display = "block";
+        });
+
+        closeNilaiModalBtn.addEventListener("click", () => {
+            nilaiModal.style.display = "none";
+        });
+
+        // Tutup modal jika diklik di luar
+        window.addEventListener("click", (event) => {
+            if (event.target === notesModal || event.target === nilaiModal) {
+                notesModal.style.display = "none";
+                nilaiModal.style.display = "none";
+            }
+        });
     </script>
 </body>
 
