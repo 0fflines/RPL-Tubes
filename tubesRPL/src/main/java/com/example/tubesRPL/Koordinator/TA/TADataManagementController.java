@@ -86,5 +86,4 @@ public class TADataManagementController {
     public List<String> getAvailableSemesters() {
         return taInterface.findAllSemesterAkademik();
     }
-
 }

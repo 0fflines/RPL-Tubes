@@ -21,8 +21,7 @@ public class PengujiRepo {
                 rs.getString("judul_skripsi"),
                 rs.getString("ruangan"),
                 rs.getString("tanggal_sidang"),
-                rs.getString("semester_akademik")
-        );
+                rs.getString("semester_akademik"));
     }
 
     // Method untuk mengambil semua skripsi berdasarkan semester
@@ -30,5 +29,19 @@ public class PengujiRepo {
         String sql = "SELECT id_ta, nama_mahasiswa, judul_skripsi, ruangan, tanggal_sidang, semester_akademik " +
                 "FROM ta_data WHERE semester_akademik = ?";
         return jdbcTemplate.query(sql, this::mapRowToTugasAkhir, semester);
+    }
+
+    public List<SkripsiData> findByPenguji(String penguji) {
+        String sql = "SELECT id_ta, nama_mahasiswa, judul_skripsi, ruangan, tanggal_sidang, semester_akademik "
+                + "FROM ta_data WHERE penguji_1 = ? OR penguji_2 = ?";
+        System.out.println("Executing query: " + sql + " with params: " + penguji);
+        return jdbcTemplate.query(sql, this::mapRowToTugasAkhir, penguji, penguji);
+    }
+
+    public List<SkripsiData> findByPembimbing(String pembimbing) {
+        String sql = "SELECT id_ta, nama_mahasiswa, judul_skripsi, ruangan, tanggal_sidang, semester_akademik " +
+                "FROM ta_data WHERE pembimbing = ?";
+        System.out.println("Executing query: " + sql + " with params: " + pembimbing);
+        return jdbcTemplate.query(sql, this::mapRowToTugasAkhir, pembimbing);
     }
 }

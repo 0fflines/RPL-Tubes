@@ -32,17 +32,17 @@ public class TADataManagementControllerDosen {
         if (semesterAkademik == null || semesterAkademik.isEmpty()) {
             semesterAkademik = "Ganjil 2024/2025"; // Default value
         }
-        return  taInterface.findBySemesterAkademikPembimbing(semesterAkademik, namaDosen);
+        return taInterface.findBySemesterAkademikPembimbing(semesterAkademik, namaDosen);
     }
 
     @GetMapping("/penguji/daftar")
     public List<TAData> getTAdataBySemesterAkademikPenguji(
-        @RequestParam(value = "semesterAkademik", required = false) String semesterAkademik,
-        @RequestParam(value = "namaDosen") String namaDosen) {
+            @RequestParam(value = "semesterAkademik", required = false) String semesterAkademik,
+            @RequestParam(value = "namaDosen") String namaDosen) {
         if (semesterAkademik == null || semesterAkademik.isEmpty()) {
             semesterAkademik = "Ganjil 2024/2025"; // Default value
         }
-        return  taInterface.findBySemesterAkademikPenguji(semesterAkademik, semesterAkademik);
+        return taInterface.findBySemesterAkademikPenguji(semesterAkademik, semesterAkademik);
     }
 
     // Endpoint to fetch a single TA data by ID
