@@ -205,37 +205,15 @@
         //     modal.style.display = 'none';
         // });
 
-         // Menangani aksi tombol update bobot
-         document.querySelector('.update-button').addEventListener('click', () => {
-            document.getElementById('form-update-BobotRole').style.display = 'block';
-        });
-
-        document.getElementById('cancel-update-button').addEventListener('click', () => {
-            document.getElementById('form-update-BobotRole').style.display = 'none';
-        });
-
-        // Menangani aksi tombol edit nilai disiplin
-        document.querySelectorAll('.edit-discipline-btn').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const idTA = event.target.getAttribute('data-id');
-                document.getElementById('edit-idTA').value = idTA;
-                document.getElementById('disciplineModal').style.display = 'block';
-            });
-        });
-
-        document.getElementById('cancel-discipline-button').addEventListener('click', () => {
-            document.getElementById('disciplineModal').style.display = 'none';
-        });
-
-        fetch('/userdata')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);  // Log data untuk pemeriksaan
-            document.getElementById("email").innerText = data.email;
-            document.getElementById("role-text").innerText = data.role;
-            document.getElementById("nama").innerText = data.nama || 'Nama Tidak Tersedia';
-        })
-        .catch(error => console.error('Error:', error));
+        // fetch('/userdata')
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log(data);  // Log data untuk pemeriksaan
+        //     document.getElementById("email").innerText = data.email;
+        //     document.getElementById("role-text").innerText = data.role;
+        //     document.getElementById("nama").innerText = data.nama || 'Nama Tidak Tersedia';
+        // })
+        // .catch(error => console.error('Error:', error));
 
         
     </script>

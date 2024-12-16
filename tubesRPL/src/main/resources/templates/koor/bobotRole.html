@@ -26,17 +26,16 @@
       <h2>Persentase Bobot Penilai</h2>
       <div id="form-update-BobotRole" class="modal">
           <div class="modal-content"> 
-              <form id="form-update" method="PUT">
-                <input type="hidden" id="update-idBobotRole" name="id_bobotRole">
-                <label for="update-bobotPenguji">Bobot Penguji (%)</label>
-                <input type="number" id="update-bobotPenguji" name="bobotPenguji" required>
-                <label for="update-bobotPembimbing">Bobot Pembimbing (%)</label>
-                <input type="number" id="update-bobotPembimbing" name="bobotPembimbing" required>
-                <label for="update-bobotKoordinator">Bobot Koordinator (%)</label>
-                <input type="number" id="update-bobotKoordinator" name="bobotKoordinator" required>
-                <button type="submit">Simpan</button>
-            </form>
-            
+            <form id="form-update" method="PUT">
+              <input type="hidden" id="update-idBobotRole" name="id_bobotRole">
+              <label for="update-bobotPenguji">Bobot Penguji (%)</label>
+              <input type="number" id="update-bobotPenguji" name="bobotPenguji" required>
+              <label for="update-bobotPembimbing">Bobot Pembimbing (%)</label>
+              <input type="number" id="update-bobotPembimbing" name="bobotPembimbing" required>
+              <label for="update-bobotKoordinator">Bobot Koordinator (%)</label>
+              <input type="number" id="update-bobotKoordinator" name="bobotKoordinator" required>
+              <button type="submit">Simpan</button>
+            </form>            
           </div>
       </div>
     </section>
@@ -44,25 +43,56 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("form-update");
-      const bobotPengujiInput = document.getElementById("update-bobotPenguji");
-      const bobotPembimbingInput = document.getElementById("update-bobotPembimbing");
-      const bobotKoordinatorInput = document.getElementById("update-bobotKoordinator");
-  
-      // Fetch bobot role data and prefill the form
-      fetch("/api/bobot-role/bobotAll")
-        .then(response => response.json())
-        .then(data => {
-          if (data.length > 0) {
-            const bobotRole = data[0]; // Assume only one entry exists
-            document.getElementById("update-idBobotRole").value = bobotRole.id_bobotRole;
-            bobotPengujiInput.value = bobotRole.bobotPenguji;
-            bobotPembimbingInput.value = bobotRole.bobotPembimbing;
-            bobotKoordinatorInput.value = bobotRole.bobotKoordinator;
-          }
-        })
-        .catch(error => console.error("Error fetching bobot role:", error));
-    });
+  const form = document.getElementById("form-update");
+
+  // Prefill form dengan data dari backend
+  fetch("/api/bobot-role/bobotAll")
+    .then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        const bobotRole = data[0]; // Asumsikan hanya ada satu record
+        document.getElementById("update-idBobotRole").value = bobotRole.id_bobotRole;
+        document.getElementById("update-bobotPenguji").value = bobotRole.bobotPenguji;
+        document.getElementById("update-bobotPembimbing").value = bobotRole.bobotPembimbing;
+        document.getElementById("update-bobotKoordinator").value = bobotRole.bobotKoordinator;
+      }
+    })
+    .catch(error => console.error("Error fetching bobot role:", error));
+
+  // Tangani submit form untuk update
+  form.addEventListener("submit", function (event) {
+  event.preventDefault(); // Cegah submit default
+
+  // Ambil nilai dari form
+  const idBobotRole = document.getElementById("update-idBobotRole").value;
+  const bobotPenguji = document.getElementById("update-bobotPenguji").value;
+  const bobotPembimbing = document.getElementById("update-bobotPembimbing").value;
+  const bobotKoordinator = document.getElementById("update-bobotKoordinator").value;
+
+  // Kirim data sebagai JSON
+  fetch("/api/bobot-role/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id_bobotRole: idBobotRole,
+      bobotPenguji: bobotPenguji,
+      bobotPembimbing: bobotPembimbing,
+      bobotKoordinator: bobotKoordinator,
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      alert(data.message || "Bobot Role berhasil diperbarui");
+    })
+    .catch(error => console.error("Error updating bobot role:", error));
+});
+
+
+});
+
+
   </script>
   
   
