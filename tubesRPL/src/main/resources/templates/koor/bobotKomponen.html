@@ -13,10 +13,10 @@
     <div class="header">
       <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
       <div class="sidebar">
-        <div id="role">Koordinator</div>
+        <p class="role" id="role"><b>Role: Koordinator</b><span id="role-text"></span></p>
         <div class="profile-info">
           <div class="profile-pic"></div>
-          <p class="email">koordinator@unpar.ac.id</p>
+          <p class="email">mariskha@unpar.ac.id</p>
         </div>
         <a href="login" class="logout-button">Log out</a>
         <a href="profile" class="profile-button">Profile</a>
@@ -47,18 +47,18 @@
     <div id="form-update-komponen" style="display: none;">
       <h3>Form Update Komponen</h3>
       <form id="form-update" method="POST">
-          <input type="hidden" id="update-idKomponen" name="id_komponen">
-          <label for="update-namaKomponen">Komponen</label>
-          <input type="text" id="update-namaKomponen" name="nama_komponen" required>
-          <label for="update-namaRole">Role</label>
-          <select id="update-namaRole" name="nama_role" required>
-            <option value="penguji">Penguji</option>
-            <option value="pembimbing">Pembimbing</option>
-          </select>
-          <label for="update-bobot">Bobot (%)</label>
-          <input type="number" id="update-bobot" name="bobot" required>
-          <button type="submit">Simpan</button>
-          <button type="button" id="cancel-update-button">Batal</button>
+        <input type="hidden" id="update-idKomponen" name="id_komponen">
+        <label for="update-namaKomponen">Komponen</label>
+        <input type="text" id="update-namaKomponen" name="nama_komponen" required>
+        <label for="update-namaRole">Role</label>
+        <select id="update-namaRole" name="nama_role" required>
+          <option value="penguji">Penguji</option>
+          <option value="pembimbing">Pembimbing</option>
+        </select>
+        <label for="update-bobot">Bobot (%)</label>
+        <input type="number" id="update-bobot" name="bobot" required>
+        <button type="submit">Simpan</button>
+        <button type="button" id="cancel-update-button">Batal</button>
       </form>
     </div>
     <section>
@@ -114,145 +114,145 @@
       tambahKomponenButton.style.display = 'block';
     });
 
-   // Fungsi untuk menangani update komponen
-  function handleUpdateKomponen(id_komponen) {
-    fetch(`/api/bobot-komponen/${id_komponen}`)
-      .then((response) => response.json())
-      .then((bobotKomponen) => {
-        // Isi form update dengan data komponen
-        document.getElementById("update-idKomponen").value = bobotKomponen.id_komponen;
-        document.getElementById("update-namaKomponen").value = bobotKomponen.nama_komponen;
-        document.getElementById("update-namaRole").value = bobotKomponen.nama_role;
-        document.getElementById("update-bobot").value = bobotKomponen.bobot;
+    // Fungsi untuk menangani update komponen
+    function handleUpdateKomponen(id_komponen) {
+      fetch(`/api/bobot-komponen/${id_komponen}`)
+        .then((response) => response.json())
+        .then((bobotKomponen) => {
+          // Isi form update dengan data komponen
+          document.getElementById("update-idKomponen").value = bobotKomponen.id_komponen;
+          document.getElementById("update-namaKomponen").value = bobotKomponen.nama_komponen;
+          document.getElementById("update-namaRole").value = bobotKomponen.nama_role;
+          document.getElementById("update-bobot").value = bobotKomponen.bobot;
 
-        // Tampilkan form update
-        document.getElementById("form-update-komponen").style.display = "block";
-      })
-      .catch((error) => console.error("Gagal memuat data komponen:", error));
-  }
+          // Tampilkan form update
+          document.getElementById("form-update-komponen").style.display = "block";
+        })
+        .catch((error) => console.error("Gagal memuat data komponen:", error));
+    }
 
-  // Fungsi untuk menangani delete komponen
-  function handleDeleteKomponen(id_komponen) {
-    if (confirm(`Apakah Anda yakin ingin menghapus komponen dengan ID ${id_komponen}?`)) {
-      fetch(`/api/bobot-komponen/${id_komponen}`, {
-        method: "DELETE",
+    // Fungsi untuk menangani delete komponen
+    function handleDeleteKomponen(id_komponen) {
+      if (confirm(`Apakah Anda yakin ingin menghapus komponen dengan ID ${id_komponen}?`)) {
+        fetch(`/api/bobot-komponen/${id_komponen}`, {
+          method: "DELETE",
+        })
+          .then(() => {
+            loadKomponenPenguji();
+            loadKomponenPembimbing();
+          })
+          .catch((error) => console.error("Gagal menghapus komponen:", error));
+      }
+    }
+
+    // Fungsi untuk memuat data penguji
+    function loadKomponenPenguji() {
+      fetch("/api/bobot-komponen/penguji")
+        .then((response) => response.json())
+        .then((data) => {
+          pengujiTableBody.innerHTML = "";
+          data.forEach((komponen) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td>${komponen.id_komponen}</td>
+            <td>${komponen.nama_komponen}</td>
+            <td>${komponen.bobot}</td>
+            <td>
+              <button class="update-button" data-id="${komponen.id_komponen}">Update</button>
+              <button class="delete-button" data-id="${komponen.id_komponen}">Delete</button>
+            </td>
+          `;
+            pengujiTableBody.appendChild(row);
+          });
+
+          // Tambahkan event listener pada tombol update dan delete
+          pengujiTableBody.querySelectorAll(".update-button").forEach((button) => {
+            button.addEventListener("click", () => handleUpdateKomponen(button.dataset.id));
+          });
+          pengujiTableBody.querySelectorAll(".delete-button").forEach((button) => {
+            button.addEventListener("click", () => handleDeleteKomponen(button.dataset.id));
+          });
+        })
+        .catch((error) => console.error("Gagal memuat data komponen:", error));
+    }
+
+    // Fungsi untuk memuat data pembimbing
+    function loadKomponenPembimbing() {
+      fetch("/api/bobot-komponen/pembimbing")
+        .then((response) => response.json())
+        .then((data) => {
+          pembimbingTableBody.innerHTML = "";
+          data.forEach((komponen) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td>${komponen.id_komponen}</td>
+            <td>${komponen.nama_komponen}</td>
+            <td>${komponen.bobot}</td>
+            <td>
+              <button class="update-button" data-id="${komponen.id_komponen}">Update</button>
+              <button class="delete-button" data-id="${komponen.id_komponen}">Delete</button>
+            </td>
+          `;
+            pembimbingTableBody.appendChild(row);
+          });
+
+          // Tambahkan event listener pada tombol update dan delete
+          pembimbingTableBody.querySelectorAll(".update-button").forEach((button) => {
+            button.addEventListener("click", () => handleUpdateKomponen(button.dataset.id));
+          });
+          pembimbingTableBody.querySelectorAll(".delete-button").forEach((button) => {
+            button.addEventListener("click", () => handleDeleteKomponen(button.dataset.id));
+          });
+        })
+        .catch((error) => console.error("Gagal memuat data komponen:", error));
+    }
+
+    // Submit form tambah komponen
+    document.getElementById("form-komponen").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      fetch("/api/bobot-komponen/add", {
+        method: "POST",
+        body: formData,
       })
         .then(() => {
-          loadKomponenPenguji();
+          this.reset();
+          formTambahKomponen.style.display = "none";
+          tambahKomponenButton.style.display = "block";
           loadKomponenPembimbing();
+          loadKomponenPenguji();
         })
-        .catch((error) => console.error("Gagal menghapus komponen:", error));
-    }
-  }
+        .catch((error) => console.error("Gagal menambahkan komponen:", error));
+    });
 
-  // Fungsi untuk memuat data penguji
-  function loadKomponenPenguji() {
-    fetch("/api/bobot-komponen/penguji")
-      .then((response) => response.json())
-      .then((data) => {
-        pengujiTableBody.innerHTML = "";
-        data.forEach((komponen) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${komponen.id_komponen}</td>
-            <td>${komponen.nama_komponen}</td>
-            <td>${komponen.bobot}</td>
-            <td>
-              <button class="update-button" data-id="${komponen.id_komponen}">Update</button>
-              <button class="delete-button" data-id="${komponen.id_komponen}">Delete</button>
-            </td>
-          `;
-          pengujiTableBody.appendChild(row);
-        });
-
-        // Tambahkan event listener pada tombol update dan delete
-        pengujiTableBody.querySelectorAll(".update-button").forEach((button) => {
-          button.addEventListener("click", () => handleUpdateKomponen(button.dataset.id));
-        });
-        pengujiTableBody.querySelectorAll(".delete-button").forEach((button) => {
-          button.addEventListener("click", () => handleDeleteKomponen(button.dataset.id));
-        });
+    // Submit form update komponen
+    document.getElementById("form-update").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      const id_komponen = formData.get("id_komponen");
+      fetch(`/api/bobot-komponen/${id_komponen}`, {
+        method: "PUT",
+        body: formData,
       })
-      .catch((error) => console.error("Gagal memuat data komponen:", error));
-  }
+        .then(() => {
+          document.getElementById("form-update-komponen").style.display = "none";
+          loadKomponenPembimbing();
+          loadKomponenPenguji();
+        })
+        .catch((error) => console.error("Gagal memperbarui komponen:", error));
+    });
 
-  // Fungsi untuk memuat data pembimbing
-  function loadKomponenPembimbing() {
-    fetch("/api/bobot-komponen/pembimbing")
-      .then((response) => response.json())
-      .then((data) => {
-        pembimbingTableBody.innerHTML = "";
-        data.forEach((komponen) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${komponen.id_komponen}</td>
-            <td>${komponen.nama_komponen}</td>
-            <td>${komponen.bobot}</td>
-            <td>
-              <button class="update-button" data-id="${komponen.id_komponen}">Update</button>
-              <button class="delete-button" data-id="${komponen.id_komponen}">Delete</button>
-            </td>
-          `;
-          pembimbingTableBody.appendChild(row);
-        });
-
-        // Tambahkan event listener pada tombol update dan delete
-        pembimbingTableBody.querySelectorAll(".update-button").forEach((button) => {
-          button.addEventListener("click", () => handleUpdateKomponen(button.dataset.id));
-        });
-        pembimbingTableBody.querySelectorAll(".delete-button").forEach((button) => {
-          button.addEventListener("click", () => handleDeleteKomponen(button.dataset.id));
-        });
-      })
-      .catch((error) => console.error("Gagal memuat data komponen:", error));
-  }
-
-  // Submit form tambah komponen
-  document.getElementById("form-komponen").addEventListener("submit", function (event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-    fetch("/api/bobot-komponen/add", {
-      method: "POST",
-      body: formData,
-    })
-      .then(() => {
-        this.reset();
-        formTambahKomponen.style.display = "none";
-        tambahKomponenButton.style.display = "block";
-        loadKomponenPembimbing();
-        loadKomponenPenguji();
-      })
-      .catch((error) => console.error("Gagal menambahkan komponen:", error));
-  });
-
-  // Submit form update komponen
-  document.getElementById("form-update").addEventListener("submit", function (event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-    const id_komponen = formData.get("id_komponen");
-    fetch(`/api/bobot-komponen/${id_komponen}`, {
-      method: "PUT",
-      body: formData,
-    })
-      .then(() => {
-        document.getElementById("form-update-komponen").style.display = "none";
-        loadKomponenPembimbing();
-        loadKomponenPenguji();
-      })
-      .catch((error) => console.error("Gagal memperbarui komponen:", error));
-  });
-
-  // Handle cancel update
-  document.getElementById('cancel-update-button').addEventListener('click', () => {
+    // Handle cancel update
+    document.getElementById('cancel-update-button').addEventListener('click', () => {
       document.getElementById('form-update-komponen').style.display = 'none';
-  });
-
- 
+    });
 
 
-  // Load data awal
-  loadKomponenPenguji();
-  loadKomponenPembimbing();
+
+
+    // Load data awal
+    loadKomponenPenguji();
+    loadKomponenPembimbing();
   </script>
 </body>
 

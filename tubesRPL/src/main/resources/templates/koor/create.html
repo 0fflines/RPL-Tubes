@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/create.css" />
     <title>Buat TA Baru</title>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
             <div class="sidebar">
-                <div id="role">Koordinator</div>
+                <p class="role" id="role"><b>Role: Koordinator</b><span id="role-text"></span></p>
                 <div class="profile-info">
                     <div class="profile-pic"></div>
-                    <p class="email">koordinator@unpar.ac.id</p>
+                    <p class="email">mariskha@unpar.ac.id</p>
                 </div>
                 <a href="login" class="logout-button">Log out</a>
                 <a href="profile" class="profile-button">Profile</a>
@@ -74,24 +76,25 @@
                     <select name="pembimbing" id="pembimbing" required>
                         <option value="" disabled selected>Pilih Dosen</option>
                         <!-- Loop untuk dosen -->
-                    <th:block th:each="dosen : ${listDosen}">
-                        <option th:value="${dosen}" th:text="${dosen}"></option>
-                    </th:block>
-                </select>
-                <label for="semester">Semester Akademik:</label>
-                <select name="semesterAkademik" id="semester" required>
-                    <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
-                    <option value="genap-2023-2024">Genap 2023/2024</option>
-                    <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
-                    <option value="genap-2022-2023">Genap 2022/2023</option>
-                    <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
-                </select>
-            </div>
-            <div class="container-simpan">
-                <input type="submit" value="Simpan Data" id="simpan-data" />
-            </div>
-        </form>
-    </section>
-</div>
+                        <th:block th:each="dosen : ${listDosen}">
+                            <option th:value="${dosen}" th:text="${dosen}"></option>
+                        </th:block>
+                    </select>
+                    <label for="semester">Semester Akademik:</label>
+                    <select name="semesterAkademik" id="semester" required>
+                        <option value="ganjil-2024-2025">Ganjil 2024/2025</option>
+                        <option value="genap-2023-2024">Genap 2023/2024</option>
+                        <option value="ganjil-2023-2024">Ganjil 2023/2024</option>
+                        <option value="genap-2022-2023">Genap 2022/2023</option>
+                        <option value="ganjil-2022-2023">Ganjil 2022/2023</option>
+                    </select>
+                </div>
+                <div class="container-simpan">
+                    <input type="submit" value="Simpan Data" id="simpan-data" />
+                </div>
+            </form>
+        </section>
+    </div>
 </body>
+
 </html>
