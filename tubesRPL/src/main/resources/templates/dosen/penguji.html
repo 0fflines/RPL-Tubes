@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="/dosen.css" />
     <title>Penguji</title>
     <style>
-       /* Tambahkan style tambahan di sini */
-        
-       .close {
+        /* Tambahkan style tambahan di sini */
+
+        .close {
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -46,7 +46,8 @@
             max-width: 600px;
         }
 
-        .tombolBukaNilai, .tombolBukaCatatan{
+        .tombolBukaNilai,
+        .tombolBukaCatatan {
             background-color: #002855;
             color: white;
             padding: 5px;
@@ -56,7 +57,8 @@
             cursor: pointer;
         }
 
-        .tombolBukaNilai:hover, .tombolBukaCatatan:hover{
+        .tombolBukaNilai:hover,
+        .tombolBukaCatatan:hover {
             background-color: #01428d;
             color: white;
             padding: 5px;
@@ -209,16 +211,11 @@
                         <td>${item.judulSkripsi}</td>
                         <td>${new Date(item.tanggalSidang).toLocaleString()}</td>
                         <td>${item.tempat || '-'}</td>
-<<<<<<< HEAD
-                        <td><span class="tombolBukaNilai" data-id="${item.id}">Edit nilai</span></td>
-                        <td><a href="bapSidang"><button class="view-bap">BAP</button></a></td>
-=======
                         <td><span class="tombolBukaNilai" data-id="${item.id}">Nilai</span></td>
                         <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
->>>>>>> e2672e50e355a8575f0876a79210bcd177d8b244
                     `;
                     const buttonNilai = row.querySelector(".tombolBukaNilai");
-                    buttonNilai.onclick = async function(){
+                    buttonNilai.onclick = async function () {
                         //ngosongin di atas biar g keliatan input sebelumnya kalo dibuka lagi
                         const formBody = document.getElementById("form-nilai");
                         formBody.innerHTML = "";
@@ -238,26 +235,26 @@
 
                         document.getElementById("nilai").style.display = "block";
 
-                        try{
-                            const responseNilai = await fetch(`/api/nilai/load?`+
-                            `namaRole=${encodeURIComponent("penguji")}&idTA=${idTa}&`+
-                            `namaDosen=${encodeURIComponent(document.getElementById("nama").innerText)}`)
+                        try {
+                            const responseNilai = await fetch(`/api/nilai/load?` +
+                                `namaRole=${encodeURIComponent("penguji")}&idTA=${idTa}&` +
+                                `namaDosen=${encodeURIComponent(document.getElementById("nama").innerText)}`)
                             const dataNilai = await responseNilai.json();
 
-                            dataNilai.forEach((itemNilai) =>{
-                                const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
-                                fetch(`/api/bobotNilai/bobot?namaRole=${"penguji"}&`+
-                                `namaKomponen=${encodeURIComponent(itemNilai.namaKomponen)}`).then(response=>response.json())
-                                .then(bobotNilai=>{
-                                    formBody.innerHTML +=`
+                            dataNilai.forEach((itemNilai) => {
+                                const nilaiSebelumnya = itemNilai.nilai ? itemNilai.nilai : null;
+                                fetch(`/api/bobotNilai/bobot?namaRole=${"penguji"}&` +
+                                    `namaKomponen=${encodeURIComponent(itemNilai.namaKomponen)}`).then(response => response.json())
+                                    .then(bobotNilai => {
+                                        formBody.innerHTML += `
                                     <div class="form-group">
                                         <label style.>${itemNilai.namaKomponen}(${bobotNilai}%):</label>
                                         <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
                                         <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
                                     </div>`
-                                }) 
+                                    })
                             })
-                        }catch(error){
+                        } catch (error) {
                             console.error("error nilai:", error);
                         }
                     }
@@ -305,17 +302,17 @@
                 document.getElementById("nilai").style.display = "none";
             }
         };
-      
+
         //buat nutup nilai
         var popupNilai = document.getElementById("nilai");
         var buttonCloseNilai = document.getElementById("tombolTutupNilai");
 
-        buttonCloseNilai.onclick = function(){
+        buttonCloseNilai.onclick = function () {
             popupNilai.style.display = "none";
         }
 
         window.onclick = function (event) {
-            if(event.target == popupNilai){
+            if (event.target == popupNilai) {
                 popupNilai.style.display = "none";
             }
         }
