@@ -12,6 +12,7 @@ public class MahasiswaData {
     private String judulSkripsi;
     private String jenisTA;
     private String waktu;
+    private String ruangan;
     private String penguji1;
     private String penguji2;
     private String pembimbing;
