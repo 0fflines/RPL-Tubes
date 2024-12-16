@@ -1,6 +1,7 @@
 package com.example.tubesRPL.Dosen.Penguji;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +20,14 @@ public class PengujiController {
         return repository.findBySemester(semester);
     }
 
-    @GetMapping("/pengujiController")
-    public List<SkripsiData> getSkripsiByPenguji(@RequestParam String penguji) {
-        return repository.findByPenguji(penguji);
+    @GetMapping("/penguji")
+    public ResponseEntity<List<SkripsiData>> getSkripsiByPenguji(@RequestParam String penguji) {
+        try {
+            List<SkripsiData> data = repository.findByPenguji(penguji);
+            return ResponseEntity.ok(data);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
