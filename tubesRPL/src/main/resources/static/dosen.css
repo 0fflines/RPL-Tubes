@@ -127,6 +127,10 @@ body {
     width: 400px;
 }
 
+.table_component td {
+    font-size: 15px;
+}
+
 .view-bap {
     background: none;
     border: none;

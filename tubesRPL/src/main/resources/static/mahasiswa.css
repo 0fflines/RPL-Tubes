@@ -109,6 +109,10 @@ body {
     text-align: center;
 }
 
+.info-table td {
+    font-size: 10px;
+}
+
 .grade {
     font-weight: bold;
     color: blue;

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/bobotRole.css" />
-  <title>Koordinator Config</title>
+  <title>Konfigurasi Bobot Role</title>
 </head>
 <body>
   <div class="container">
@@ -23,16 +23,16 @@
     </div>
     <a href="/koordinator" class="home-button">BACK TO HOME PAGE</a>
    <section>
-      <h2>Atur Bobot Role</h2>
+      <h2>Persentase Bobot Penilai</h2>
       <div id="form-update-BobotRole" class="modal">
           <div class="modal-content"> 
               <form id="form-update" method="PUT">
                 <input type="hidden" id="update-idBobotRole" name="id_bobotRole">
-                <label for="update-bobotPenguji">Bobot Penguji</label>
+                <label for="update-bobotPenguji">Bobot Penguji (%)</label>
                 <input type="number" id="update-bobotPenguji" name="bobotPenguji" required>
-                <label for="update-bobotPembimbing">Bobot Pembimbing</label>
+                <label for="update-bobotPembimbing">Bobot Pembimbing (%)</label>
                 <input type="number" id="update-bobotPembimbing" name="bobotPembimbing" required>
-                <label for="update-bobotKoordinator">Bobot Koordinator</label>
+                <label for="update-bobotKoordinator">Bobot Koordinator (%)</label>
                 <input type="number" id="update-bobotKoordinator" name="bobotKoordinator" required>
                 <button type="submit">Simpan</button>
             </form>
