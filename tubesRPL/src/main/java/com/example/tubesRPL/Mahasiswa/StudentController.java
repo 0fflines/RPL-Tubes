@@ -18,6 +18,7 @@ public class StudentController {
     // Endpoint untuk mendapatkan semua data skripsi
     @GetMapping("/daftar")
     public List<MahasiswaData> getAllSkripsi(@RequestParam("namaMahasiswa") String namaMahasiswa) {
+        System.out.println(mahasiswaRepository.findAll(namaMahasiswa));
         return mahasiswaRepository.findAll(namaMahasiswa);
     }
 }

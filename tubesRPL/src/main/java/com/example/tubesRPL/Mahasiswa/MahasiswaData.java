@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MahasiswaData {
-    private int idTa;
+    private int idTA;
     private String judulSkripsi;
     private String jenisTA;
     private String waktu;

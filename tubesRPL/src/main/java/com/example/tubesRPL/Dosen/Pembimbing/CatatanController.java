@@ -16,6 +16,7 @@ public class CatatanController {
 
     @GetMapping("/load")
     public Catatan loadCatatan(@RequestParam int idTA){
+        System.out.println(idTA);
         return catatanRepository.loadCatatan(idTA);
     }
 

@@ -166,7 +166,7 @@
             <p><strong>Catatan Pembimbing</strong></p>
             <p><strong>Dosen Pembimbing:</strong></p>
             <h4>Catatan:</h4>
-            <textarea id="catatanTextBox" placeholder="Belum ada catatan dari pembimbing"></textarea>
+            <textarea id="catatanTextBox" placeholder="Belum ada catatan dari pembimbing" readonly></textarea>
         </div>
     </div>
 
@@ -234,7 +234,11 @@
                         `;
                     document.querySelector("#catatan .popup-content-catatan p:nth-child(3)").innerHTML =
                     `<strong>Dosen Pembimbing:</strong> ${skripsi.pembimbing}`;
-                    document.getElementById("catatanTextBox").value = fetch(`/api/catatan/load?idTA=${skripsi.idTA}`).isiCatatan;
+                    const Catatan = fetch(`/api/catatan/load?idTA=${skripsi.idTA}`)
+                    .then(response => response.json())
+                    .then(data =>{
+                        document.getElementById("catatanTextBox").value = data.isiCatatan;
+                    });
                     tableBody.appendChild(row);
                 });
             } catch (error) {
