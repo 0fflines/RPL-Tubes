@@ -81,4 +81,9 @@ public class HomeController {
         model.addAttribute("role", "Guest");
         return "dosen/home";
     }
+
+    @GetMapping("/bapSidang")
+    public String getBAP(){
+        return "bapSidang";
+    }
 }
