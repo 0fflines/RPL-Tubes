@@ -2,7 +2,9 @@ package com.example.tubesRPL.Koordinator.TA;
 
 import java.util.List;
 
+
 public interface TAInterface {
+
     // Method to save TA data
     int save(TAData taData);
 
@@ -20,22 +22,22 @@ public interface TAInterface {
     // Method to update TA data
     int update(TAData taData);
 
-    // Method to fetch TA data by semesterAkademik
-    List<TAData> findBysemesterAkademik(String semesterAkademik);
+    //Method to fetch TA data by semesterAkademik
+    List<TAData> findBysemesterAkademik( String semesterAkademik);
 
-    // Method to fetch all TA data by semesterAkademik
+    //Method to fetch all TA data by semesterAkademik
     List<String> findAllSemesterAkademik();
 
-    // Method to fetch TA data by nama dosen as Penguji
+    //Method to fetch TA data by nama dosen as Penguji
     List<TAData> findBySemesterAkademikPenguji(String semesterAkademik, String nama);
 
-    // Method to fetch TA data by nama dosen as Pembimbing
+    //Method to fetch TA data by nama dosen as Pembimbing
     List<TAData> findBySemesterAkademikPembimbing(String semesterAkademik, String nama);
 
-    // Method to fetch all TA data by semesterAkademik
+    //Method to fetch all TA data by semesterAkademik
     List<String> findAllSemesterAkademikPembimbing(String namaDosen);
 
-    // Method to fetch all TA data by semesterAkademik
+    //Method to fetch all TA data by semesterAkademik
     List<String> findAllSemesterAkademikPenguji(String namaDosen);
 
     List<String> findAllDosen();
@@ -43,4 +45,5 @@ public interface TAInterface {
     List<String> findAllMahasiswa();
 
     List<String> findAllTempat();
+
 }

@@ -177,6 +177,15 @@ form a:hover {
     font-weight: bold;
 }
 
+#konfigurasiBobot {
+    display: flex;
+}
+
+#CreateTa {
+    margin-right: 15px;
+    padding: 10px;
+}
+
 section {
     grid-row: 2;
     margin: 10px;
@@ -184,6 +193,7 @@ section {
 
 .navigation-koor {
     display: flex;
+    justify-content: space-between;
 }
 
 
@@ -442,4 +452,5 @@ section {
 .hidden {
     display: none;
 }
+
 
