@@ -51,7 +51,7 @@ public class BobotKomponenJdbcRepository {
                 resultSet.getDouble("bobot"));
     }
 
-    // Mendapatkan data mesin berdasarkan ID
+    // Mendapatkan data komponen berdasarkan ID
     public BobotKomponen findById(int id_komponen) {
         String sql = "SELECT * From bobot_nilaiKomponen WHERE id_komponen = ?";
         return jdbcTemplate.queryForObject(sql, this::mapRowToBobotKomponen, id_komponen);
