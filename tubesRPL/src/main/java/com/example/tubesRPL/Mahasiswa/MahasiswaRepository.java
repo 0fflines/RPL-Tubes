@@ -29,6 +29,7 @@ public class MahasiswaRepository {
         rs.getString("judul_skripsi"),
         rs.getString("jenis_ta"),
         rs.getString("tanggal_sidang"),
+        rs.getString("ruangan"),
         rs.getString("penguji_1"),
         rs.getString("penguji_2"),
         rs.getString("pembimbing"));
@@ -36,7 +37,7 @@ public class MahasiswaRepository {
 
     // Method untuk mengambil semua data dari tabel
     public List<MahasiswaData> findAll(String namaMahasiswa) {
-        String sql = "SELECT id_ta, judul_skripsi, jenis_ta, tanggal_sidang, penguji_1, penguji_2, pembimbing FROM ta_data WHERE nama_mahasiswa=?";
+        String sql = "SELECT id_ta, judul_skripsi, jenis_ta, tanggal_sidang, ruangan, penguji_1, penguji_2, pembimbing FROM ta_data WHERE nama_mahasiswa=?";
         return jdbcTemplate.query(sql, rowMapper, namaMahasiswa);
     }
 }

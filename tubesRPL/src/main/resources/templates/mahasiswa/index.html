@@ -225,12 +225,12 @@
                         <td>${skripsi.judulSkripsi}</td>
                         <td>${skripsi.jenisTA}</td>
                         <td>${skripsi.waktu}</td>
-                        <td>${skripsi.ruangan || '-'}</td>
+                        <td>${skripsi.ruangan}</td>
                         <td>${skripsi.penguji1}</td>
                         <td>${skripsi.penguji2}</td>
                         <td>${skripsi.pembimbing}</td>
                         <td class="grade">Nilai</td>
-                        <td><a href="/bap/${skripsi.idTA}" target="_blank">Download</a></td>
+                        <td><a href="/bapSidang" target="_blank">📄</a></td>
                         `;
                     document.querySelector("#catatan .popup-content-catatan p:nth-child(3)").innerHTML =
                     `<strong>Dosen Pembimbing:</strong> ${skripsi.pembimbing}`;
