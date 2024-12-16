@@ -8,7 +8,7 @@
     <title>Penguji</title>
     <style>
         /* Tambahkan style tambahan di sini */
-        
+
         .close {
             color: #aaa;
             float: right;
@@ -44,6 +44,66 @@
             border: 1px solid #888;
             width: 80%;
             max-width: 600px;
+        }
+
+        .tombolBukaNilai,
+        .tombolBukaCatatan {
+            background-color: #002855;
+            color: white;
+            padding: 5px;
+            border: solid;
+            border: #002855;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tombolBukaNilai:hover,
+        .tombolBukaCatatan:hover {
+            background-color: #01428d;
+            color: white;
+            padding: 5px;
+            border: solid;
+            border: #002855;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #form-nilai {
+            display: grid;
+            grid-template-columns: 50% 50%;
+        }
+
+        label {
+            grid-column: 1;
+        }
+
+        input {
+            grid-column: 2;
+        }
+
+        #tombolSaveNilai {
+            background-color: #002855;
+            grid-column: 1/3;
+            justify-self: center;
+            margin-top: 3px;
+            color: white;
+            padding: 5px;
+            border: solid;
+            border: #002855;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #tombolSaveNilai:hover {
+            background-color: #01428d;
+            color: white;
+            padding: 5px;
+            border: solid;
+            border: #002855;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -155,7 +215,7 @@
                         <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                     `;
                     const buttonNilai = row.querySelector(".tombolBukaNilai");
-                    buttonNilai.onclick = async function(){
+                    buttonNilai.onclick = async function () {
                         //ngosongin di atas biar g keliatan input sebelumnya kalo dibuka lagi
                         const formBody = document.getElementById("form-nilai");
                         formBody.innerHTML = "";
@@ -175,26 +235,26 @@
 
                         document.getElementById("nilai").style.display = "block";
 
-                        try{
-                            const responseNilai = await fetch(`/api/nilai/load?`+
-                            `namaRole=${encodeURIComponent("penguji")}&idTA=${idTa}&`+
-                            `namaDosen=${encodeURIComponent(document.getElementById("nama").innerText)}`)
+                        try {
+                            const responseNilai = await fetch(`/api/nilai/load?` +
+                                `namaRole=${encodeURIComponent("penguji")}&idTA=${idTa}&` +
+                                `namaDosen=${encodeURIComponent(document.getElementById("nama").innerText)}`)
                             const dataNilai = await responseNilai.json();
 
-                            dataNilai.forEach((itemNilai) =>{
-                                const nilaiSebelumnya = itemNilai.nilai? itemNilai.nilai:null;
-                                fetch(`/api/bobotNilai/bobot?namaRole=${"penguji"}&`+
-                                `namaKomponen=${encodeURIComponent(itemNilai.namaKomponen)}`).then(response=>response.json())
-                                .then(bobotNilai=>{
-                                    formBody.innerHTML +=`
+                            dataNilai.forEach((itemNilai) => {
+                                const nilaiSebelumnya = itemNilai.nilai ? itemNilai.nilai : null;
+                                fetch(`/api/bobotNilai/bobot?namaRole=${"penguji"}&` +
+                                    `namaKomponen=${encodeURIComponent(itemNilai.namaKomponen)}`).then(response => response.json())
+                                    .then(bobotNilai => {
+                                        formBody.innerHTML += `
                                     <div class="form-group">
-                                        <label>${itemNilai.namaKomponen}(${bobotNilai}%):</label>
+                                        <label style.>${itemNilai.namaKomponen}(${bobotNilai}%):</label>
                                         <input type="hidden" name="idNilai" value=${itemNilai.idNilaiKomponenTA}>
                                         <input type="number" name="nilai" value="${nilaiSebelumnya}" min="0" max="100" required>
                                     </div>`
-                                }) 
+                                    })
                             })
-                        }catch(error){
+                        } catch (error) {
                             console.error("error nilai:", error);
                         }
                     }
@@ -242,17 +302,17 @@
                 document.getElementById("nilai").style.display = "none";
             }
         };
-      
+
         //buat nutup nilai
         var popupNilai = document.getElementById("nilai");
         var buttonCloseNilai = document.getElementById("tombolTutupNilai");
 
-        buttonCloseNilai.onclick = function(){
+        buttonCloseNilai.onclick = function () {
             popupNilai.style.display = "none";
         }
 
         window.onclick = function (event) {
-            if(event.target == popupNilai){
+            if (event.target == popupNilai) {
                 popupNilai.style.display = "none";
             }
         }
