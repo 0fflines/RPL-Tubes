@@ -25,15 +25,22 @@
         <!-- Navigation Section -->
         <section>
             <div class="navigation-koor">
-                <form action="/bobotKomponen" method="POST" class="back button" aria-label="Konfigurasi Bobot Nilai">
-                    <input type="email" value="emailName" name="email" hidden />
-                    <input type="text" value="roleName" name="role" hidden />
-                    <a href="/bobotKomponen">Konfigurasi Bobot Nilai</a>
-                </form>
+                <div id="konfigurasiBobot">
+                    <form action="/bobotRole" method="POST" class="back button" aria-label="Konfigurasi Bobot Penilai">
+                        <input type="email" value="emailName" name="email" hidden />
+                        <input type="text" value="roleName" name="role" hidden />
+                        <a href="/bobotRole">Konfigurasi Bobot Penilai</a>
+                    </form>
+                    <form action="/bobotKomponen" method="POST" class="back button" aria-label="Konfigurasi Bobot Nilai">
+                        <input type="email" value="emailName" name="email" hidden />
+                        <input type="text" value="roleName" name="role" hidden />
+                        <a href="/bobotKomponen">Konfigurasi Bobot Nilai</a>
+                    </form>
+                </div>
                 <form action="/create" method="POST" class="back button" aria-label="Create TA">
                     <input type="email" value="emailName" name=" email" hidden />
                     <input type="text" value="roleName" name="role" hidden />
-                    <a href="/create">Create TA Here</a>
+                    <a href="/create" id="CreateTa">Create TA Here</a>
                 </form>
             </div>
             <form action="/select-semester" class="dropdown" aria-label="Pilih Semester">
@@ -59,7 +66,7 @@
                                 <th>Penguji 1</th>
                                 <th>Penguji 2</th>
                                 <th>Pembimbing</th>
-                                <th>Nilai Kedisiplinan</th>
+                                <!-- <th>Nilai Kedisiplinan</th> -->
                                 <th>BAP</th>
                             </tr>
                         </thead>
@@ -80,17 +87,19 @@
                 </div>
         </section>
     </div>
-        <!-- Modal untuk Mengedit Nilai Kedisiplinan -->
-    <!-- <div id="disciplineModal" class="modal">
+    <!-- Modal untuk Mengedit Nilai Kedisiplinan -->
+    <div id="disciplineModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
             <h2>Edit Nilai Kedisiplinan</h2>
-            <form id="disciplineForm">
-                <input type="number" id="nilaiKedisiplinan" name="nilaiKedisiplinan" min="0" max="100" required />
+            <form id="disciplineForm" method="POST" action="/api/koordinator/updateKedisiplinan">
+                <input type="hidden" id="edit-idTA" name="id_ta">
+                <label for="nilaiKedisiplinan">Nilai Kedisiplinan</label>
+                <input type="number" id="nilaiKedisiplinan" name="nilai_disiplin" min="0" max="100" required>
                 <button type="submit">Simpan</button>
+                <button type="button" id="cancel-discipline-button">Batal</button>
             </form>
         </div>
-    </div> -->
+    </div>
     <script>
           // Fungsi untuk mengambil data skripsi berdasarkan semester
         async function fetchTAData(semester = 'ganjil 2024/2025') {
@@ -115,7 +124,7 @@
                         <td>${daftar.penguji1}</td>
                         <td>${daftar.penguji2}</td>
                         <td>${daftar.pembimbing}</td>
-                        <td> <button class="edit-discipline-btn" data-id="<%= daftar.id_ta %>">Edit</button></td>
+                    
                         <td><a href="bapSidang"><button class="view-bap">📄</button></a></td>
                     `;
                     tableBody.appendChild(row);
@@ -195,6 +204,28 @@
         //     modal.style.display = 'none';
         // });
 
+         // Menangani aksi tombol update bobot
+         document.querySelector('.update-button').addEventListener('click', () => {
+            document.getElementById('form-update-BobotRole').style.display = 'block';
+        });
+
+        document.getElementById('cancel-update-button').addEventListener('click', () => {
+            document.getElementById('form-update-BobotRole').style.display = 'none';
+        });
+
+        // Menangani aksi tombol edit nilai disiplin
+        document.querySelectorAll('.edit-discipline-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const idTA = event.target.getAttribute('data-id');
+                document.getElementById('edit-idTA').value = idTA;
+                document.getElementById('disciplineModal').style.display = 'block';
+            });
+        });
+
+        document.getElementById('cancel-discipline-button').addEventListener('click', () => {
+            document.getElementById('disciplineModal').style.display = 'none';
+        });
+        
     </script>
 </body>
 

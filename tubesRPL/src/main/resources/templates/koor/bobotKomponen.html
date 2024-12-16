@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/koordinator.css" />
+  <link rel="stylesheet" href="/bobot.css" />
   <title>Atur Komponen Nilai</title>
 </head>
 
@@ -23,45 +23,45 @@
       </div>
     </div>
     <a href="/koordinator" class="home-button">BACK TO HOME PAGE</a>
-    <section>
-        <h2>Atur Komponen Nilai</h2>
-        <button id="tambah-komponen-button" type="button">Tambah Komponen Nilai</button>
-        <div id="form-tambah-komponen" style="display: none;">
-          <h3>Form Tambah Komponen</h3>
-          <form id="form-komponen" method="POST" action="/api/bobot-komponen/add">
-            <label for="nameKomponen">Nama Komponen</label>
-            <input type="text" id="nameKomponen" name="nama_komponen" required />
-    
-            <label for="bobotKomponen">Bobot %</label>
-            <input type="number" id="bobotKomponen" name="bobot" required />
-    
-            <label for="roleKomponen">Role</label>
-            <select id="roleKomponen" name="nama_role" required>
-              <option value="penguji">Penguji</option>
-              <option value="pembimbing">Pembimbing</option>
-            </select>
-    
-            <button type="submit">Simpan</button>
-            <button type="button" id="cancel-komponen-button">Batal</button>
-          </form>
-        </div>
-      <div id="form-update-komponen" style="display: none;">
-        <h3>Form Update Komponen</h3>
-        <form id="form-update" method="POST">
-            <input type="hidden" id="update-idKomponen" name="id_komponen">
-            <label for="update-namaKomponen">Komponen</label>
-            <input type="text" id="update-namaKomponen" name="nama_komponen" required>
-            <label for="update-namaRole">Role</label>
-            <select id="update-namaRole" name="nama_role" required>
-              <option value="penguji">Penguji</option>
-              <option value="pembimbing">Pembimbing</option>
-            </select>
-            <label for="update-bobot">Bobot</label>
-            <input type="number" id="update-bobot" name="bobot" required>
-            <button type="submit">Simpan</button>
-            <button type="button" id="cancel-update-button">Batal</button>
-        </form>
+    <h2>Atur Komponen Nilai</h2>
+    <button id="tambah-komponen-button" type="button">Tambah Komponen Nilai</button>
+    <div id="form-tambah-komponen" style="display: none;">
+      <h3>Form Tambah Komponen</h3>
+      <form id="form-komponen" method="POST" action="/api/bobot-komponen/add">
+        <label for="nameKomponen">Nama Komponen</label>
+        <input type="text" id="nameKomponen" name="nama_komponen" required />
+
+        <label for="bobotKomponen">Bobot %</label>
+        <input type="number" id="bobotKomponen" name="bobot" required />
+
+        <label for="roleKomponen">Role</label>
+        <select id="roleKomponen" name="nama_role" required>
+          <option value="penguji">Penguji</option>
+          <option value="pembimbing">Pembimbing</option>
+        </select>
+
+        <button type="submit">Simpan</button>
+        <button type="button" id="cancel-komponen-button">Batal</button>
+      </form>
     </div>
+    <div id="form-update-komponen" style="display: none;">
+      <h3>Form Update Komponen</h3>
+      <form id="form-update" method="POST">
+          <input type="hidden" id="update-idKomponen" name="id_komponen">
+          <label for="update-namaKomponen">Komponen</label>
+          <input type="text" id="update-namaKomponen" name="nama_komponen" required>
+          <label for="update-namaRole">Role</label>
+          <select id="update-namaRole" name="nama_role" required>
+            <option value="penguji">Penguji</option>
+            <option value="pembimbing">Pembimbing</option>
+          </select>
+          <label for="update-bobot">Bobot</label>
+          <input type="number" id="update-bobot" name="bobot" required>
+          <button type="submit">Simpan</button>
+          <button type="button" id="cancel-update-button">Batal</button>
+      </form>
+    </div>
+    <section>
       <div id="komponenPenguji">
         <h3>Komponen Penguji</h3>
         <table>
@@ -241,6 +241,14 @@
       })
       .catch((error) => console.error("Gagal memperbarui komponen:", error));
   });
+
+  // Handle cancel update
+  document.getElementById('cancel-update-button').addEventListener('click', () => {
+      document.getElementById('form-update-komponen').style.display = 'none';
+  });
+
+ 
+
 
   // Load data awal
   loadKomponenPenguji();

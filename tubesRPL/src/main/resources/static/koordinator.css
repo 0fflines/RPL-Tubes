@@ -177,6 +177,15 @@ form a:hover {
     font-weight: bold;
 }
 
+#konfigurasiBobot {
+    display: flex;
+}
+
+#CreateTa {
+    margin-right: 15px;
+    padding: 10px;
+}
+
 section {
     grid-row: 2;
     margin: 10px;
@@ -184,6 +193,7 @@ section {
 
 .navigation-koor {
     display: flex;
+    justify-content: space-between;
 }
 
 
@@ -444,22 +454,3 @@ section {
 }
 
 
-/* .home-button {
-    background-color: #002855;
-    color: white;
-    margin: 15px;
-    width: 180px;
-    height: 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    padding: 5px;
-}
-
-.home-button:hover {
-    background-color: #01428d;
-    color: white;
-    border-radius: 25px;
-    text-decoration: none;
-    padding: 5px;
-    font-weight: bold;
-} */

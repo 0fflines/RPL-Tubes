@@ -1,6 +1,7 @@
 package com.example.tubesRPL.Koordinator.bobotRole;
 
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class BobotRoleJdbcRepository implements BobotRoleInterface {
+public class BobotRoleJdbcRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -17,21 +18,22 @@ public class BobotRoleJdbcRepository implements BobotRoleInterface {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public List<String> findBobotPenguji() {
-        String sql = "SELECT DISTINCT bobotPenguji FROM bobotRoleORDER BY bobotPenguji ASC";
-        return jdbcTemplate.queryForList(sql, String.class);
+    public List<BobotRole> findBobotRole() {
+        String sql = "SELECT * FROM bobotRole";
+        return jdbcTemplate.query(sql, this::mapRowToBobotRole);
     }
 
-    @Override
-    public List<String> findBobotPembimbing() {
-        String sql = "SELECT DISTINCT bobotPembimbing FROM bobotRoleORDER BY bobotPembimbingASC";
-        return jdbcTemplate.queryForList(sql, String.class);
+    public void updateBobotRole(BobotRole bobotRole) {
+        String sql = "UPDATE bobotRole SET bobotPenguji = ?, bobotPembimbing = ?, bobotKoordinator = ? WHERE id_bobotRole = ?";
+        jdbcTemplate.update(sql, bobotRole.getBobotPenguji(), bobotRole.getBobotPembimbing(), bobotRole.getBobotKoordinator(), bobotRole.getId_bobotRole());
     }
+    
 
-    @Override
-    public List<String> findBobotKoordinator() {
-        String sql = "SELECT DISTINCT bobotKoordinator FROM bobotRole ORDER BY bobotKoordinator ASC";
-        return jdbcTemplate.queryForList(sql, String.class);
+    private BobotRole mapRowToBobotRole(ResultSet resultSet, int rowNum) throws SQLException {
+        return new BobotRole(
+                resultSet.getInt("id_bobotRole"),
+                resultSet.getDouble("bobotPenguji"),
+                resultSet.getDouble("bobotPembimbing"),
+                resultSet.getDouble("bobotkoordinator"));
     }
 }
