@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/bobotRole.css" />
+  <title>Konfigurasi Bobot Role</title>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="/img/logo.png" alt="Logo Universitas Parahyangan" class="logo" />
+      <div class="sidebar">
+        <div id="role">Koordinator</div>
+        <div class="profile-info">
+        <div class="profile-pic"></div>
+          <p class="email">koordinator@unpar.ac.id</p>
+        </div>
+        <a href="login" class="logout-button">Log out</a>
+        <a href="profile" class="profile-button">Profile</a>
+      </div>
+    </div>
+    <a href="/koordinator" class="home-button">BACK TO HOME PAGE</a>
+   <section>
+      <h2>Persentase Bobot Penilai</h2>
+      <div id="form-update-BobotRole" class="modal">
+          <div class="modal-content"> 
+              <form id="form-update" method="PUT">
+                <input type="hidden" id="update-idBobotRole" name="id_bobotRole">
+                <label for="update-bobotPenguji">Bobot Penguji (%)</label>
+                <input type="number" id="update-bobotPenguji" name="bobotPenguji" required>
+                <label for="update-bobotPembimbing">Bobot Pembimbing (%)</label>
+                <input type="number" id="update-bobotPembimbing" name="bobotPembimbing" required>
+                <label for="update-bobotKoordinator">Bobot Koordinator (%)</label>
+                <input type="number" id="update-bobotKoordinator" name="bobotKoordinator" required>
+                <button type="submit">Simpan</button>
+            </form>
+            
+          </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("form-update");
+      const bobotPengujiInput = document.getElementById("update-bobotPenguji");
+      const bobotPembimbingInput = document.getElementById("update-bobotPembimbing");
+      const bobotKoordinatorInput = document.getElementById("update-bobotKoordinator");
+  
+      // Fetch bobot role data and prefill the form
+      fetch("/api/bobot-role/bobotAll")
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            const bobotRole = data[0]; // Assume only one entry exists
+            document.getElementById("update-idBobotRole").value = bobotRole.id_bobotRole;
+            bobotPengujiInput.value = bobotRole.bobotPenguji;
+            bobotPembimbingInput.value = bobotRole.bobotPembimbing;
+            bobotKoordinatorInput.value = bobotRole.bobotKoordinator;
+          }
+        })
+        .catch(error => console.error("Error fetching bobot role:", error));
+    });
+  </script>
+  
+  
+</body>
+
+</html>
