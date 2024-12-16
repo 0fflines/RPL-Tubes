@@ -14,5 +14,5 @@ public class MahasiswaData {
     private String waktu;
     private String penguji1;
     private String penguji2;
-    private String pembimbingUtama;
+    private String pembimbing;
 }

@@ -69,6 +69,54 @@
         #role {
             font-weight: bold;
         }
+
+        .popupCatatan {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black with opacity */
+        }
+
+        .popup-content-catatan {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: none;
+            width: 100%;
+            height: 400px;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 
@@ -112,16 +160,13 @@
     </div>
 
     <!-- Modal untuk Menampilkan Catatan Sidang -->
-    <div id="notesModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeNotesModalBtn">&times;</span>
-            <h3>Catatan Sidang</h3>
-            <p>Berikut adalah catatan dari dosen:</p>
-            <p><em>"Presentasi berjalan dengan baik, namun masih ada beberapa kekurangan dalam analisis data. Saran:
-                    Perbaiki metodologi dan tambahkan studi kasus."</em></p>
-            <p>Terima kasih atas perhatian Anda.</p>
-            <!-- Menambahkan nama dosen yang memberikan catatan -->
-            <p class="dosen-info">Catatan diberikan oleh: Gede Karya, S.T., M.T., CISA, IPM</p>
+    <div id="catatan" class="popupCatatan">
+        <div class="popup-content-catatan">
+            <span class="close" id="tombolTutupCatatan">&times;</span>
+            <p><strong>Catatan Pembimbing</strong></p>
+            <p><strong>Dosen Pembimbing:</strong></p>
+            <h4>Catatan:</h4>
+            <textarea id="catatanTextBox" placeholder="Belum ada catatan dari pembimbing"></textarea>
         </div>
     </div>
 
@@ -183,10 +228,13 @@
                         <td>${skripsi.ruangan || '-'}</td>
                         <td>${skripsi.penguji1}</td>
                         <td>${skripsi.penguji2}</td>
-                        <td>${skripsi.pembimbingUtama}</td>
+                        <td>${skripsi.pembimbing}</td>
                         <td class="grade">Nilai</td>
                         <td><a href="/bap/${skripsi.idTA}" target="_blank">Download</a></td>
                         `;
+                    document.querySelector("#catatan .popup-content-catatan p:nth-child(3)").innerHTML =
+                    `<strong>Dosen Pembimbing:</strong> ${skripsi.pembimbing}`;
+                    document.getElementById("catatanTextBox").value = fetch(`/api/catatan/load?idTA=${skripsi.idTA}`).isiCatatan;
                     tableBody.appendChild(row);
                 });
             } catch (error) {
@@ -204,30 +252,31 @@
         document.addEventListener("DOMContentLoaded", fetchSkripsiData);
 
         // Modal untuk Catatan Sidang
-        const notesModal = document.getElementById("notesModal");
         const viewNotesBtn = document.getElementById("viewNotesBtn");
-        const closeNotesModalBtn = document.getElementById("closeNotesModalBtn");
 
-        viewNotesBtn.addEventListener("click", () => {
-            notesModal.style.display = "block";
-        });
+        viewNotesBtn.addEventListener("click", () =>{
+            popupCatatan.style.display = "block";
+        })
 
-        closeNotesModalBtn.addEventListener("click", () => {
-            notesModal.style.display = "none";
-        });
+        //buat nutup window nilai sama catatan
+        const popupCatatan = document.getElementById("catatan");
+        var buttonCloseCatatan = document.getElementById("tombolTutupCatatan");
+
+        buttonCloseCatatan.onclick = function(){
+            popupCatatan.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == popupCatatan) {
+                popupCatatan.style.display = "none";
+            }
+        }
 
         // Modal untuk Evaluasi Nilai
         const nilaiModal = document.getElementById("nilaiModal");
         const viewGradeBtn = document.getElementById("viewGradeBtn");
         const closeNilaiModalBtn = document.getElementById("closeNilaiModalBtn");
 
-        // Tutup modal jika diklik di luar
-        window.addEventListener("click", (event) => {
-            if (event.target === notesModal || event.target === nilaiModal) {
-                notesModal.style.display = "none";
-                nilaiModal.style.display = "none";
-            }
-        });
     </script>
 </body>
 
