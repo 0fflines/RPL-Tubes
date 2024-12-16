@@ -146,10 +146,24 @@
     </div>
 
     <script>
+        // Mengambil data dari session
+        fetch('/userdata')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("role-text").innerText = data.role;
+                document.getElementById("nama").innerText = data.nama;
+                document.getElementById("nama-mahasiswa").innerText = data.nama;
+
+                //pastiin nama mahasiswa udh ada di html dulu
+                fetchSkripsiData();
+            })
+            .catch(error => console.error('Error:', error));
+
         // Fungsi untuk memuat data dari endpoint menggunakan async/await
         async function fetchSkripsiData() {
             try {
-                const response = await fetch('/api/dataSidang');
+                const response = await fetch(`/api/dataSidang/daftar?namaMahasiswa=${document.getElementById("nama").innerText}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -163,35 +177,22 @@
                 data.forEach((skripsi) => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
-          <td>${skripsi.judulSkripsi}</td>
-          <td>${skripsi.jenisTA}</td>
-          <td>${skripsi.waktu}</td>
-          <td>${skripsi.ruangan || '-'}</td>
-          <td>${skripsi.penguji1}</td>
-          <td>${skripsi.penguji2}</td>
-          <td>${skripsi.pembimbingUtama}</td>
-          <td class="grade" onclick="showGradeModal()">${skripsi.nilai}</td>
-          <td><a href="/bap/${skripsi.judulSkripsi}" target="_blank">Download</a></td>
-        `;
+                        <td>${skripsi.judulSkripsi}</td>
+                        <td>${skripsi.jenisTA}</td>
+                        <td>${skripsi.waktu}</td>
+                        <td>${skripsi.ruangan || '-'}</td>
+                        <td>${skripsi.penguji1}</td>
+                        <td>${skripsi.penguji2}</td>
+                        <td>${skripsi.pembimbingUtama}</td>
+                        <td class="grade">Nilai</td>
+                        <td><a href="/bap/${skripsi.idTA}" target="_blank">Download</a></td>
+                        `;
                     tableBody.appendChild(row);
                 });
             } catch (error) {
                 console.error('Error fetching skripsi data:', error);
             }
         }
-
-        document.addEventListener("DOMContentLoaded", fetchSkripsiData);
-
-        // Mengambil data dari session
-        fetch('/userdata')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("email").innerText = data.email;
-                document.getElementById("role-text").innerText = data.role;
-                document.getElementById("nama").innerText = data.nama;
-                document.getElementById("nama-mahasiswa").innerText = data.nama;
-            })
-            .catch(error => console.error('Error:', error));
 
         //Fungsi untuk menampilkan modal nilai
         function showGradeModal() {
@@ -219,14 +220,6 @@
         const nilaiModal = document.getElementById("nilaiModal");
         const viewGradeBtn = document.getElementById("viewGradeBtn");
         const closeNilaiModalBtn = document.getElementById("closeNilaiModalBtn");
-
-        viewGradeBtn.addEventListener("click", () => {
-            nilaiModal.style.display = "block";
-        });
-
-        closeNilaiModalBtn.addEventListener("click", () => {
-            nilaiModal.style.display = "none";
-        });
 
         // Tutup modal jika diklik di luar
         window.addEventListener("click", (event) => {
